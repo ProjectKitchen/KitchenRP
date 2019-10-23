@@ -1,0 +1,7 @@
+.git
+.idea
+LICENSE
+README.md
+*/bin/
+*/out/
+*/node_modules
