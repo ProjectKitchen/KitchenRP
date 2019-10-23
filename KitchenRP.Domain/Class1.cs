@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace kitchenRP_domain
+namespace KitchenRP.Domain
 {
     public class Class1
     {

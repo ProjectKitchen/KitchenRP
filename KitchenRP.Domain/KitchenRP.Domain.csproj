@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
-        <RootNamespace>kitchenRP_domain</RootNamespace>
+        <RootNamespace>KitchenRP.Domain</RootNamespace>
         <LangVersion>8.0</LangVersion>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>

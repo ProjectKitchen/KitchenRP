@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace kitchenRP_tests
+namespace KitchenRP.Test
 {
     public class Tests
     {

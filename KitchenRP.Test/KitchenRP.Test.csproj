@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
-        <RootNamespace>kitchenRP_tests</RootNamespace>
+        <RootNamespace>KitchenRP.Test</RootNamespace>
 
         <IsPackable>false</IsPackable>
     </PropertyGroup>

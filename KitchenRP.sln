@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kitchenRP-web", "kitchenRP-web\kitchenRP-web.csproj", "{40C8003C-5B66-464F-9E39-F14392345EE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitchenRP.Web", "KitchenRP.Web\KitchenRP.Web.csproj", "{40C8003C-5B66-464F-9E39-F14392345EE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kitchenRP-domain", "kitchenRP-domain\kitchenRP-domain.csproj", "{19D07DAA-F994-4F45-857E-D546BD26AC3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitchenRP.Domain", "KitchenRP.Domain\KitchenRP.Domain.csproj", "{19D07DAA-F994-4F45-857E-D546BD26AC3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kitchenRP-dataAccess", "kitchenRP-dataAccess\kitchenRP-dataAccess.csproj", "{68E5CB20-B8C1-4DD3-B6B8-F242DBDCDBC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitchenRP.DataAccess", "KitchenRP.DataAccess\KitchenRP.DataAccess.csproj", "{68E5CB20-B8C1-4DD3-B6B8-F242DBDCDBC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kitchenRP-tests", "kitchenRP-tests\kitchenRP-tests.csproj", "{B70F2FAD-404A-4C51-B231-3D8AA9515398}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitchenRP.Test", "KitchenRP.Test\KitchenRP.Test.csproj", "{B70F2FAD-404A-4C51-B231-3D8AA9515398}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

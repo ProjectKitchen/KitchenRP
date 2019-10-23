@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using kitchenRP_dataAccess;
+using KitchenRP.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace kitchenRP_web
+namespace KitchenRP.Web
 {
     public class Startup
     {
@@ -27,6 +21,15 @@ namespace kitchenRP_web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<KitchenRpContext>(
+                cfg =>
+                {
+                    cfg.UseNpgsql(Configuration.GetConnectionString("default"),
+                        b => b
+                            .MigrationsAssembly("KitchenRP.Web")
+                            .UseNodaTime());
+                    
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
