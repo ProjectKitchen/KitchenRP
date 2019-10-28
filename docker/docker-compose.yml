@@ -9,6 +9,10 @@ services:
     build:
       dockerfile: ./docker/database/Dockerfile
       context: ../
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=kitchenrp
+      - POSTGRES_DATBASE=kitchenrp
   frontend:
     build:
       dockerfile: ./docker/frontend/Dockerfile
