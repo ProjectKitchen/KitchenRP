@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { AccountComponent } from './components/layout/navbar/account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ReservationsComponent,
-    CalendarComponent
+    CalendarComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
