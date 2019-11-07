@@ -10,18 +10,20 @@ namespace KitchenRP.Web.Controllers
     {
         [HttpGet]
         [Route("/error")]
-        public IActionResult ProblemError(ProblemDetails? d) 
-            => this.Error(d) ?? Problem("Something unexpected happened", "UnexpectedError", 500);
+        public IActionResult ProblemError(ProblemDetails? d)
+        {
+            return d != null
+                ? this.Error(d)
+                : Problem("Something unexpected happened", "UnexpectedError", 500);
+        }
 
         [HttpGet]
         [Route("/error-local-development")]
         public IActionResult ErrorLocalDevelopment([FromServices] IWebHostEnvironment webHostEnvironment)
         {
             if (webHostEnvironment.EnvironmentName != "Development")
-            {
                 throw new InvalidOperationException(
                     "This shouldn't be invoked in non-development environments.");
-            }
 
             var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
 

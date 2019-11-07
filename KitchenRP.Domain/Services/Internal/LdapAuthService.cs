@@ -1,16 +1,20 @@
 using System;
 using Novell.Directory.Ldap;
 
-namespace KitchenRP.Domain.Services
+namespace KitchenRP.Domain.Services.Internal
 {
     public class LdapAuthService : IAuthenticationService
     {
+        private readonly string _ldapHost;
+        private readonly ushort _ldapPort;
+        private readonly string _searchBase;
+        private readonly string _userSearch;
+
         /// <summary>
-        /// Initializes a AuthService for authentication against a LDAP server
-        /// Note this service uses tls for connecting to the server
-        ///
-        /// The service will attempt to bind "$userSearch=$username,$searchBase", if successful the user is considered authenticated
-        /// 
+        ///     Initializes a AuthService for authentication against a LDAP server
+        ///     Note this service uses tls for connecting to the server
+        ///     The service will attempt to bind "$userSearch=$username,$searchBase", if successful the user is considered
+        ///     authenticated
         /// </summary>
         /// <param name="ldapHost">Ldap Host address</param>
         /// <param name="ldapPort">Ldap server port</param>
@@ -24,13 +28,11 @@ namespace KitchenRP.Domain.Services
             _userSearch = userSearch;
         }
 
-        private readonly string _ldapHost;
-        private readonly ushort _ldapPort;
-        private readonly string _searchBase;
-        private readonly string _userSearch;
-
         /// <summary>
-        /// Authenticates <param name="username"/> against a Ldap server using <param name="password"></param>
+        ///     Authenticates
+        ///     <param name="username" />
+        ///     against a Ldap server using
+        ///     <param name="password"></param>
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
@@ -53,6 +55,7 @@ namespace KitchenRP.Domain.Services
             {
                 connection.StopTls();
             }
+
             return true;
         }
     }

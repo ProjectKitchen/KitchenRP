@@ -3,7 +3,7 @@ namespace KitchenRP.Domain.Services
     public interface IAuthenticationService
     {
         /// <summary>
-        /// Authenticates a user based on username and password
+        ///     Authenticates a user based on username and password
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>

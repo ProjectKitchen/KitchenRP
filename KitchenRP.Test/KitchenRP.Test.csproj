@@ -15,12 +15,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DataAccess" />
-      <Folder Include="Web" />
+        <Folder Include="DataAccess" />
+        <Folder Include="Web" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\KitchenRP.Domain\KitchenRP.Domain.csproj" />
+        <ProjectReference Include="..\KitchenRP.Domain\KitchenRP.Domain.csproj" />
     </ItemGroup>
 
 </Project>

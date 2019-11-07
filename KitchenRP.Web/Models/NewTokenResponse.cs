@@ -11,8 +11,8 @@ namespace KitchenRP.Web.Models
             Iat = iat;
         }
 
-        public string AccessToken { get;}
-        public string RefreshToken { get;}
+        public string AccessToken { get; }
+        public string RefreshToken { get; }
         public DateTime Iat { get; }
     }
 }

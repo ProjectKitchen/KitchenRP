@@ -1,4 +1,4 @@
-namespace KitchenRP.Domain
+namespace KitchenRP.Domain.Models
 {
     public static class Roles
     {
@@ -6,5 +6,4 @@ namespace KitchenRP.Domain
         public const string Moderator = "moderator,admin";
         public const string User = "user,moderator,admin";
     }
-    
 }

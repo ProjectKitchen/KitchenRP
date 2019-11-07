@@ -4,25 +4,29 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using KitchenRP.DataAccess;
+using KitchenRP.DataAccess.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using NodaTime;
 using NodaTime.Extensions;
 
-namespace KitchenRP.Domain.Services
+namespace KitchenRP.Domain.Services.Internal
 {
-    public class JwtService: IJwtService
+    public class JwtService : IJwtService
     {
-        public IClock Clock { get; set; }
+        private readonly byte[] _accessSecret;
+        private readonly int _accessTimeout;
+        private readonly byte[] _refreshSecret;
+        private readonly int _refreshTimeout;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
         public JwtService(
-            IKitchenRpDatabase db,
+            IRefreshTokenRepository refreshTokenRepository,
             byte[] accessSecret,
             int accessTimeout,
             byte[] refreshSecret,
             int refreshTimeout)
         {
-            _db = db;
+            _refreshTokenRepository = refreshTokenRepository;
             _accessSecret = accessSecret;
             _accessTimeout = accessTimeout;
             _refreshSecret = refreshSecret;
@@ -30,11 +34,7 @@ namespace KitchenRP.Domain.Services
             Clock = SystemClock.Instance;
         }
 
-        private readonly IKitchenRpDatabase _db;
-        private readonly byte[] _accessSecret;
-        private readonly byte[] _refreshSecret;
-        private readonly int _accessTimeout;
-        private readonly int _refreshTimeout;
+        public IClock Clock { get; set; }
 
         public async Task<JwtSecurityToken?> VerifyRefreshToken(string refreshToken)
         {
@@ -44,7 +44,7 @@ namespace KitchenRP.Domain.Services
                 ValidateLifetime = true,
                 IssuerSigningKey = new SymmetricSecurityKey(_refreshSecret),
                 ValidateAudience = false,
-                ValidateIssuer = false,
+                ValidateIssuer = false
             };
             var handler = new JwtSecurityTokenHandler();
             handler.ValidateToken(refreshToken, validationParameters, out var validToken);
@@ -53,12 +53,12 @@ namespace KitchenRP.Domain.Services
             // Signature validation failed
             if (!(validToken is JwtSecurityToken jwt)) return null;
             var refreshKey = jwt.Claims.SingleOrDefault(c => c.Type == "refresh_key")?.Value;
-            
-            return await _db.IsValidRefreshKey(refreshKey ?? "")
-                ? jwt 
+
+            return await _refreshTokenRepository.GetForKey(refreshKey ?? "") != null
+                ? jwt
                 : null;
         }
-        
+
         public async Task<string> GenerateRefreshToken(string sub)
         {
             //Save new refresh token in db
@@ -67,13 +67,13 @@ namespace KitchenRP.Domain.Services
                 .GetCurrentInstant()
                 .Plus(Duration.FromMinutes(_refreshTimeout));
 
-            var refreshToken = await _db.AddNewRefreshToken(refreshKey, expires, sub);
+            var refreshToken = await _refreshTokenRepository.CreateNewToken(refreshKey, sub, expires);
 
             //refresh claims
             var claims = new List<Claim>
             {
                 new Claim("sub", refreshToken.Sub),
-                new Claim("refresh_key", refreshKey),
+                new Claim("refresh_key", refreshKey)
             };
 
             //generate jwt
@@ -90,7 +90,8 @@ namespace KitchenRP.Domain.Services
             return CreateToken(claimList, Clock.InUtc().GetCurrentInstant(), expires, _accessSecret);
         }
 
-        private static string CreateToken(IReadOnlyCollection<Claim> claimList, Instant notBefore, Instant expires, byte[] secret)
+        private static string CreateToken(IReadOnlyCollection<Claim> claimList, Instant notBefore, Instant expires,
+            byte[] secret)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var claimDict = claimList.ToDictionary(c => c.Type, v => (object) v.Value);

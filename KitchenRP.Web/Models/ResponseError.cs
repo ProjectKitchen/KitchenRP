@@ -1,5 +1,3 @@
-using System;
-
 namespace KitchenRP.Web.Models
 {
     public class ResponseError

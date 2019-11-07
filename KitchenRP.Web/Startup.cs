@@ -1,7 +1,6 @@
 using System.Text;
 using KitchenRP.DataAccess;
 using KitchenRP.Domain;
-using KitchenRP.Domain.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,43 +27,40 @@ namespace KitchenRP.Web
         {
             services.AddControllers();
 
-            services.AddDbContext<KitchenRpContext>(
-                cfg =>
-                {
-                    cfg.UseNpgsql(Configuration.GetConnectionString("default"),
-                        b => b
-                            .MigrationsAssembly("KitchenRP.Web")
-                            .UseNodaTime());
-                });
-
-            services.AddScoped<IKitchenRpDatabase, KitchenRpDatabase>();
+            services.AddKitchenRpDataAccessService(cfg =>
+            {
+                cfg.UseNpgsql(Configuration.GetConnectionString("default"),
+                    b => b
+                        .MigrationsAssembly("KitchenRP.Web")
+                        .UseNodaTime());
+            });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "KitchenRP-Api",
-                    Version = "v1",
+                    Version = "v1"
                 });
                 var tokenScheme = new OpenApiSecurityScheme
                 {
                     Description = "JWT authorization header. Example: \"Authorization: Bearer {token}\"",
                     In = ParameterLocation.Header,
                     Name = "Authorization",
-                    BearerFormat = "Authorization: Bearer $token",
+                    BearerFormat = "Authorization: Bearer $token"
                 };
-                
+
                 c.AddSecurityDefinition("Bearer", tokenScheme);
-                
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    {tokenScheme, new string[]{}}
+                    {tokenScheme, new string[] { }}
                 });
             });
 
             var accessKey = Encoding.ASCII.GetBytes(Configuration["Jwt:AccessSecret"]);
             var refreshKey = Encoding.ASCII.GetBytes(Configuration["Jwt:RefreshSecret"]);
-            
+
             services.AddKitchenRpDomainServices(c =>
             {
                 c.LdapConfiguration(lc =>
@@ -105,14 +101,7 @@ namespace KitchenRP.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseExceptionHandler("/error-local-development");
-            }
-            else
-            {
-                app.UseExceptionHandler("/error");
-            }
+            app.UseExceptionHandler(env.IsDevelopment() ? "/error-local-development" : "/error");
 
             app.UseHttpsRedirection();
 
