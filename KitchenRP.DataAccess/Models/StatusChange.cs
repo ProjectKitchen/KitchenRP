@@ -11,7 +11,7 @@ namespace KitchenRP.DataAccess.Models
             long id,
             ReservationStatus previousStatus,
             ReservationStatus currentStatus,
-            string reason, 
+            string reason,
             Instant changedAt,
             Reservation reservation,
             User changedBy)
@@ -38,7 +38,7 @@ namespace KitchenRP.DataAccess.Models
         public string Reason { get; private set; }
         public Instant ChangedAt { get; private set; }
         public Reservation Reservation { get; private set; }
-        public User? ChangedBy { get; private set; }
+        public User ChangedBy { get; private set; }
     }
 
     internal class StatusChangedTypeConfiguration : IEntityTypeConfiguration<StatusChange>
@@ -48,7 +48,7 @@ namespace KitchenRP.DataAccess.Models
             builder.HasOne(s => s.PreviousStatus)
                 .WithMany()
                 .HasForeignKey("PreviousStatusID");
-            
+
             builder.HasOne(s => s.CurrentStatus)
                 .WithMany()
                 .HasForeignKey("CurrentStatusId");

@@ -14,48 +14,43 @@ namespace KitchenRP.Web.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     status = table.Column<string>(nullable: false),
                     display_name = table.Column<string>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_reservation_statuses", x => x.id);
-                });
+                constraints: table => { table.PrimaryKey("PK_reservation_statuses", x => x.id); });
 
             migrationBuilder.CreateTable(
                 name: "resource_types",
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     type = table.Column<string>(nullable: false),
                     display_name = table.Column<string>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_resource_types", x => x.id);
-                });
+                constraints: table => { table.PrimaryKey("PK_resource_types", x => x.id); });
 
             migrationBuilder.CreateTable(
                 name: "user_roles",
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     role = table.Column<string>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_user_roles", x => x.id);
-                });
+                constraints: table => { table.PrimaryKey("PK_user_roles", x => x.id); });
 
             migrationBuilder.CreateTable(
                 name: "resources",
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     display_name = table.Column<string>(nullable: false),
                     meta_data = table.Column<JsonDocument>(nullable: false),
                     description = table.Column<string>(nullable: false),
@@ -77,7 +72,8 @@ namespace KitchenRP.Web.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     sub = table.Column<string>(fixedLength: true, maxLength: 8, nullable: false),
                     role_id = table.Column<long>(nullable: false),
                     email = table.Column<string>(nullable: false),
@@ -99,7 +95,8 @@ namespace KitchenRP.Web.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     restrict_from = table.Column<Instant>(nullable: false),
                     restrict_to = table.Column<Instant>(nullable: false),
                     ignore_year = table.Column<bool>(nullable: false),
@@ -122,7 +119,8 @@ namespace KitchenRP.Web.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     start_time = table.Column<Instant>(nullable: false),
                     end_time = table.Column<Instant>(nullable: false),
                     owner_id = table.Column<long>(nullable: false),
@@ -151,7 +149,8 @@ namespace KitchenRP.Web.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     max_usage_per_month_in_hours = table.Column<int>(nullable: true),
                     max_usage_per_week_in_count = table.Column<int>(nullable: true),
                     restriction_id = table.Column<long>(nullable: false)
@@ -172,7 +171,8 @@ namespace KitchenRP.Web.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy",
+                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     previous_status_id = table.Column<long>(nullable: false),
                     current_status_id = table.Column<long>(nullable: false),
                     reason = table.Column<string>(nullable: false),

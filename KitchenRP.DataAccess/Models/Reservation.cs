@@ -8,10 +8,10 @@ namespace KitchenRP.DataAccess.Models
     public class Reservation
     {
         public Reservation(
-            long id, 
-            Instant startTime, 
+            long id,
+            Instant startTime,
             Instant endTime,
-            User owner, 
+            User owner,
             Resource reservedResource,
             bool allowNotifications)
         {

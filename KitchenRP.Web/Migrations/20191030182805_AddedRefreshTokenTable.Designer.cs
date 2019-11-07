@@ -4,6 +4,7 @@ using System.Text.Json;
 using KitchenRP.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NodaTime;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KitchenRP.Web.Migrations
 {
     [DbContext(typeof(KitchenRpContext))]
-    partial class KitchenRpContextModelSnapshot : ModelSnapshot
+    [Migration("20191030182805_AddedRefreshTokenTable")]
+    partial class AddedRefreshTokenTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

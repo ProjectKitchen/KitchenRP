@@ -9,12 +9,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
-      <Folder Include="Migrations" />
+        <Folder Include="Migrations" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\KitchenRP.DataAccess\KitchenRP.DataAccess.csproj" />
+        <ProjectReference Include="..\KitchenRP.DataAccess\KitchenRP.DataAccess.csproj" />
+        <ProjectReference Include="..\KitchenRP.Domain\KitchenRP.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -8,9 +8,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="nunit" Version="3.12.0"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="3.13.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0"/>
+        <PackageReference Include="Moq" Version="4.13.1" />
+        <PackageReference Include="NodaTime.Testing" Version="2.4.7" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="DataAccess" />
+      <Folder Include="Web" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\KitchenRP.Domain\KitchenRP.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -11,10 +11,10 @@ namespace KitchenRP.DataAccess.Models
             DisplayName = displayName;
         }
 
-        public long Id { get; private set;}
-        
+        public long Id { get; private set; }
+
         public string Status { get; private set; }
-        
+
         public string DisplayName { get; private set; }
     }
 }

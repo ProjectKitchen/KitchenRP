@@ -7,11 +7,11 @@ namespace KitchenRP.DataAccess.Models
     public class Restriction
     {
         public Restriction(
-            long id, 
-            Instant restrictFrom, 
-            Instant restrictTo, 
-            bool ignoreYear, 
-            Resource restrictedResource, 
+            long id,
+            Instant restrictFrom,
+            Instant restrictTo,
+            bool ignoreYear,
+            Resource restrictedResource,
             string displayError,
             RestrictionData data)
         {
@@ -38,7 +38,7 @@ namespace KitchenRP.DataAccess.Models
         public Instant RestrictTo { get; private set; }
         public bool IgnoreYear { get; private set; }
         public Resource RestrictedResource { get; private set; }
-        
+
         public RestrictionData Data { get; private set; }
         public string DisplayError { get; private set; }
     }

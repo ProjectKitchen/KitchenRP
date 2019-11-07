@@ -42,7 +42,6 @@ namespace KitchenRP.DataAccess.Models
             builder.Property(u => u.Sub)
                 .HasMaxLength(8)
                 .IsFixedLength();
-            
         }
     }
 }

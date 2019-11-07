@@ -6,7 +6,6 @@ namespace KitchenRP.DataAccess
 {
     public class KitchenRpContext : DbContext
     {
-        
         internal DbSet<Reservation> Reservations { get; set; }
         internal DbSet<ReservationStatus> ReservationStatuses { get; set; }
         internal DbSet<Resource> Resources { get; set; }
@@ -16,8 +15,9 @@ namespace KitchenRP.DataAccess
         internal DbSet<StatusChange> StatusChanges { get; set; }
         internal DbSet<User> Users { get; set; }
         internal DbSet<UserRole> UserRoles { get; set; }
-        
-        
+        internal DbSet<RefreshToken> RefreshTokens { get; set; }
+
+
         public KitchenRpContext(DbContextOptions options) : base(options)
         {
         }

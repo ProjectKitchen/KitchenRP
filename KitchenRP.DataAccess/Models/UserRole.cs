@@ -10,7 +10,8 @@ namespace KitchenRP.DataAccess.Models
             Id = id;
             Role = role;
         }
-        public long Id { get; private set;}
+
+        public long Id { get; private set; }
         public string Role { get; private set; }
     }
 }

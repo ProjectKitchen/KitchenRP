@@ -3,8 +3,8 @@ namespace KitchenRP.DataAccess.Models
     public class RestrictionData
     {
         public RestrictionData(
-            long id, 
-            int? maxUsagePerMonthInHours, 
+            long id,
+            int? maxUsagePerMonthInHours,
             int? maxUsagePerWeekInCount, long restrictionId)
         {
             Id = id;
