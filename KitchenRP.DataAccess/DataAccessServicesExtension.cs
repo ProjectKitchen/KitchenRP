@@ -11,7 +11,7 @@ namespace KitchenRP.DataAccess
         public static IServiceCollection AddKitchenRpDataAccessService(this IServiceCollection services,
             Action<DbContextOptionsBuilder> dbContextOptions)
         {
-            services.AddDbContext<KitchenRpContext>(dbContextOptions);
+            //services.AddDbContext<KitchenRpContext>(dbContextOptions);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             return services;

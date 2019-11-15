@@ -27,13 +27,15 @@ namespace KitchenRP.Web
         {
             services.AddControllers();
 
-            services.AddKitchenRpDataAccessService(cfg =>
+            services.AddDbContext<KitchenRpContext>(cfg =>
             {
                 cfg.UseNpgsql(Configuration.GetConnectionString("default"),
                     b => b
                         .MigrationsAssembly("KitchenRP.Web")
                         .UseNodaTime());
             });
+
+            services.AddKitchenRpDataAccessService(null);
 
             services.AddSwaggerGen(c =>
             {

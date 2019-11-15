@@ -9,5 +9,6 @@ namespace KitchenRP.DataAccess.Repositories
         Task<RefreshToken> GetForKey(string tokenKey);
         Task<RefreshToken> CreateNewToken(string tokenKey, string sub, Instant expires);
         Task ExpireTokensForUser(string sub);
+        Task Destroy(string tokenKey);
     }
 }

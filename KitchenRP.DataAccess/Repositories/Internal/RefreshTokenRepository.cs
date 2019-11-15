@@ -36,5 +36,16 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             _ctx.RefreshTokens.RemoveRange(_ctx.RefreshTokens.Where(t => t.Sub == sub));
             await _ctx.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Removes all Refreshtokens for the current user
+        /// </summary>
+        /// <param name="tokenKey"></param>
+        /// <returns></returns>
+        public async Task Destroy(string tokenKey)
+        {
+            _ctx.RefreshTokens.RemoveRange(_ctx.RefreshTokens.Where(t => t.Key == tokenKey));
+            await _ctx.SaveChangesAsync();
+        }
     }
 }

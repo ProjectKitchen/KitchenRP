@@ -111,5 +111,11 @@ namespace KitchenRP.Domain.Services.Internal
 
             return tokenHandler.WriteToken(token);
         }
+
+        public async Task DestroyRefreshToken(string tokenString)
+        {
+            var token = await VerifyRefreshToken(tokenString);
+            await _refreshTokenRepository.Destroy(token?.Claims?.SingleOrDefault(c => c.Type == "refresh_key")?.Value);
+        }
     }
 }

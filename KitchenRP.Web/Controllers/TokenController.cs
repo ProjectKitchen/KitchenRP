@@ -49,6 +49,20 @@ namespace KitchenRP.Web.Controllers
 
             return Ok(new NewTokenResponse(newAccessToken, newRefreshToken, DateTime.Now));
         }
+        /// <summary>
+        ///    Destroys the current token and removes it from the database
+        ///    After this api call the refresh token will no longer be accepted
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpDelete("refresh")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DestroyRefreshToken(DestroyTokenRequest model)
+        {
+            var refreshToken = model!.Token;
+            await _tokenService.DestroyRefreshToken(refreshToken);
+            return NoContent();
+        }
 
         /// <summary>
         ///     Tries to authenticate a user based on the provided credentials
