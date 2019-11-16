@@ -38,6 +38,13 @@ namespace KitchenRP.DataAccess.Models
             MetaData = metaData;
             Description = description;
         }
+        
+        public Resource(long id, string displayName, string description)
+        {
+            Id = id;
+            DisplayName = displayName;
+            Description = description;
+        }
 
         public long Id { get; private set; }
         public string DisplayName { get; private set; }

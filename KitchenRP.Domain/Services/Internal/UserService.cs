@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace KitchenRP.Domain.Services.Internal
     {
         private readonly IUserRepository _users;
 
+        private static readonly string _userDefaultRole = "user";
+        
         public UserService(IUserRepository users)
         {
             _users = users;
@@ -37,6 +40,14 @@ namespace KitchenRP.Domain.Services.Internal
                 new Claim("scope", user.Role.RoleName)
             };
             return claims;
+        }
+
+        public async Task<DomainUser?> ActivateNewUser(string uid, string? email)
+        {
+            //TODO: collect Ldap user info
+            if(email == null) throw new NotImplementedException("Automatically fetching emails is currently nor supported");
+
+            return Mapper.Map(await _users.AddUser(uid, _userDefaultRole, email));
         }
     }
 }

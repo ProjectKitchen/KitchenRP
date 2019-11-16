@@ -51,5 +51,18 @@ namespace KitchenRP.Web
                 Status = 400
             };
         }
+
+        public static ProblemDetails UnableToActivateUser(string uid)
+        {
+            return new ProblemDetails
+            {
+                Type = "UnableToActivateUser",
+                Title = $"Could not activate User: {uid}",
+                Detail =
+                    $"User: {uid} could not be activated. This could be because they are already an active user. " +
+                    $"Try refreshing the page to see if they are already activated",
+                Status = 400
+            };
+        }
     }
 }

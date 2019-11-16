@@ -7,5 +7,6 @@ namespace KitchenRP.DataAccess.Repositories
     {
         Task<User> UserById(long id);
         Task<User> UserBySub(string sub);
+        Task<User> AddUser(string sub, string role, string email);
     }
 }
