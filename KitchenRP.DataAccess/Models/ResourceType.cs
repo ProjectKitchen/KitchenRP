@@ -9,7 +9,13 @@ namespace KitchenRP.DataAccess.Models
             DisplayName = displayName;
         }
 
-        public long Id { get; private set; }
+        public ResourceType(string type, string displayName)
+        {
+            Type = type;
+            DisplayName = displayName;
+        }
+        
+        public long? Id { get; private set; }
         public string Type { get; private set; }
         public string DisplayName { get; private set; }
     }

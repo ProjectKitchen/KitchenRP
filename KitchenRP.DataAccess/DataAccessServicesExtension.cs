@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.Design;
 using KitchenRP.DataAccess.Repositories;
 using KitchenRP.DataAccess.Repositories.Internal;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace KitchenRP.DataAccess
         {
             //services.AddDbContext<KitchenRpContext>(dbContextOptions);
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             return services;
         }

@@ -1,9 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace KitchenRP.Web
 {
     public static class Errors
     {
+
+        public static ProblemDetails EntityNotFound(string entity, string query = "(?)")
+        {
+            return new ProblemDetails
+            {
+                Type = "EntityNotFound",
+                Title = $"Could not find Entity {entity}",
+                Detail = $"Unable to find entity {entity} with query: {query}",
+                Status = 404,
+            };
+        }
+        
         public static ProblemDetails NotYetRegisteredError()
         {
             return new ProblemDetails

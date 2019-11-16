@@ -4,6 +4,19 @@ namespace KitchenRP.DataAccess.Models
 {
     public class Resource
     {
+        
+        public Resource(
+            string displayName,
+            JsonDocument metaData,
+            string description,
+            ResourceType resourceType)
+        {
+            DisplayName = displayName;
+            MetaData = metaData;
+            Description = description;
+            ResourceType = resourceType;
+        }
+        
         public Resource(
             long id,
             string displayName,
