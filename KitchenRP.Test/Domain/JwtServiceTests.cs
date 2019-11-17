@@ -71,9 +71,9 @@ namespace KitchenRP.Test.Domain
                     Sub = sub
                 }));
 
-            mockRefreshTokenRepository.Setup(db => db.GetForKey(It.IsIn(addedKeys.Select(tuple => tuple.Item2))))
+            mockRefreshTokenRepository.Setup(db => db.FindByKey(It.IsIn(addedKeys.Select(tuple => tuple.Item2))))
                 .Returns(Task.FromResult(new RefreshToken()));
-            mockRefreshTokenRepository.Setup(db => db.GetForKey(It.IsNotIn(addedKeys.Select(tuple => tuple.Item2))))
+            mockRefreshTokenRepository.Setup(db => db.FindByKey(It.IsNotIn(addedKeys.Select(tuple => tuple.Item2))))
                 .Returns(Task.FromResult<RefreshToken>(null));
 
             _refreshTokenRepository = mockRefreshTokenRepository.Object;

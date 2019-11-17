@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -5,7 +7,6 @@ namespace KitchenRP.Web
 {
     public static class Errors
     {
-
         public static ProblemDetails EntityNotFound(string entity, string query = "(?)")
         {
             return new ProblemDetails
@@ -16,7 +17,7 @@ namespace KitchenRP.Web
                 Status = 404,
             };
         }
-        
+
         public static ProblemDetails NotYetRegisteredError()
         {
             return new ProblemDetails
@@ -62,6 +63,16 @@ namespace KitchenRP.Web
                     $"User: {uid} could not be activated. This could be because they are already an active user. " +
                     $"Try refreshing the page to see if they are already activated",
                 Status = 400
+            };
+        }
+
+        public static ProblemDetails InternalServerError(Exception e)
+        {
+            return new ProblemDetails
+            {
+                Type = "InternalServerError",
+                Title = "Something bad happened!",
+                Detail = e.Message,
             };
         }
     }

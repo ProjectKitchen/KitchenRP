@@ -20,6 +20,7 @@ namespace KitchenRP.Web.Controllers
             {
                 d = Errors.EntityNotFound(e.EntityName, e.SpecialQuery);
             }
+
             return d != null
                 ? this.Error(d)
                 : Problem("Something unexpected happened", "UnexpectedError", 500);

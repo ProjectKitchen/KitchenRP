@@ -1,6 +1,9 @@
 using System.Text;
+using AutoMapper;
 using KitchenRP.DataAccess;
 using KitchenRP.Domain;
+using KitchenRP.Domain.Models;
+using KitchenRP.Web.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -99,6 +102,7 @@ namespace KitchenRP.Web
                         ValidateAudience = false
                     };
                 });
+            services.AddAutoMapper(typeof(KitchenRpWebMappings), typeof(KitchenRpDomainModelMappings));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KitchenRP.Test.DataAccess
 {
-    public class TestKitchenRpContext: KitchenRpContext
+    public class TestKitchenRpContext : KitchenRpContext
     {
         public TestKitchenRpContext(DbContextOptions options) : base(options)
         {
@@ -21,7 +21,7 @@ namespace KitchenRP.Test.DataAccess
                     new UserRole(1, "testRole1"),
                     new UserRole(2, "testRole2"),
                     new UserRole(3, "testRole3")
-                    );
+                );
         }
     }
 }

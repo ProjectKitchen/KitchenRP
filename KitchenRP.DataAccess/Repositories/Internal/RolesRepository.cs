@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KitchenRP.DataAccess.Repositories.Internal
 {
-    public class RolesRepository: IRolesRepository
+    public class RolesRepository : IRolesRepository
     {
         public RolesRepository(KitchenRpContext ctx)
         {
@@ -14,9 +14,9 @@ namespace KitchenRP.DataAccess.Repositories.Internal
 
         private KitchenRpContext _ctx;
 
-        public async Task<UserRole> GetByRole(string role)
+        public async Task<UserRole> FindByRole(string role)
         {
-            var userRole = await _ctx.UserRoles.SingleOrDefaultAsync(r => role == r.RoleName );
+            var userRole = await _ctx.UserRoles.SingleOrDefaultAsync(r => role == r.RoleName);
             return userRole;
         }
     }

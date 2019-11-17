@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
+using AutoMapper;
+using KitchenRP.Domain.Commands;
 using KitchenRP.Domain.Services;
-using KitchenRP.Domain.Services.Internal;
 using KitchenRP.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,14 @@ namespace KitchenRP.Web.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service, IMapper mapper)
         {
             _userService = service;
+            _mapper = mapper;
         }
+
         /// <summary>
         ///     Gets a specific user data by their id.
         ///     If the requested user corresponds to the current no special role is required,
@@ -27,8 +31,9 @@ namespace KitchenRP.Web.Controllers
         public async Task<IActionResult> GetById(long id)
         {
             var user = await _userService.UserById(id);
-            return Ok(Mapper.Map(user));
+            return Ok(_mapper.Map<UserResponse>(user));
         }
+
         /// <summary>
         ///     Activates a user
         ///     After this action is successful, they may login with their fh credentials and use this service.
@@ -39,9 +44,9 @@ namespace KitchenRP.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ActivateUser(UserActivationRequest model)
         {
-            var user = await _userService.ActivateNewUser(model!.Uid, model.Email);
-            
-            if(user == null) return this.Error(Errors.UnableToActivateUser(model.Uid));
+            var user = await _userService.ActivateNewUser(_mapper.Map<ActivateUserCommand>(model));
+
+            if (user == null) return this.Error(Errors.UnableToActivateUser(model.Uid));
             var uri = $"user/{user.Id}";
             return Created(uri,
                 new UserActivationResponse

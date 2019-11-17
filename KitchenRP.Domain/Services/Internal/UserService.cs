@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using KitchenRP.DataAccess.Models;
 using KitchenRP.DataAccess.Repositories;
+using KitchenRP.Domain.Commands;
 using KitchenRP.Domain.Models;
 
 namespace KitchenRP.Domain.Services.Internal
@@ -13,21 +15,23 @@ namespace KitchenRP.Domain.Services.Internal
         private readonly IUserRepository _users;
 
         private static readonly string _userDefaultRole = "user";
-        
-        public UserService(IUserRepository users)
+        private IMapper _mapper;
+
+        public UserService(IUserRepository users, IMapper mapper)
         {
             _users = users;
+            _mapper = mapper;
         }
 
         public async Task<DomainUser?> UserById(long id)
         {
-            var u = await _users.UserById(id);
-            return Mapper.Map(u);
+            var u = await _users.FindById(id);
+            return _mapper.Map<User, DomainUser>(u);
         }
 
         public async Task<IEnumerable<Claim>> GetClaimsForUser(string sub)
         {
-            var user = await _users.UserBySub(sub);
+            var user = await _users.FindBySub(sub);
             return GenerateClaims(user);
         }
 
@@ -42,12 +46,13 @@ namespace KitchenRP.Domain.Services.Internal
             return claims;
         }
 
-        public async Task<DomainUser?> ActivateNewUser(string uid, string? email)
+        public async Task<DomainUser?> ActivateNewUser(ActivateUserCommand cmd)
         {
             //TODO: collect Ldap user info
-            if(email == null) throw new NotImplementedException("Automatically fetching emails is currently nor supported");
+            if (cmd.Email == null)
+                throw new NotImplementedException("Automatically fetching emails is currently nor supported");
 
-            return Mapper.Map(await _users.AddUser(uid, _userDefaultRole, email));
+            return _mapper.Map<User, DomainUser>(await _users.CreateNewUser(cmd.Uid, _userDefaultRole, cmd.Email));
         }
     }
 }

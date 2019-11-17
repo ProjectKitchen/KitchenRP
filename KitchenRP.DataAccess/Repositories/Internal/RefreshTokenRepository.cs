@@ -15,7 +15,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             _ctx = ctx;
         }
 
-        public async Task<RefreshToken> GetForKey(string tokenKey)
+        public async Task<RefreshToken> FindByKey(string tokenKey)
         {
             return await _ctx.RefreshTokens.SingleOrDefaultAsync(t => t.Key == tokenKey);
         }

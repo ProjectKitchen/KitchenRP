@@ -4,7 +4,6 @@ namespace KitchenRP.Web.Models
 {
     public class DestroyTokenRequest
     {
-        [Required]
-        public string? Token { get; set; }
+        [Required] public string? Token { get; set; }
     }
 }

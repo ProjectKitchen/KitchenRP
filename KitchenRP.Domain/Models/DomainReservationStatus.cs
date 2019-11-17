@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace KitchenRP.Domain.Models
 {
     public class DomainReservationStatus
@@ -11,16 +14,16 @@ namespace KitchenRP.Domain.Models
         public string Status { get; }
         public string DisplayName { get; }
 
-        public static DomainReservationStatus Pending
-            => new DomainReservationStatus("PENDING", "Reservation pending ...");
 
-        public static DomainReservationStatus NeedsApproval
-            => new DomainReservationStatus("NEEDS_APPROVAL", "Reservation needs approval ...");
-
-        public static DomainReservationStatus Denied
-            => new DomainReservationStatus("DENIED", "Reservation was denied!");
-
-        public static DomainReservationStatus Approved
-            => new DomainReservationStatus("APPROVED", "Reservation was approved!");
+        public static readonly ReadOnlyDictionary<string, DomainReservationStatus> ReservationStatuses
+            = new ReadOnlyDictionary<string, DomainReservationStatus>(
+                new Dictionary<string, DomainReservationStatus>
+                {
+                    {"PENDING", new DomainReservationStatus("PENDING", "Reservation pending ...")},
+                    {"NEEDS_APPROVAL", new DomainReservationStatus("NEEDS_APPROVAL", "Reservation needs approval ...")},
+                    {"DENIED", new DomainReservationStatus("DENIED", "Reservation was denied!")},
+                    {"APPROVED", new DomainReservationStatus("APPROVED", "Reservation was approved!")},
+                }
+            );
     }
 }

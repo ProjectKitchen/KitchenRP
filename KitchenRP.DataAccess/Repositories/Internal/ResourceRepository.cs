@@ -7,18 +7,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KitchenRP.DataAccess.Repositories.Internal
 {
-    public class ResourceRepository: IResourceRepository
+    public class ResourceRepository : IResourceRepository
     {
         private readonly KitchenRpContext _ctx;
-        
+
         public ResourceRepository(KitchenRpContext ctx)
         {
             _ctx = ctx;
         }
 
-        public async Task<Resource> CreateNewResource(string displayName, JsonDocument metaData, string description, string resourceTypeName)
+        public async Task<Resource> CreateNewResource(string displayName, JsonDocument metaData, string description,
+            string resourceTypeName)
         {
-            var resourceType = await TypeByType(resourceTypeName);
+            var resourceType = await FindResourceTypByType(resourceTypeName);
             var resource = new Resource(displayName, metaData, description, resourceType);
             _ctx.Resources.Add(resource);
             await _ctx.SaveChangesAsync();
@@ -49,15 +50,15 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             return rt;
         }
 
-        public Task<List<ResourceType>> AllTypes()
+        public Task<List<ResourceType>> TypeAll()
         {
             return _ctx.ResourceTypes.ToListAsync();
         }
 
-        public async Task<ResourceType> TypeByType(string type)
+        public async Task<ResourceType> FindResourceTypByType(string type)
         {
             var resourceType = await _ctx.ResourceTypes.SingleOrDefaultAsync(r => r.Type == type);
-            return resourceType ?? 
+            return resourceType ??
                    throw new EntityNotFoundException(nameof(ResourceType), $"(type == {type})");
         }
     }

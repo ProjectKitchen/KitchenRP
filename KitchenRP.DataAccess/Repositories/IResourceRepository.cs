@@ -7,14 +7,16 @@ namespace KitchenRP.DataAccess.Repositories
 {
     public interface IResourceRepository
     {
-        
-        Task<ResourceType> CreateNewResourceTyp(string type, string resourceName);
-        Task<List<Resource>> ByType(string type);
-        Task<List<Resource>> All();
-        Task<List<ResourceType>> AllTypes();
-        Task<ResourceType> TypeByType(string type);
-
         Task<Resource> CreateNewResource(string displayName, JsonDocument metaData, string description,
             string resourceTypeName);
+
+        Task<List<Resource>> ByType(string type);
+
+        Task<List<Resource>> All();
+
+        Task<ResourceType> CreateNewResourceTyp(string type, string resourceName);
+        Task<List<ResourceType>> TypeAll();
+
+        Task<ResourceType> FindResourceTypByType(string type);
     }
 }

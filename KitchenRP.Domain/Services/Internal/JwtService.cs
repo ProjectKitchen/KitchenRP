@@ -54,7 +54,7 @@ namespace KitchenRP.Domain.Services.Internal
             if (!(validToken is JwtSecurityToken jwt)) return null;
             var refreshKey = jwt.Claims.SingleOrDefault(c => c.Type == "refresh_key")?.Value;
 
-            return await _refreshTokenRepository.GetForKey(refreshKey ?? "") != null
+            return await _refreshTokenRepository.FindByKey(refreshKey ?? "") != null
                 ? jwt
                 : null;
         }

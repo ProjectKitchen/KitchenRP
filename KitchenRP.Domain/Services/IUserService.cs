@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using KitchenRP.Domain.Commands;
 using KitchenRP.Domain.Models;
 
 namespace KitchenRP.Domain.Services
@@ -14,12 +15,14 @@ namespace KitchenRP.Domain.Services
         /// <param name="sub"></param>
         /// <returns></returns>
         Task<IEnumerable<Claim>> GetClaimsForUser(string sub);
+
         /// <summary>
         /// Returns a user by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<DomainUser> UserById(long id);
+
         /// <summary>
         ///     Activates the given uid for this application
         ///     A user is then considered activated and may login to use this service
@@ -28,6 +31,6 @@ namespace KitchenRP.Domain.Services
         /// <param name="uid">fh uid</param>
         /// <param name="email">optional email address</param>
         /// <returns>New activated user object</returns>
-        Task<DomainUser> ActivateNewUser(string uid, string? email);
+        Task<DomainUser> ActivateNewUser(ActivateUserCommand cmd);
     }
 }

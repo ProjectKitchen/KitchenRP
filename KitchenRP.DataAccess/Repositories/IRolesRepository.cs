@@ -5,6 +5,6 @@ namespace KitchenRP.DataAccess.Repositories
 {
     public interface IRolesRepository
     {
-        Task<UserRole> GetByRole(string role);
+        Task<UserRole> FindByRole(string role);
     }
 }

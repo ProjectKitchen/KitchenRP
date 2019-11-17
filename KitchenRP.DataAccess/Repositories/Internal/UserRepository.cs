@@ -16,21 +16,21 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             _roles = roles;
         }
 
-        public async Task<User?> UserById(long id)
+        public async Task<User?> FindById(long id)
         {
             return await _ctx.Users
                 .Include(u => u.Role)
                 .SingleOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<User?> UserBySub(string sub)
+        public async Task<User?> FindBySub(string sub)
         {
             return await _ctx.Users.SingleOrDefaultAsync(u => u.Sub == sub);
         }
 
-        public async Task<User> AddUser(string sub, string role, string email)
+        public async Task<User> CreateNewUser(string sub, string role, string email)
         {
-            var userRole = await _roles.GetByRole(role) ?? 
+            var userRole = await _roles.FindByRole(role) ??
                            throw new NotFoundException(nameof(UserRole), $"role = {role}");
             var u = new User
             {

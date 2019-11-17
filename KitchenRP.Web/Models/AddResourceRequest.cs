@@ -1,16 +1,20 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace KitchenRP.Domain.Models.Messages
+namespace KitchenRP.Web.Models
 {
-    public class NewResourceRequest
+    public class AddResourceRequest
     {
-        public string DisplayName { get; set; }
+        [Required] public string? DisplayName { get; set; }
+
         [JsonConverter(typeof(NewResourceRequestJsonConverter))]
-        public JsonDocument MetaData { get; set; }
-        public string Description { get; set; }
-        public string ResourceTypeName { get; set; }
+        public JsonDocument? MetaData { get; set; }
+
+        [Required] public string? Description { get; set; }
+
+        [Required] public string? ResourceTypeName { get; set; }
     }
 
     public class NewResourceRequestJsonConverter : JsonConverter<JsonDocument>

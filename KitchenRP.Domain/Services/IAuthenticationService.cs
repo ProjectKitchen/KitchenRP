@@ -1,3 +1,5 @@
+using KitchenRP.Domain.Commands;
+
 namespace KitchenRP.Domain.Services
 {
     public interface IAuthenticationService
@@ -5,9 +7,8 @@ namespace KitchenRP.Domain.Services
         /// <summary>
         ///     Authenticates a user based on username and password
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="cmd">Authentication command with username and password</param>
         /// <returns></returns>
-        bool AuthenticateUser(string username, string password);
+        bool AuthenticateUser(AuthCommand cmd);
     }
 }
