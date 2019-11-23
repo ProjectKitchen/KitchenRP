@@ -1,7 +1,21 @@
-<div class="container float-right">
-    <button class="btn btn-info" data-toggle="collapse" data-target="#acc" aria-expanded="false" aria-controls="acc">Account</button>
-
-    <div id="acc" class="collapse">
-        Hallooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+<div class="m-1">
+    <button type="button" class="btn btn-outline-primary float-right" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="acc">
+        Account
+    </button>
+    <div id="acc" [ngbCollapse]="!isCollapsed">
+        <div class="card float-right mt-2">
+            <div class="card-body">
+                <div class="border-bottom mb-2">
+                    Account Details:
+                </div>
+                <div>
+                    Name: Test
+                </div>
+                <div>
+                    UID: Skurr
+                </div>
+            </div>
+        </div>
     </div>
 </div>

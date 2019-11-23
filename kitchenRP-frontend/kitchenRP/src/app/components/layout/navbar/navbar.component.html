@@ -1,26 +1,29 @@
-﻿<nav class="navbar">
-    <div class="row">
-        <a class="navbar-brand" [routerLink]="['/']">KitchenRP</a>
+<nav class="navbar" style="display: block; height: 60px;">
+    <div class="float-left">
+        <div class="row ml-1">
+            <a class="navbar-brand" [routerLink]="['/']">KitchenRP</a>
 
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/calendar']">Calendar</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/reservations']">My Reservations</a>
-            </li>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/calendar']">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/reservations']">My Reservations</a>
+                </li>
 
-            <!-- TODO: router guards -->
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/']">All Reservations</a>
-            </li>
+                <!-- TODO: router guards -->
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/']">All Reservations</a>
+                </li>
 
-            <!-- TODO: router guards -->
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/']">Admin</a>
-            </li>
-        </ul>
+                <!-- TODO: router guards -->
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/']">Admin</a>
+                </li>
+            </ul>
+        </div>
     </div>
-
-    <app-account></app-account>
+    <div class="float-right">
+        <app-account></app-account>
+    </div>
 </nav>
