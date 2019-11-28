@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NodaTime;
@@ -36,6 +38,8 @@ namespace KitchenRP.DataAccess.Models
         public User Owner { get; private set; }
         public Resource ReservedResource { get; private set; }
         public bool AllowNotifications { get; private set; }
+
+        public IEnumerable<StatusChange> StatusChanges { get; private set; }
     }
 
     internal class ReservationTypeConfiguration : IEntityTypeConfiguration<Reservation>
