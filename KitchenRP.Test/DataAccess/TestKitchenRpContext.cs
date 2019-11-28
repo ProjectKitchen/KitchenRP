@@ -6,7 +6,10 @@ namespace KitchenRP.Test.DataAccess
 {
     public class TestKitchenRpContext : KitchenRpContext
     {
-        public TestKitchenRpContext(DbContextOptions options) : base(options)
+        public TestKitchenRpContext() 
+            : base(new DbContextOptionsBuilder<KitchenRpContext>()
+            .UseInMemoryDatabase("user_test_db")
+            .Options)
         {
         }
 

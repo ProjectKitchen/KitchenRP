@@ -10,13 +10,8 @@ namespace KitchenRP.Test.DataAccess
 {
     public class UserDataAccessTests
     {
-        private readonly DbContextOptions<KitchenRpContext> _options;
-
         public UserDataAccessTests()
         {
-            _options = new DbContextOptionsBuilder<KitchenRpContext>()
-                .UseInMemoryDatabase("user_test_db")
-                .Options;
         }
 
         [Theory]
@@ -27,14 +22,14 @@ namespace KitchenRP.Test.DataAccess
         {
             User? enteredUser = null;
             User? returnedUser = null;
-            await using (var ctx = new TestKitchenRpContext(_options))
+            await using (var ctx = new TestKitchenRpContext())
             {
                 ctx.Database.EnsureCreated();
                 var users = new UserRepository(ctx, new RolesRepository(ctx));
                 enteredUser = await users.CreateNewUser(userName, userRole, userEmail);
             }
 
-            await using (var ctx = new TestKitchenRpContext(_options))
+            await using (var ctx = new TestKitchenRpContext())
             {
                 var users = new UserRepository(ctx, new RolesRepository(ctx));
                 returnedUser = await users.FindById(enteredUser.Id);
@@ -60,7 +55,7 @@ namespace KitchenRP.Test.DataAccess
         public async Task CreateUserOfUserWithNotExistingRoleShouldThrow(string userName, string userRole,
             string userEmail)
         {
-            await using (var ctx = new TestKitchenRpContext(_options))
+            await using (var ctx = new TestKitchenRpContext())
             {
                 ctx.Database.EnsureCreated();
                 var users = new UserRepository(ctx, new RolesRepository(ctx));
