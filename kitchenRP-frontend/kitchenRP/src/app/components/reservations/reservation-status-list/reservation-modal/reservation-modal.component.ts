@@ -35,7 +35,7 @@ export class ReservationModalComponent {
   constructor(private modalService: NgbModal) {}
 
   open() {
-    const modalRef = this.modalService.open(NgbdModalContent);
+    const modalRef = this.modalService.open(ReservationModalContent);
     modalRef.componentInstance.name = 'World';
   }
 }
