@@ -18,6 +18,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminTabsComponent } from './components/admin/admin-tabs/admin-tabs.component';
 import { UserManagementComponent } from './components/admin/admin-tabs/user-management/user-management.component';
 import { DeviceManagementComponent } from './components/admin/admin-tabs/device-management/device-management.component';
+import { ReservationModalComponent } from './components/reservations/reservation-status-list/reservation-modal/reservation-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DeviceManagementComponent } from './components/admin/admin-tabs/device-
     AdminComponent,
     AdminTabsComponent,
     UserManagementComponent,
-    DeviceManagementComponent
+    DeviceManagementComponent,
+    ReservationModalComponent
   ],
   imports: [
     BrowserModule,
