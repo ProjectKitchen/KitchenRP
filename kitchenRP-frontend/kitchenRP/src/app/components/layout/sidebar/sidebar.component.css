@@ -1,0 +1,18 @@
+.sidebar-wrapper {
+    border-right: 1px solid lightgray;
+    width: 250px;
+    height: 100%;
+    max-height: 100%;
+    position: fixed;
+}
+
+.sidebar-header {
+    padding: 5px 15px;
+    text-align: center;
+    overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+}
+
