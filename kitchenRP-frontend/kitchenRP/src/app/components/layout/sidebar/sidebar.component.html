@@ -1,27 +1,27 @@
-<nav id="sidebar" class="sidebar-wrapper navbar-light bg-white">
-    <div class="sidebar-header">
-        <h3>Devices</h3>
+<nav id="sidebar" class="sidebar-wrapper border-right navbar-light bg-white">
+    <div class="sidebar-header border-bottom">
+        <h4>Devices</h4>
     </div>
     <div class="sidebar-content">
         <ul class="list-unstyled">
             <!-- 3D-Printer -->
             <li class="sidebar-item sidebar-dropdown active">
-                <a class="nav-link dropdown-toggle" href="#printerSubmenu" data-toggle="collapse" aria-expanded="true">
+                <a class="nav-link dropdown-toggle" data-target="#printerSubmenu" data-toggle="collapse" aria-expanded="true">
                     <span class="menu-text">3D-Printer</span>
                 </a>
                 <div class="sidebar-submenu" id="printerSubmenu">
                     <ul>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Printer Nr. 1</a>
+                            <a [routerLink]="['/calendar']" class="nav-link">Printer Nr. 1</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Printer Nr. 2</a>
+                            <a [routerLink]="['/calendar']" class="nav-link">Printer Nr. 2</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Printer Nr. 3</a>
+                            <a [routerLink]="['/calendar']" class="nav-link">Printer Nr. 3</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Printer Nr. 4</a>
+                            <a [routerLink]="['/calendar']" class="nav-link">Printer Nr. 4</a>
                         </li>
                     </ul>
                 </div>
@@ -29,19 +29,19 @@
 
             <!-- Lasercutter -->
             <li class="sidebar-item sidebar-dropdown">
-                <a class="nav-link dropdown-toggle" href="#lasercutterSubmenu" data-toggle="collapse" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" data-target="#lasercutterSubmenu" data-toggle="collapse" aria-expanded="false">
                     <span class="menu-text">Lasercutter</span>
                 </a>
                 <div class="sidebar-submenu" id="lasercutterSubmenu">
                     <ul>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Lasercutter Nr. 1</a>
+                            <a [routerLink]="['/calendar']" class="nav-link">Lasercutter Nr. 1</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Lasercutter Nr. 2</a>
+                            <a [routerLink]="['/calendar']" class="nav-link">Lasercutter Nr. 2</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Lasercutter Nr. 3</a>
+                            <a [routerLink]="['/calendar']" class="nav-link">Lasercutter Nr. 3</a>
                         </li>
                     </ul>
                 </div>

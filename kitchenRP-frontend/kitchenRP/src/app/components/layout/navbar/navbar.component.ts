@@ -12,4 +12,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+    toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("sidebar-collapsed");
+        document.getElementById("content-wrapper").classList.toggle("sidebar-collapsed");
+    }
 }

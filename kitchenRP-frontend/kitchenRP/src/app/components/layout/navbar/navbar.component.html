@@ -3,6 +3,11 @@
         <div class="row ml-1">
             <a class="navbar-brand" [routerLink]="['/']">KitchenRP</a>
 
+            <!-- sidebar collapse -->
+            <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/calendar']">Calendar</a>
