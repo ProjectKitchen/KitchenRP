@@ -1,1 +1,17 @@
-<p>admin-tabs works!</p>
+<div class="tabbed tabs-container">
+    <input checked="checked" id="tab1" type="radio" name="tabs" />
+    <input id="tab2" type="radio" name="tabs" />
+    <input id="tab3" type="radio" name="tabs" />
+
+    <nav>
+        <label for="tab1">Devices</label>
+        <label for="tab2">Users</label>
+        <label for="tab3">Restrictions</label>
+    </nav>
+
+    <figure>
+        <div class="tab1"> <app-device-management></app-device-management> </div>
+        <div class="tab2"> <app-user-management></app-user-management> </div>
+        <div class="tab3"> Restrictions </div>
+    </figure>
+</div>

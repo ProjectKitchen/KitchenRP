@@ -19,6 +19,8 @@ import { AdminTabsComponent } from './components/admin/admin-tabs/admin-tabs.com
 import { UserManagementComponent } from './components/admin/admin-tabs/user-management/user-management.component';
 import { DeviceManagementComponent } from './components/admin/admin-tabs/device-management/device-management.component';
 import { ReservationModalComponent } from './components/reservations/reservation-status-list/reservation-modal/reservation-modal.component';
+import { AllReservationsComponent } from './components/all-reservations/all-reservations.component';
+import { AllReservationsStatusListComponent } from './components/all-reservations/all-reservations-status-list/all-reservations-status-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ReservationModalComponent } from './components/reservations/reservation
     AdminTabsComponent,
     UserManagementComponent,
     DeviceManagementComponent,
-    ReservationModalComponent
+    ReservationModalComponent,
+    AllReservationsComponent,
+    AllReservationsStatusListComponent
   ],
   imports: [
     BrowserModule,
