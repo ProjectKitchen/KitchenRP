@@ -20,6 +20,7 @@ namespace KitchenRP.Domain
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<IAuthorizationService, KitchenRpAuthorizationService>();
+            services.AddScoped<IReservationService, ReservationService>();
             return services;
         }
     }

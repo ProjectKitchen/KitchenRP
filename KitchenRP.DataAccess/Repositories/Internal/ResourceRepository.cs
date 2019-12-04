@@ -26,6 +26,11 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             return resource;
         }
 
+        public ValueTask<Resource> FindById(long id)
+        {
+            return _ctx.Resources.FindAsync(id);
+        }
+
         public Task<List<Resource>> All()
         {
             return _ctx.Resources

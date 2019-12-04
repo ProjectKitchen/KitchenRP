@@ -35,7 +35,7 @@ namespace KitchenRP.Web.Controllers
                     "This shouldn't be invoked in non-development environments.");
 
             var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
-
+            Console.Error.WriteLine(context.Error.StackTrace);
             return Problem(context.Error.StackTrace, title: context.Error.Message);
         }
     }

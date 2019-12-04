@@ -17,6 +17,8 @@ namespace KitchenRP.DataAccess
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IResourceRepository, ResourceRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IReservationStatusRepository, ReservationStatusRepository>();
             return services;
         }
     }
