@@ -1,5 +1,12 @@
-<app-navbar></app-navbar>
-<app-sidebar></app-sidebar>
-<div id="content-wrapper" class="content-wrapper">
-    <router-outlet></router-outlet>
+<!-- user logged in -->
+<div *ngIf="false; else elseBlock">
+    <app-navbar></app-navbar>
+    <app-sidebar></app-sidebar>
+    <div id="content-wrapper" class="content-wrapper">
+        <router-outlet></router-outlet>
+    </div>
 </div>
+<!-- not logged in -->
+<ng-template #elseBlock>
+    <app-login></app-login>
+</ng-template>
