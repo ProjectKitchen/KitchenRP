@@ -1,0 +1,26 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Id: {{ Data.id }}
+    <br>
+    Date: {{ Data.date }}
+    <br>
+    Start: {{ Data.timeStart }}
+    <br>
+    End: {{ Data.timeEnd }}
+    <br>
+    Duration: {{ Data.duration }}
+    <br>
+    Resource: {{ Data.resource }}
+    <br>
+    Status: {{ Data.status }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</div>

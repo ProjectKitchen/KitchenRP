@@ -24,6 +24,8 @@ import { AllReservationsComponent } from './components/all-reservations/all-rese
 import { AllReservationsStatusListComponent } from './components/all-reservations/all-reservations-status-list/all-reservations-status-list.component';
 import { LoginComponent } from './components/login/login.component';
 
+import { ModalReservationComponent } from './modals/modal-reservation/modal-reservation.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import { LoginComponent } from './components/login/login.component';
     ReservationModalComponent,
     AllReservationsComponent,
     AllReservationsStatusListComponent,
-    LoginComponent
+    LoginComponent,
+    ModalReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { LoginComponent } from './components/login/login.component';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalReservationComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {ModalReservationComponent} from "../../../modals/modal-reservation/modal-reservation.component";
 
 @Component({
   selector: 'app-reservation-status-list',
@@ -8,35 +9,52 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./reservation-status-list.component.css']
 })
 export class ReservationStatusListComponent implements OnInit {
-// for preview modal only
-closeResult: string;
-  // argument (private...) for preview modal only
+
+  // test data
+  table = [
+    {
+      "id": 1,
+      "date":"11-12-2019",
+      "timeStart": "10:00",
+      "timeEnd": "12:00",
+      "duration": "2:00",
+      "resource": "Printer1",
+      "status": "Pending"
+    },{
+      "id": 2,
+      "date":"11-12-2019",
+      "timeStart": "10:00",
+      "timeEnd": "12:00",
+      "duration": "2:00",
+      "resource": "Printer2",
+      "status": "Accepted"
+    },{
+      "id": 3,
+      "date":"11-12-2019",
+      "timeStart": "10:00",
+      "timeEnd": "12:00",
+      "duration": "2:00",
+      "resource": "Printer3",
+      "status": "Denied"
+    },{
+      "id": 4,
+      "date":"11-12-2019",
+      "timeStart": "10:00",
+      "timeEnd": "12:00",
+      "duration": "2:00",
+      "resource": "Printer4",
+      "status": "Pending"
+    }
+  ];
+
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
   }
 
-  testFunc(): void{
-    console.log("test");
+  openModal(tableRow) {
+    const modalRef = this.modalService.open(ModalReservationComponent, { windowClass : "modal-size-xl"});
+    modalRef.componentInstance.Data = tableRow;
   }
 
-  // for preview modal only --
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-  // --
 }
