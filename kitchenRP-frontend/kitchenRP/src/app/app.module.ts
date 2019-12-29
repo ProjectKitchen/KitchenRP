@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
+import {environment} from '../environments/environment';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
@@ -25,6 +27,7 @@ import { AllReservationsStatusListComponent } from './components/all-reservation
 import { LoginComponent } from './components/login/login.component';
 
 import { ModalReservationComponent } from './modals/modal-reservation/modal-reservation.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -55,7 +58,7 @@ import { ModalReservationComponent } from './modals/modal-reservation/modal-rese
     NgbModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: 'API_BASE_URL', useValue: environment.baseUrl}],
   bootstrap: [AppComponent],
   entryComponents: [ModalReservationComponent]
 })

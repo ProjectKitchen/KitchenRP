@@ -15,6 +15,8 @@ namespace KitchenRP.Web
 {
     public class Startup
     {
+        private const string DevelopmentCorsOrigins = "__DEV_CORS_ORIGINS__";
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +27,14 @@ namespace KitchenRP.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(DevelopmentCorsOrigins, builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+                
             services.AddControllers();
 
             services.AddKitchenRpDataAccessService(cfg =>
@@ -106,13 +116,20 @@ namespace KitchenRP.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            if (env.IsDevelopment())
+            {
+                app.UseCors(DevelopmentCorsOrigins);
+            }
+            else
+            {
+                //TODO: write production cors rules
+                app.UseCors(DevelopmentCorsOrigins);
+            }
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+ 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KitchenRP-API"));
         }

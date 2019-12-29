@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Token, UserAuth} from './user-auth';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
@@ -8,12 +8,12 @@ import {Observable} from 'rxjs/internal/Observable';
 })
 export class LoginService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, @Inject('API_BASE_URL') private baseUrl: string) {}
 
     public login(auth: UserAuth): Observable<Token> {
         console.log('sending user token request');
         console.log(auth);
-        return this.http.post<Token>('localhost:51950/token', auth);
+        return this.http.post<Token>(this.baseUrl + '/token', auth);
     }
 
 }
