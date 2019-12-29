@@ -32,6 +32,7 @@ namespace KitchenRP.DataAccess
             modelBuilder.ApplyConfiguration(new ReservationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StatusChangedTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RestrictionTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ReservationStatusEntityConfiguration());
         }
     }
 }
