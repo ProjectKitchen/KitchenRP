@@ -24,7 +24,6 @@ namespace KitchenRP.Web.Models
 
         [Required] public bool? AllowNotifications { get; set; }
     }
-
     public class AddReservationRequestJsonConverter : JsonConverter<Instant?>
     {
         public override Instant? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

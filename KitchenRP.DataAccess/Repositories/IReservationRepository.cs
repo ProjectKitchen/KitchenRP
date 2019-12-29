@@ -12,7 +12,7 @@ namespace KitchenRP.DataAccess.Repositories
             bool allowNotifications);
 
         ValueTask<Reservation> FindById(long id);
-
+        
         Task<List<Reservation>> ByUser(User u);
         Task<List<Reservation>> All();
 
