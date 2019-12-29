@@ -6,9 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KitchenRP.DataAccess.Repositories.Internal
 {
-    public class ReservationStatusRepository: IReservationStatusRepository
+    public class ReservationStatusRepository : IReservationStatusRepository
     {
-
         private readonly KitchenRpContext _context;
 
         public ReservationStatusRepository(KitchenRpContext context)

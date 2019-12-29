@@ -5,9 +5,10 @@ namespace KitchenRP.DataAccess.Models
 {
     public class User
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public string Sub { get; set; }
         public UserRole Role { get; set; }
+        public long? RoleId { get; set; }
         public string Email { get; set; }
         public bool AllowNotifications { get; set; }
     }

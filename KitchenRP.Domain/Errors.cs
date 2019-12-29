@@ -2,8 +2,7 @@ using System;
 
 namespace KitchenRP.Domain
 {
-    public class ReservationCollisionException:  Exception
+    public class ReservationCollisionException : Exception
     {
-        
     }
 }

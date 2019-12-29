@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>KitchenRP.Test</RootNamespace>
 
         <IsPackable>false</IsPackable>
@@ -15,14 +15,17 @@
         <PackageReference Include="NodaTime.Testing" Version="2.4.7" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Web" />
+        <Folder Include="UnitTests" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\KitchenRP.Domain\KitchenRP.Domain.csproj" />
+        <ProjectReference Include="..\KitchenRP.DataAccess\KitchenRP.DataAccess.csproj" />
+        <ProjectReference Include="..\KitchenRP.Web\KitchenRP.Web.csproj" />
     </ItemGroup>
 
 </Project>

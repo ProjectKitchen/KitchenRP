@@ -1,22 +1,19 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
 WORKDIR /app
 
 COPY ./KitchenRP.DataAccess/KitchenRP.DataAccess.csproj ./KitchenRP.DataAccess/
 COPY ./KitchenRP.Web/KitchenRP.Web.csproj ./KitchenRP.Web/
 COPY ./KitchenRP.Domain/KitchenRP.Domain.csproj ./KitchenRP.Domain/
+COPY ./KitchenRP.Test/KitchenRP.Test.csproj ./KitchenRP.Test/
+COPY ./KitchenRP.sln ./
 
-WORKDIR ./KitchenRP.Web/
 RUN dotnet restore
-
-WORKDIR /app
 
 COPY ./KitchenRP.DataAccess/. ./KitchenRP.DataAccess
 COPY ./KitchenRP.Web/. ./KitchenRP.Web
 COPY ./KitchenRP.Domain/. ./KitchenRP.Domain
+COPY ./KitchenRP.Test/. ./KitchenRP.Test
 
-RUN dotnet publish -c Release -o out KitchenRP.Web
+RUN dotnet publish -o out KitchenRP.Test
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
-WORKDIR /app
-COPY --from=build /app/out ./
-ENTRYPOINT ["dotnet", "KitchenRP.Web.dll"]
+CMD ["dotnet", "test", "--logger:trx", "-r", "./test-results"]
