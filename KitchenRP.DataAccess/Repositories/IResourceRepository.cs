@@ -13,7 +13,7 @@ namespace KitchenRP.DataAccess.Repositories
         Task<List<Resource>> ByType(string type);
 
         ValueTask<Resource> FindById(long id);
-        
+
         Task<List<Resource>> All();
         Task<ResourceType> CreateNewResourceTyp(string type, string resourceName);
         Task<List<ResourceType>> TypeAll();

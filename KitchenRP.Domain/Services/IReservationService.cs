@@ -6,6 +6,6 @@ namespace KitchenRP.Domain.Services
 {
     public interface IReservationService
     {
-        Task<DomainReservation> AddNewReservation(AddReservationCommand r);
+        Task<DomainReservation> AddNewReservation(AddReservationCommand cmd);
     }
 }

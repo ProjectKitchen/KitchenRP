@@ -12,7 +12,6 @@ services:
     environment:
       - POSTGRES_PASSWORD=1234
       - POSTGRES_USER=kitchenrp
-      - POSTGRES_DATBASE=kitchenrp
     ports:
       - "5432:5432"
   frontend:

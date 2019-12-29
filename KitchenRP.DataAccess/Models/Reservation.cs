@@ -8,7 +8,6 @@ namespace KitchenRP.DataAccess.Models
 {
     public class Reservation
     {
-        
         public long? Id { get; set; }
         public Instant StartTime { get; set; }
         public Instant EndTime { get; set; }
@@ -16,7 +15,7 @@ namespace KitchenRP.DataAccess.Models
         public Resource ReservedResource { get; set; }
         public bool AllowNotifications { get; set; }
 
-        public ICollection<StatusChange> StatusChanges { get; private set; }
+        public ICollection<StatusChange> StatusChanges { get; set; }
     }
 
     internal class ReservationTypeConfiguration : IEntityTypeConfiguration<Reservation>

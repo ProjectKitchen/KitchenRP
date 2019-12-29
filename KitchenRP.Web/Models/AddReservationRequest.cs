@@ -18,16 +18,13 @@ namespace KitchenRP.Web.Models
         [JsonConverter(typeof(AddReservationRequestJsonConverter))]
         public Instant? EndTime { get; set; }
 
-        [Required]
-        public long? UserId { get; set; }
+        [Required] public long? UserId { get; set; }
 
-        [Required]
-        public long? ResourceId { get; set; }
+        [Required] public long? ResourceId { get; set; }
 
-        [Required]
-        public bool? AllowNotifications { get; set; }
+        [Required] public bool? AllowNotifications { get; set; }
     }
-    
+
     public class AddReservationRequestJsonConverter : JsonConverter<Instant?>
     {
         public override Instant? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

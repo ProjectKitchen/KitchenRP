@@ -8,13 +8,13 @@ namespace KitchenRP.Web.Migrations
         {
             migrationBuilder.InsertData(
                 table: "reservation_statuses",
-                columns: new[] { "id", "display_name", "status" },
+                columns: new[] {"id", "display_name", "status"},
                 values: new object[,]
                 {
-                    { 1L, "Reservation pending ...", "PENDING" },
-                    { 2L, "Reservation needs approval ...", "NEEDS_APPROVAL" },
-                    { 3L, "Reservation was denied!", "DENIED" },
-                    { 4L, "Reservation was approved!", "APPROVED" }
+                    {1L, "Reservation pending ...", "PENDING"},
+                    {2L, "Reservation needs approval ...", "NEEDS_APPROVAL"},
+                    {3L, "Reservation was denied!", "DENIED"},
+                    {4L, "Reservation was approved!", "APPROVED"}
                 });
         }
 

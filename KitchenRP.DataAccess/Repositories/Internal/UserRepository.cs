@@ -16,7 +16,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             _roles = roles;
         }
 
-        public async Task<User?> FindById(long id)
+        public async Task<User> FindById(long id)
         {
             return await _ctx.Users
                 .Include(u => u.Role)

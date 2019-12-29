@@ -9,12 +9,11 @@ namespace KitchenRP.Web.Controllers
 {
     [ApiController]
     [Route("reservation")]
-    public class ReservationController: ControllerBase
+    public class ReservationController : ControllerBase
     {
-
         private readonly IReservationService _reservationService;
         private readonly IMapper _mapper;
-        
+
         public ReservationController(IReservationService reservationService, IMapper mapper)
         {
             _reservationService = reservationService;
@@ -32,6 +31,5 @@ namespace KitchenRP.Web.Controllers
                 Uri = uri,
             });
         }
-
     }
 }

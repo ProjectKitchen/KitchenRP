@@ -65,12 +65,12 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             var oldStatus = await CurrentStatus(reservation);
             var statusChange = new StatusChange
             {
-                Id = null, 
-                PreviousStatus = oldStatus, 
-                CurrentStatus = newStatus, 
+                Id = null,
+                PreviousStatus = oldStatus,
+                CurrentStatus = newStatus,
                 Reason = reason,
-                ChangedAt = SystemClock.Instance.GetCurrentInstant(), 
-                Reservation = reservation, 
+                ChangedAt = SystemClock.Instance.GetCurrentInstant(),
+                Reservation = reservation,
                 ChangedBy = changedBy
             };
             _ctx.StatusChanges.Add(statusChange);
