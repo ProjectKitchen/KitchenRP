@@ -17,53 +17,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="table-row">
-                <th scope="row">1</th>
-                <td>Printer1</td>
-                <td>3D-Printer</td>
-                <td>PLA</td>
-                <td>20x20</td>
-                <td><div class="dot-approved"></div></td>
-            </tr>
-            <tr class="table-row">
-                <th scope="row">2</th>
-                <td>Printer2</td>
-                <td>3D-Printer</td>
-                <td>PLA</td>
-                <td>10x10</td>
-                <td><div class="dot-approved"></div></td>
-            </tr>
-            <tr class="table-row">
-                <th scope="row">3</th>
-                <td>Printer3</td>
-                <td>3D-Printer</td>
-                <td>PLA</td>
-                <td>10x10</td>
-                <td><div class="dot-approved"></div></td>
-            </tr>
-            <tr class="table-row">
-                <th scope="row">4</th>
-                <td>Printer4</td>
-                <td>3D-Printer</td>
-                <td>PLA</td>
-                <td>15x15</td>
-                <td><div class="dot-approved"></div></td>
-            </tr>
-            <tr class="table-row">
-                <th scope="row">5</th>
-                <td>Printer5</td>
-                <td>3D-Printer</td>
-                <td>PLA</td>
-                <td>20x20</td>
-                <td><div class="dot-approved"></div></td>
-            </tr>
-            <tr class="table-row">
-                <th scope="row">6</th>
-                <td>Printer6</td>
-                <td>3D-Printer</td>
-                <td>PLA</td>
-                <td>20x20</td>
-                <td><div class="dot-approved"></div></td>
+            <tr class="table-row modal-xl" *ngFor="let tableRow of table" (click)="openModal(tableRow)">
+                <th scope="row">{{ tableRow.id}}</th>
+                <td>{{ tableRow.name }}</td>
+                <td>{{ tableRow.type }}</td>
+                <td>{{ tableRow.material }}</td>
+                <td>{{ tableRow.size }}</td>
+                <td>{{ tableRow.status }}</td>
             </tr>
         </tbody>
     </table>

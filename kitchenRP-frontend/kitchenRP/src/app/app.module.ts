@@ -27,7 +27,10 @@ import { AllReservationsStatusListComponent } from './components/all-reservation
 import { LoginComponent } from './components/login/login.component';
 
 import { ModalReservationComponent } from './modals/modal-reservation/modal-reservation.component';
+import { ModalDeviceComponent } from './modals/modal-device/modal-device.component';
 import {FormsModule} from "@angular/forms";
+
+
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import {FormsModule} from "@angular/forms";
     AllReservationsComponent,
     AllReservationsStatusListComponent,
     LoginComponent,
-    ModalReservationComponent
+    ModalReservationComponent,
+    ModalDeviceComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,6 @@ import {FormsModule} from "@angular/forms";
   ],
   providers: [{provide: 'API_BASE_URL', useValue: environment.baseUrl}],
   bootstrap: [AppComponent],
-  entryComponents: [ModalReservationComponent]
+  entryComponents: [ModalReservationComponent, ModalDeviceComponent]
 })
 export class AppModule { }

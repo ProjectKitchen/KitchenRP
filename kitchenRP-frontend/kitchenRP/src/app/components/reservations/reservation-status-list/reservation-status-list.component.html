@@ -1,26 +1,32 @@
 <div class="table-container">
+    <form>
+        <div class="form-group form-inline">
+            <input class="form-control ml-2" type="text" placeholder="Search" />
+        </div>
+    </form>
+
     <table class="table border table-hover">
         <thead class="thead-light">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Start</th>
-            <th scope="col">End</th>
-            <th scope="col">Duration (h)</th>
-            <th scope="col">Resource</th>
-            <th scope="col">Status</th>
-        </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+                <th scope="col">Duration (h)</th>
+                <th scope="col">Resource</th>
+                <th scope="col">Status</th>
+            </tr>
         </thead>
         <tbody>
-        <tr class="table-row modal-xl" *ngFor="let tableRow of table" (click)="openModal(tableRow)">
-            <th scope="row">{{ tableRow.id}}</th>
-            <td>{{ tableRow.date }}</td>
-            <td>{{ tableRow.timeStart }}</td>
-            <td>{{ tableRow.timeEnd }}</td>
-            <td>{{ tableRow.duration }}</td>
-            <td>{{ tableRow.resource }}</td>
-            <td>{{ tableRow.status }}</td>
-        </tr>
+            <tr class="table-row modal-xl" *ngFor="let tableRow of table" (click)="openModal(tableRow)">
+                <th scope="row">{{ tableRow.id}}</th>
+                <td>{{ tableRow.date }}</td>
+                <td>{{ tableRow.timeStart }}</td>
+                <td>{{ tableRow.timeEnd }}</td>
+                <td>{{ tableRow.duration }}</td>
+                <td>{{ tableRow.resource }}</td>
+                <td>{{ tableRow.status }}</td>
+            </tr>
         </tbody>
     </table>
 </div>
