@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalDeviceComponent} from "../../../../modals/modal-device/modal-device.component";
 
+import {Resource} from "../../../../types/resource";
+
 @Component({
   selector: 'app-device-management',
   templateUrl: './device-management.component.html',
@@ -55,6 +57,8 @@ export class DeviceManagementComponent implements OnInit {
       "status": "Working"
     }
   ];
+
+  devices : Resource;
 
   constructor(private modalService: NgbModal) { }
 

@@ -21,6 +21,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminTabsComponent } from './components/admin/admin-tabs/admin-tabs.component';
 import { UserManagementComponent } from './components/admin/admin-tabs/user-management/user-management.component';
 import { DeviceManagementComponent } from './components/admin/admin-tabs/device-management/device-management.component';
+import { RestrictionManagementComponent } from './components/admin/admin-tabs/restriction-management/restriction-management.component';
 import { ReservationModalComponent } from './components/reservations/reservation-status-list/reservation-modal/reservation-modal.component';
 import { AllReservationsComponent } from './components/all-reservations/all-reservations.component';
 import { AllReservationsStatusListComponent } from './components/all-reservations/all-reservations-status-list/all-reservations-status-list.component';
@@ -28,6 +29,8 @@ import { LoginComponent } from './components/login/login.component';
 
 import { ModalReservationComponent } from './modals/modal-reservation/modal-reservation.component';
 import { ModalDeviceComponent } from './modals/modal-device/modal-device.component';
+import { ModalUserComponent } from './modals/modal-user/modal-user.component';
+import { ModalRestrictionComponent } from './modals/modal-restriction/modal-restriction.component';
 import {FormsModule} from "@angular/forms";
 
 
@@ -55,6 +58,9 @@ import {FormsModule} from "@angular/forms";
     LoginComponent,
     ModalReservationComponent,
     ModalDeviceComponent,
+    ModalUserComponent,
+    RestrictionManagementComponent,
+    ModalRestrictionComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +70,11 @@ import {FormsModule} from "@angular/forms";
   ],
   providers: [{provide: 'API_BASE_URL', useValue: environment.baseUrl}],
   bootstrap: [AppComponent],
-  entryComponents: [ModalReservationComponent, ModalDeviceComponent]
+  entryComponents: [
+    ModalReservationComponent,
+    ModalDeviceComponent,
+    ModalUserComponent,
+    ModalRestrictionComponent
+  ]
 })
 export class AppModule { }

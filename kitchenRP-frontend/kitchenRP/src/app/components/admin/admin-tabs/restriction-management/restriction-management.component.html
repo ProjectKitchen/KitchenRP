@@ -9,19 +9,17 @@
         <thead class="thead-light">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Username</th>
-                <th scope="col">Role</th>
-                <th scope="col">Email</th>
-                <th scope="col">...</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Resource</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="table-row">
             <tr class="table-row modal-xl" *ngFor="let tableRow of table" (click)="openModal(tableRow)">
                 <th scope="row">{{ tableRow.id}}</th>
-                <td>{{ tableRow.username }}</td>
-                <td>{{ tableRow.role }}</td>
-                <td>{{ tableRow.email }}</td>
+                <td>{{ tableRow.dateFrom }}</td>
+                <td>{{ tableRow.dateTo }}</td>
+                <td>{{ tableRow.resource }}</td>
             </tr>
         </tbody>
     </table>
