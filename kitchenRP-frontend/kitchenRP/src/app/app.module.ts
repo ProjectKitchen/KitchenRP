@@ -31,7 +31,7 @@ import { ModalReservationComponent } from './modals/modal-reservation/modal-rese
 import { ModalDeviceComponent } from './modals/modal-device/modal-device.component';
 import { ModalUserComponent } from './modals/modal-user/modal-user.component';
 import { ModalRestrictionComponent } from './modals/modal-restriction/modal-restriction.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -66,7 +66,9 @@ import {FormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{provide: 'API_BASE_URL', useValue: environment.baseUrl}],
   bootstrap: [AppComponent],

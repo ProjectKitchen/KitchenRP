@@ -1,7 +1,7 @@
 export interface Resource{
     id: number;
     name: string;
-    //metadata
+    meta: string;
     description: string | null;
     type: string;
 }

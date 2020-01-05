@@ -1,10 +1,12 @@
 <div class="table-container">
+    <!-- Search bar -->
     <form>
         <div class="form-group form-inline">
-            <input class="form-control ml-2" type="text" placeholder="Search" />
+            <input class="form-control ml-2" type="text" [formControl]="filter" />
         </div>
     </form>
 
+    <!-- Table -->
     <table class="table border table-hover">
         <thead class="thead-light">
             <tr>
@@ -18,14 +20,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="table-row modal-xl" *ngFor="let tableRow of table" (click)="openModal(tableRow)">
-                <th scope="row">{{ tableRow.id}}</th>
-                <td>{{ tableRow.date }}</td>
-                <td>{{ tableRow.timeStart }}</td>
-                <td>{{ tableRow.timeEnd }}</td>
-                <td>{{ tableRow.duration }}</td>
-                <td>{{ tableRow.resource }}</td>
-                <td>{{ tableRow.status }}</td>
+            <tr class="table-row modal-xl" *ngFor="let reservation of reservations$ | async; index as i" (click)="openModal(reservation)">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.timeStart }}</td>
+                <td>{{ reservation.timeEnd }}</td>
+                <td>{{ reservation.duration }}</td>
+                <td>{{ reservation.resource }}</td>
+                <td>{{ reservation.status }}</td>
             </tr>
         </tbody>
     </table>

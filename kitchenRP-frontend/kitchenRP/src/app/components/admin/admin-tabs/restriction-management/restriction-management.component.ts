@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalRestrictionComponent} from "../../../../modals/modal-restriction/modal-restriction.component";
 
-@Component({
-  selector: 'app-restriction-management',
-  templateUrl: './restriction-management.component.html',
-  styleUrls: ['./restriction-management.component.css']
-})
-export class RestrictionManagementComponent implements OnInit {
+import {Restriction} from "../../../../types/restriction";
 
   // test data
-  table = [
+  const table: Restriction[] = [
     {
       "id": 1,
       "dateFrom":"10-10-2020",
@@ -35,7 +34,33 @@ export class RestrictionManagementComponent implements OnInit {
     }
   ];
 
-  constructor(private modalService: NgbModal) { }
+  function search(text: string, pipe: PipeTransform): Restriction[] {
+    return table.filter(restriction => {
+    const term = text.toLowerCase();
+    return restriction.dateFrom.toLowerCase().includes(term)
+        || restriction.dateTo.toLowerCase().includes(term)
+        || restriction.resource.toLowerCase().includes(term);
+        //|| pipe.transform(restriction.id).includes(term); // ID search?
+    });
+  }
+
+@Component({
+  selector: 'app-restriction-management',
+  templateUrl: './restriction-management.component.html',
+  styleUrls: ['./restriction-management.component.css'],
+  providers: [DecimalPipe]
+})
+export class RestrictionManagementComponent implements OnInit {
+
+  restrictions$: Observable<Restriction[]>;
+  filter = new FormControl('');
+
+  constructor(private modalService: NgbModal, pipe: DecimalPipe) {
+    this.restrictions$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => search(text, pipe))
+    );
+  }
 
   ngOnInit() {
   }

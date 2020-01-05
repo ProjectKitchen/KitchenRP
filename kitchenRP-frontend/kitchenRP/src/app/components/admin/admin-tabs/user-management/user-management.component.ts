@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalUserComponent} from "../../../../modals/modal-user/modal-user.component";
 
-@Component({
-  selector: 'app-user-management',
-  templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.css']
-})
-export class UserManagementComponent implements OnInit {
+import {User} from "../../../../types/user";
 
   // test data
-  table = [
+  const table: User [] = [
     {
       "id": 1,
       "username":"Matthias",
@@ -65,7 +64,33 @@ export class UserManagementComponent implements OnInit {
     },
   ];
 
-  constructor(private modalService: NgbModal) { }
+  function search(text: string, pipe: PipeTransform): User[] {
+    return table.filter(user => {
+    const term = text.toLowerCase();
+    return user.username.toLowerCase().includes(term)
+        || user.role.toLowerCase().includes(term)
+        || user.email.toLowerCase().includes(term);
+        //|| pipe.transform(user.id).includes(term); // ID search?
+    });
+  }
+
+@Component({
+  selector: 'app-user-management',
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.css'],
+  providers: [DecimalPipe]
+})
+export class UserManagementComponent implements OnInit {
+
+  users$: Observable<User[]>;
+  filter = new FormControl('');
+
+  constructor(private modalService: NgbModal, pipe: DecimalPipe) {
+    this.users$ = this.filter.valueChanges.pipe(
+      startWith(''),
+      map(text => search(text, pipe))
+    );
+  }
 
   ngOnInit() {
   }

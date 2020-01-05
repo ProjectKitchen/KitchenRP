@@ -1,6 +1,10 @@
 <!-- Search bar -->
 <div class="md-form mt-0" style="width: 20%;">
-    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+    <form>
+        <div class="form-group form-inline">
+            <input class="form-control ml-2" type="text" [formControl]="filter" />
+        </div>
+    </form>
 </div>
 
 <!-- Table -->
@@ -15,11 +19,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="table-row modal-xl" *ngFor="let tableRow of table" (click)="openModal(tableRow)">
-                <th scope="row">{{ tableRow.id}}</th>
-                <td>{{ tableRow.dateFrom }}</td>
-                <td>{{ tableRow.dateTo }}</td>
-                <td>{{ tableRow.resource }}</td>
+            <tr class="table-row modal-xl" *ngFor="let restriction of restrictions$ | async; index as i" (click)="openModal(restriction)">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ restriction.dateFrom }}</td>
+                <td>{{ restriction.dateTo }}</td>
+                <td>{{ restriction.resource }}</td>
             </tr>
         </tbody>
     </table>
