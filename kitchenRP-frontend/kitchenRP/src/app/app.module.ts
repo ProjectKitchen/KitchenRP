@@ -33,7 +33,7 @@ import { ModalUserComponent } from './modals/modal-user/modal-user.component';
 import { ModalRestrictionComponent } from './modals/modal-restriction/modal-restriction.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -68,7 +68,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     NgbModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule
   ],
   providers: [{provide: 'API_BASE_URL', useValue: environment.baseUrl}],
   bootstrap: [AppComponent],

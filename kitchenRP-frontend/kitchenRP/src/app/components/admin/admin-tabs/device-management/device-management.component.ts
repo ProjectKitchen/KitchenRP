@@ -82,7 +82,7 @@ export class DeviceManagementComponent implements OnInit {
   }
 
   openModal(tableRow) {
-    const modalRef = this.modalService.open(ModalDeviceComponent, { windowClass : "modal-size-xl"});
+    const modalRef = this.modalService.open(ModalDeviceComponent, { windowClass : "modal-size-lg"});
     modalRef.componentInstance.Data = tableRow;
   }
 }

@@ -1,21 +1,35 @@
 <div>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Details</h4>
+        <h4 class="modal-title" id="modal-basic-title">User Details</h4>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        Id: {{ Data.id }}
-        <br>
-        Username: {{ Data.username }}
-        <br>
-        Role: {{ Data.role }}
-        <br>
-        Email: {{ Data.email }}
+      <form>
+        <div class="form-group">
+          <label for="inputId">Id</label>
+          <input type="text" class="form-control" id="inputId" [value]="Data.id">
+        </div>
+        <div class="form-group">
+          <label for="inputUsername">Username</label>
+          <input type="text" class="form-control" id="inputUsername" [value]="Data.username">
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="inputRole">Role</label>
+            <input type="text" class="form-control" id="inputRole" [value]="Data.role">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEmail">Email</label>
+            <input type="text" class="form-control" id="inputEmail" [value]="Data.email">
+          </div>
+        </div>
+      </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
     </div>
 </div>
 
