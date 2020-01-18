@@ -1,8 +1,8 @@
 <div>
-    <h4>Printer1</h4>
+    <h4>{{resource.displayName | titlecase }}</h4>
     <div class="resource-info-container">
-        <span class="border resource-info">Type <span class="tooltiptext">Device type</span></span>
-        <span class="border resource-info">Material<span class="tooltiptext">Available material</span></span>
-        <span class="border resource-info">20x20cm<span class="tooltiptext">Printing-area size</span></span>
+        <span class="border resource-info">{{resource.resourceType.displayName | titlecase }}<span class="tooltiptext">Device type</span></span>
+        <span class="border resource-info">{{resource.metaData.material || "unkown material"}}<span class="tooltiptext">Available material</span></span>
+        <span class="border resource-info">{{resource.metaData.printarea || "unkown material"}}<span class="tooltiptext">Printing-area size</span></span>
     </div>
 </div>

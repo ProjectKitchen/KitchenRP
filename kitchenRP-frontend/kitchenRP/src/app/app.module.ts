@@ -35,6 +35,7 @@ import { ResourceManagementComponent } from './components/admin/admin-tabs/resou
 import { ModalResourceComponent } from './modals/modal-resource/modal-resource.component';
 import { ResourceInfoComponent } from './components/calendar/resource-info/resource-info.component';
 import { TokenInterceptor } from "./token.interceptor";
+import { ResourceCalendarComponent } from './components/calendar/resource-calendar/resource-calendar.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { TokenInterceptor } from "./token.interceptor";
     ModalRestrictionComponent,
     ResourceManagementComponent,
     ModalResourceComponent,
-    ResourceInfoComponent
+    ResourceInfoComponent,
+    ResourceCalendarComponent
   ],
   imports: [
     BrowserModule,

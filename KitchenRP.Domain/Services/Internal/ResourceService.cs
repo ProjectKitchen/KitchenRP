@@ -28,6 +28,12 @@ namespace KitchenRP.Domain.Services.Internal
             return _mapper.Map<DomainResource>(resource);
         }
 
+        public async Task<DomainResource> GetById(long id)
+        {
+            var resource = await _resources.FindById(id);
+            return _mapper.Map<DomainResource>(resource); 
+        }
+
         public async Task<IEnumerable<DomainResource?>> GetAllByType(string type)
         {
             return string.IsNullOrWhiteSpace(type)

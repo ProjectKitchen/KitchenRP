@@ -31,6 +31,13 @@ namespace KitchenRP.Web.Controllers
                 Uri = $"resource/{resource.Id}"
             });
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(long id)
+        {
+            var resources = await _resourceService.GetById(id);
+            return Ok(resources);
+        }
+        
 
         [HttpGet]
         public async Task<IActionResult> GetByResourceType(string? requestType)
