@@ -51,7 +51,7 @@ export class ResourceService {
 
     createType(type: ResourceType): Observable<ResourceType>{
         const url = this.baseUrl + "/resource/type";
-        return this.http.post<ResourceType>(url);
+        return this.http.post<ResourceType>(url, type);
     }
 
     deleteType(type: string): Observable<{}>{

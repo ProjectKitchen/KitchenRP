@@ -24,9 +24,9 @@ const table: Resource [] = [
 function search(text: string, pipe: PipeTransform): Resource[] {
     return table.filter(resource => {
         const term = text.toLowerCase();
-        return resource.name.toLowerCase().includes(term)
-            || resource.meta.toLowerCase().includes(term)
-            || resource.type.toLowerCase().includes(term);
+        return resource.displayName.toLowerCase().includes(term)
+            || resource.metaData.toLowerCase().includes(term)
+            || resource.resourceType.toLowerCase().includes(term);
         //|| pipe.transform(resource.id).includes(term); // ID search?
     });
 }
@@ -61,13 +61,6 @@ export class ResourceManagementComponent implements OnInit {
             console.log(val);
         });
         //this.resources$ = resources;
-        table[0] = {
-            "id": 1,
-            "name":"Kein Printer",
-            "meta": "PLA, 20x20",
-            "type": "Test Typ",
-            "description": "987654321"
-        };
     }
 
     openModal(tableRow) {
