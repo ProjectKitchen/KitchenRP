@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using KitchenRP.Domain.Commands;
 using KitchenRP.Domain.Models;
 using KitchenRP.Domain.Services;
 using KitchenRP.Web.Models;
@@ -17,15 +19,18 @@ namespace KitchenRP.Web.Controllers
         private readonly IAuthenticationService _authenticationService;
         private readonly IAuthorizationService _authorizationService;
         private readonly IJwtService _tokenService;
+        private readonly IMapper _mapper;
 
         public AuthController(
             IAuthenticationService authenticationService,
             IAuthorizationService authorizationService,
-            IJwtService tokenService)
+            IJwtService tokenService,
+            IMapper mapper)
         {
             _authorizationService = authorizationService;
             _authenticationService = authenticationService;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -51,6 +56,21 @@ namespace KitchenRP.Web.Controllers
         }
 
         /// <summary>
+        ///    Destroys the current token and removes it from the database
+        ///    After this api call the refresh token will no longer be accepted
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpDelete("refresh")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DestroyRefreshToken(DestroyTokenRequest model)
+        {
+            var refreshToken = model!.Token;
+            await _tokenService.DestroyRefreshToken(refreshToken);
+            return NoContent();
+        }
+
+        /// <summary>
         ///     Tries to authenticate a user based on the provided credentials
         ///     A user will be successfully logged in if they provide valid fh credentials AND if their account is enabled by an
         ///     admin
@@ -64,7 +84,8 @@ namespace KitchenRP.Web.Controllers
         public async Task<IActionResult> Authenticate(AuthRequest model)
         {
             //if authentication fails their credentials are wrong or no longer a valid fh account
-            if (!_authenticationService.AuthenticateUser(model.Username!, model.Password!))
+            var cmd = _mapper.Map<AuthCommand>(model);
+            if (!_authenticationService.AuthenticateUser(cmd))
                 return this.Error(Errors.InvalidCredentials());
 
             var claims = (await _authorizationService.Authorize(model.Username!)).ToList();

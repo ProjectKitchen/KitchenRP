@@ -32,5 +32,7 @@ namespace KitchenRP.Domain.Services
         /// <param name="claims"></param>
         /// <returns>jwt string which can be used as access token</returns>
         string GenerateAccessToken(IEnumerable<Claim> claims);
+
+        Task DestroyRefreshToken(string token);
     }
 }

@@ -1,0 +1,34 @@
+version: "3.0"
+
+services:
+#  kitchenrp-server:
+#    build:
+#      dockerfile: ./docker/kitchen-rp-server/Dockerfile
+#      context: ../
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+  database:
+    build:
+      dockerfile: ./docker/database/Dockerfile
+      context: ../
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "kitchenrp"]
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=kitchenrp
+      - POSTGRES_DATBASE=kitchenrp
+    ports:
+      - "5432:5432"
+    command: ["postgres", "-c", "log_statement=all"]
+  tester:
+    build:
+      dockerfile: ./docker/tester/Dockerfile
+      context: ../
+    volumes:
+    - ./test-results:/app/test-results
+    depends_on:
+      - database
+    environment:
+      - CONNECTION_STRING=Host=database; Port=5432; Database=kitchenrp;User Id=kitchenrp; Password=1234
+volumes:
+  test-results:

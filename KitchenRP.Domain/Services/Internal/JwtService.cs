@@ -54,7 +54,7 @@ namespace KitchenRP.Domain.Services.Internal
             if (!(validToken is JwtSecurityToken jwt)) return null;
             var refreshKey = jwt.Claims.SingleOrDefault(c => c.Type == "refresh_key")?.Value;
 
-            return await _refreshTokenRepository.GetForKey(refreshKey ?? "") != null
+            return await _refreshTokenRepository.FindByKey(refreshKey ?? "") != null
                 ? jwt
                 : null;
         }
@@ -110,6 +110,12 @@ namespace KitchenRP.Domain.Services.Internal
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public async Task DestroyRefreshToken(string tokenString)
+        {
+            var token = await VerifyRefreshToken(tokenString);
+            await _refreshTokenRepository.Destroy(token?.Claims?.SingleOrDefault(c => c.Type == "refresh_key")?.Value);
         }
     }
 }

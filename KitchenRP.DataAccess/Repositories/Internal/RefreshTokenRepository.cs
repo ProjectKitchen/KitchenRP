@@ -15,7 +15,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             _ctx = ctx;
         }
 
-        public async Task<RefreshToken> GetForKey(string tokenKey)
+        public async Task<RefreshToken> FindByKey(string tokenKey)
         {
             return await _ctx.RefreshTokens.SingleOrDefaultAsync(t => t.Key == tokenKey);
         }
@@ -34,6 +34,17 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         public async Task ExpireTokensForUser(string sub)
         {
             _ctx.RefreshTokens.RemoveRange(_ctx.RefreshTokens.Where(t => t.Sub == sub));
+            await _ctx.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Removes all Refreshtokens for the current user
+        /// </summary>
+        /// <param name="tokenKey"></param>
+        /// <returns></returns>
+        public async Task Destroy(string tokenKey)
+        {
+            _ctx.RefreshTokens.RemoveRange(_ctx.RefreshTokens.Where(t => t.Key == tokenKey));
             await _ctx.SaveChangesAsync();
         }
     }

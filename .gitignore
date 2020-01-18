@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# integration test results default dir
+docker/test-results
+
 # User-specific files
 *.suo
 *.user
