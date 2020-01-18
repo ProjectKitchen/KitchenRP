@@ -11,18 +11,13 @@ export class UserService {
 
     constructor(private http: HttpClient, @Inject('API_BASE_URL') private baseUrl: string) { }
 
-    get(id: number) {
+    getById(id: number) {
         const url = this.baseUrl + "/user/" + id;
         return this.http.get<User>(url);
         /*.pipe(
             retry(3),
             catchError(this.handeError)
         )*/
-    }
-
-    getByName(userName: string) {
-        const url = this.baseUrl + "/user?username=" + userName;
-        return this.http.get(url);
     }
 
     getAll() {
@@ -38,6 +33,16 @@ export class UserService {
     update(user: User): Observable<User> {
         const url = this.baseUrl + "/user";
         return this.http.put<User>(url, user);
+    }
+
+    promote(id: string): Observable<User> {
+        const url = this.baseUrl + "/" + id + "/promote";
+        return this.http.put<User>(url, {});
+    }
+
+    demote(id: string): Observable<User> {
+        const url = this.baseUrl + "/" + id + "/demote";
+        return this.http.put<User>(url, {});
     }
 
     delete(id: number): Observable<{}> {

@@ -1,16 +1,35 @@
-<form>
-    <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <button class="btn" (click)="this.loginUser()">Login</button>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
-        <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-</form>
+<div class="login-container">
+    <form #loginForm="ngForm">
+        <div class="container">
+            <h3 class="text-center">KitchenRP</h3>
+        </div>
+        <div class="container">
+            <div class="form-group">
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" id="username" [(ngModel)]="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" id="password" [(ngModel)]="password" required>
+            </div>
+            <div class="form-group btn-wrapper">
+                <button class="btn btn btn-primary" type="button" (click)="this.loginUser()">Login</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
+                        ngbPopover="Use your student credentials to log in. A User must be enabled by the ProjectKitchen admins.To contact them write to '@'"
+                        popoverTitle="Login help">
+                    Unable to log in?
+                </button>
+            </div>
+        </div>
+        <div class="login-info collapse" id="login-info">
+            <div class="card card-body">
+                Use your student credentials to log in.
+                A User must be enabled by the ProjectKitchen admins.To contact them write to '@'
+            </div>
+        </div>
+    </form>
+</div>

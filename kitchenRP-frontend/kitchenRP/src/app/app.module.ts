@@ -28,13 +28,13 @@ import { LoginComponent } from './components/login/login.component';
 import { ModalReservationComponent } from './modals/modal-reservation/modal-reservation.component';
 import { ModalUserComponent } from './modals/modal-user/modal-user.component';
 import { ModalRestrictionComponent } from './modals/modal-restriction/modal-restriction.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ResourceManagementComponent } from './components/admin/admin-tabs/resource-management/resource-management.component';
 import { ModalResourceComponent } from './modals/modal-resource/modal-resource.component';
 import { ResourceInfoComponent } from './components/calendar/resource-info/resource-info.component';
-import {TokenInterceptor} from "./token.interceptor";
+import { TokenInterceptor } from "./token.interceptor";
 
 @NgModule({
   declarations: [

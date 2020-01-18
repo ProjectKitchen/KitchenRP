@@ -11,13 +11,17 @@ export class ResourceService {
     constructor(private http: HttpClient, @Inject('API_BASE_URL') private baseUrl: string) { }
 
     // -- Resource --
-    get(id: number) {
+    getById(id: number) {
         const url = this.baseUrl +"/resource/" + id;
         return this.http.get<Resource>(url);
     }
 
-    // TODO: rename to getByType
-    getAll(type: string) {
+    getAll(){
+        const url = this.baseUrl + "/resource";
+        return this.http.get<Resource[]>(url);
+    }
+
+    getByType(type: string) {
         const url = this.baseUrl + "/resource?requestType=" + type;
         return this.http.get<Resource[]>(url);
     }
@@ -38,7 +42,7 @@ export class ResourceService {
     }
 
 
-    // -- ResourceTypes -- 
+    // -- ResourceTypes --
     getAllTypes(){
         const url = this.baseUrl + "/resource/type";
         return this.http.get<ResourceType[]>(url)

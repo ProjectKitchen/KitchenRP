@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
+import {AuthService} from "../../../../services/auth/auth.service";
+import {Observable} from "rxjs";
+import {User} from "../../../../types/user";
 
 @Component({
   selector: 'app-account',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+    currentUser: Observable<User>;
+    constructor(private authService: AuthService) {
+        this.currentUser = this.authService.currentUser$;
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    private async logoutUser() {
+        console.log(this.authService.isLoggedIn());
+        let user = await this.authService.currentUser$.toPromise();
+        console.log(this.authService.isLoggedIn());
+    }
 
 }
