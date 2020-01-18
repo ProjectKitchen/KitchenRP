@@ -1,3 +1,14 @@
 ﻿.admin-link {
     color: red;
 }
+
+@media screen and (max-width: 800px) {
+    .nav {
+        margin: 0em 0em 2em 0em;
+        padding: 2em 0em 2em 0em;
+    }
+
+    .nav-content{
+        margin-bottom: auto;
+    }
+  }

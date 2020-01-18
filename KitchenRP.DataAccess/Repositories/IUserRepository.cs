@@ -5,7 +5,12 @@ namespace KitchenRP.DataAccess.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> UserById(long id);
-        Task<User> UserBySub(string sub);
+        Task<User> FindById(long id);
+        Task<User> FindBySub(string sub);
+        Task<User> CreateNewUser(string sub, string role, string email);
+
+        Task<bool> Exists(string sub);
+
+        Task<User> UpdateUser(User u);
     }
 }
