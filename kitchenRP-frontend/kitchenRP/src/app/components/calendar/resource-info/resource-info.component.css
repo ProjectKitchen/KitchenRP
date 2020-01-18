@@ -1,0 +1,26 @@
+.resource-info{
+    margin-left: 2%;
+    margin-top: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.resource-info-container{
+    margin-top: 20px;
+}
+
+.resource-info .tooltiptext {
+    visibility: hidden;
+    background-color: grey;
+    opacity: 0.8;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    margin-top: 15px;
+    position: absolute;
+    z-index: 1;
+}
+
+.resource-info:hover .tooltiptext {
+    visibility: visible;
+}

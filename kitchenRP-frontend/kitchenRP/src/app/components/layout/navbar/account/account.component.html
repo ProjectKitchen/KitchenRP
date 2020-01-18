@@ -1,0 +1,24 @@
+<div class="m-1">
+    <button type="button" class="btn btn-outline-primary float-right" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="acc">
+        Account
+    </button>
+    <div id="acc" [ngbCollapse]="!isCollapsed">
+        <div class="card float-right mt-2">
+            <div class="card-body">
+                <div class="border-bottom mb-2">
+                    Account Details:
+                </div>
+                <div>
+                    Name: Test
+                </div>
+                <div>
+                    UID: Test
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-dark" style="width: 50%; margin-left: 25%; margin-right: 25%;">
+                Logout
+            </button>
+        </div>
+    </div>
+</div>

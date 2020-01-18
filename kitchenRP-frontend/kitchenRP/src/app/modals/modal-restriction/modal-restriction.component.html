@@ -1,0 +1,34 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Restriction Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="inputId">Id</label>
+          <input type="text" class="form-control" id="inputId" [value]="Data.id">
+        </div>
+        <div class="form-group">
+          <label for="inputResource">Resource</label>
+          <input type="text" class="form-control" id="inputResource" [value]="Data.resource">
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="inputDateFrom">Date From</label>
+            <input type="text" class="form-control" id="inputDateFrom" [value]="Data.dateFrom">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputDateTo">Date To</label>
+            <input type="text" class="form-control" id="inputDateTo" [value]="Data.dateTo">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</div>

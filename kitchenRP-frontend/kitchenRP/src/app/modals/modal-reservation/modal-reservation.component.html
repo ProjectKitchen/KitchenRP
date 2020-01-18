@@ -1,0 +1,59 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reservation Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputResource">Resource</label>
+          <input type="text" class="form-control" id="inputResource" [value]="Data.resource">
+          <!--
+          <select id="inputResource" class="form-control">
+            <option selected>Choose...</option>
+            <option>...</option>
+          </select>
+          -->
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputStatus">Status</label>
+          <input type="text" class="form-control" id="inputStatus" [value]="Data.status">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputDate">Date</label>
+          <div class="input-group date" id="datePicker">
+            <input type="text" class="form-control" id="inputDate" [value]="Data.date" placeholder="dd-mm-yyyy" name="datepickerReservation" ngbDatepicker #d="ngbDatepicker">
+            <span class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputDuration">Duration</label>
+          <input type="text" class="form-control" id="inputDuration" [value]="Data.duration">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputStartTime">Start Time</label>
+          <input type="text" class="form-control" id="inputStartTime" [value]="Data.timeStart">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputEndTime">End Time</label>
+          <input type="text" class="form-control" id="inputEndTime" [value]="Data.timeEnd">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+  </div>
+</div>
