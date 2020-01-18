@@ -55,7 +55,7 @@ namespace KitchenRP.Test.Domain
                 .Returns<User>(Task.FromResult);
 
             _mockMapper.Setup(mapper => mapper.Map<DomainUser>(It.IsAny<User>()))
-                .Returns<User>(u => new DomainUser(u.Id, u.Sub, u.Role.RoleName, u.Email, u.AllowNotifications));
+                .Returns<User>(u => new DomainUser(u.Id.Value, u.Sub, u.Role.RoleName, u.Email, u.AllowNotifications));
             
             _users = _mockUsers.Object;
             _roles = _mockRoles.Object;
