@@ -8,6 +8,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalUserComponent} from "../../../../modals/modal-user/modal-user.component";
 
 import {User} from "../../../../types/user";
+import {UserService} from "../../../../services/user/user.service";
 
   // test data
   const table: User [] = [
@@ -85,14 +86,31 @@ export class UserManagementComponent implements OnInit {
   users$: Observable<User[]>;
   filter = new FormControl('');
 
-  constructor(private modalService: NgbModal, pipe: DecimalPipe) {
+  constructor(private userService: UserService, private modalService: NgbModal, pipe: DecimalPipe) {
     this.users$ = this.filter.valueChanges.pipe(
       startWith(''),
       map(text => search(text, pipe))
     );
+    this.loadData();
   }
 
   ngOnInit() {
+  }
+
+  loadData() {
+    console.log("Load Users here:");
+    //var users = this.userService.getAll();
+    //users.subscribe(val => console.log(val));
+    //this.users$ = user;
+
+    var user = this.userService.get(3);
+
+    user.subscribe(val => {
+      console.log(val);
+      table.concat(val);
+      console.log(table);
+    });
+
   }
 
   openModal(tableRow) {

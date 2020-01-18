@@ -1,15 +1,15 @@
-.device-info{
+.resource-info{
     margin-left: 2%;
     margin-top: 30px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.device-info-container{
+.resource-info-container{
     margin-top: 20px;
 }
 
-.device-info .tooltiptext {
+.resource-info .tooltiptext {
     visibility: hidden;
     background-color: grey;
     opacity: 0.8;
@@ -21,6 +21,6 @@
     z-index: 1;
 }
 
-.device-info:hover .tooltiptext {
+.resource-info:hover .tooltiptext {
     visibility: visible;
 }

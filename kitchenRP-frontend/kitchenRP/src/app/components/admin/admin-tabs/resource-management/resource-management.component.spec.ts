@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalDeviceComponent } from './modal-device.component';
+import { ResourceManagementComponent } from './resource-management.component';
 
-describe('ModalDeviceComponent', () => {
-  let component: ModalDeviceComponent;
-  let fixture: ComponentFixture<ModalDeviceComponent>;
+describe('ResourceManagementComponent', () => {
+  let component: ResourceManagementComponent;
+  let fixture: ComponentFixture<ResourceManagementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalDeviceComponent ]
+      declarations: [ ResourceManagementComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalDeviceComponent);
+    fixture = TestBed.createComponent(ResourceManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
