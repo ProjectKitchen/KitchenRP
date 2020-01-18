@@ -23,7 +23,7 @@ namespace KitchenRP.Domain.Services
         /// <returns></returns>
         Task<DomainUser?> UserById(long id);
         
-        Task<DomainUser?> UserByName(string name);
+        Task<List<DomainUser>> UserByName(string name);
         Task<List<DomainUser>> All();
 
         /// <summary>

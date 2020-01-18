@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using AutoMapper;
 using KitchenRP.DataAccess;
@@ -54,6 +55,7 @@ namespace KitchenRP.Web
 
             services.AddSwaggerGen(c =>
             {
+                c.ResolveConflictingActions (apiDescriptions => apiDescriptions.First());
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "KitchenRP-Api",

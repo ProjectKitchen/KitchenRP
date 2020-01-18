@@ -35,10 +35,12 @@ namespace KitchenRP.Domain.Services.Internal
             return _mapper.Map<User, DomainUser>(u);
         }
 
-        public async  Task<DomainUser?> UserByName(string name)
+        public async  Task<List<DomainUser>> UserByName(string name)
         {
-            var u = await _users.FindBySub(name);
-            return _mapper.Map<User, DomainUser>(u);
+            var u = string.IsNullOrWhiteSpace(name) ? 
+                (IEnumerable<User>) await _users.GetAll() :
+                new []{await _users.FindBySub(name)};
+            return u.Select(_mapper.Map<User, DomainUser>).ToList();
         }
 
         public async Task<IEnumerable<Claim>> GetClaimsForUser(string sub)

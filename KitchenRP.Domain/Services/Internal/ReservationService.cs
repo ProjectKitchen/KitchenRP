@@ -38,8 +38,8 @@ namespace KitchenRP.Domain.Services.Internal
             if (cmd.ResourceId.HasValue) query.ForResource(await _resources.FindById(cmd.ResourceId.Value));
 
             query.CollideWith(
-                cmd.StartTime.GetValueOrDefault(Instant.MinValue),    
-                cmd.EndTime.GetValueOrDefault(Instant.MaxValue)    
+                cmd.StartTime.GetValueOrDefault(Instant.FromUnixTimeMilliseconds(0)),    
+                cmd.EndTime.GetValueOrDefault(Instant.MaxValue)
             );
 
             if (cmd.StatusList != null && cmd.StatusList.Length > 0)

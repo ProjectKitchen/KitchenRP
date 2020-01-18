@@ -21,19 +21,19 @@ namespace KitchenRP.Web.Controllers
             _userService = service;
             _mapper = mapper;
         }
-
+/*
         [HttpGet]
         public async Task<IActionResult> All()
         {
             var users = await _userService.All();
             return Ok(users.Select(_mapper.Map<UserResponse>));
         }
-        
+*/        
         [HttpGet]
-        public async Task<IActionResult> GetByUsername([FromQuery] string username = null)
+        public async Task<IActionResult> GetByUsername(string? username = null)
         {
             var user = await _userService.UserByName(username);
-            return Ok(_mapper.Map<UserResponse>(user));
+            return Ok(user.Select(_mapper.Map<UserResponse>));
         }
         
         /// <summary>
