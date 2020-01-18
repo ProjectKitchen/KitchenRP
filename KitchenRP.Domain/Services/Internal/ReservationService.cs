@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,6 +31,27 @@ namespace KitchenRP.Domain.Services.Internal
             _mapper = mapper;
         }
 
+        public async Task<List<DomainReservation>> QueryReservations(QueryReservationCommand cmd)
+        {
+            var query = new ReservationQuery();
+            if (cmd.UserId.HasValue) query.ForOwner(await _users.FindById(cmd.UserId.Value));
+            if (cmd.ResourceId.HasValue) query.ForResource(await _resources.FindById(cmd.ResourceId.Value));
+
+            query.CollideWith(
+                cmd.StartTime.GetValueOrDefault(Instant.MinValue),    
+                cmd.EndTime.GetValueOrDefault(Instant.MaxValue)    
+            );
+
+            if (cmd.StatusList != null && cmd.StatusList.Length > 0)
+            {
+                query.WithStatuses((await _statuses.All()).Where(st => cmd.StatusList.Contains(st.Status)));
+            }
+
+            return (await _reservations.Query(query))
+                .Select(r => _mapper.Map<DomainReservation>(r))
+                .ToList();
+        }
+
         public async Task<DomainReservation> AddNewReservation(AddReservationCommand cmd)
         {
             // User must exist
@@ -48,7 +70,7 @@ namespace KitchenRP.Domain.Services.Internal
 
             return _mapper.Map<DomainReservation>(reservation);
         }
-
+    
         private async Task<ICollection<Reservation>> GetCollisionsFor(Resource resource, Instant start, Instant end)
         {
             var statuses = await _statuses.All();

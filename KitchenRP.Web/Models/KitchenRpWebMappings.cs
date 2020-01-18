@@ -14,6 +14,7 @@ namespace KitchenRP.Web.Models
             CreateMap<AuthRequest, AuthCommand>();
             CreateMap<UserActivationRequest, ActivateUserCommand>();
             CreateMap<AddReservationRequest, AddReservationCommand>();
+            CreateMap<QueryReservationRequest, QueryReservationCommand>();
         }
     }
 }

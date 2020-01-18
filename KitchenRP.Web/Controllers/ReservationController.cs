@@ -4,6 +4,7 @@ using KitchenRP.Domain.Commands;
 using KitchenRP.Domain.Services;
 using KitchenRP.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using NodaTime;
 
 namespace KitchenRP.Web.Controllers
 {
@@ -30,6 +31,13 @@ namespace KitchenRP.Web.Controllers
                 Id = resource.Id,
                 Uri = uri,
             });
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> QueryReservation([FromQuery] QueryReservationRequest model)
+        {
+            var reservations = await _reservationService.QueryReservations(_mapper.Map<QueryReservationCommand>(model));
+            return Ok(reservations);
         }
     }
 }
