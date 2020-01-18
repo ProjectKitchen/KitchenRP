@@ -1,83 +1,86 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Token, UserAuth, Jwt} from "./user-auth";
-import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
+import {BehaviorSubject, Observable, of, ReplaySubject, Subject} from "rxjs";
 import {LoginService} from "./login.service";
-import {map} from "rxjs/operators";
+import {catchError, map, mapTo, tap} from "rxjs/operators";
 import {User} from "../../types/user";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
+    private readonly ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
+    private readonly REFRESH_TOKEN_KEY = "REFRESH_TOKEN";
 
-    private accessToken: string = null;
-    private refreshToken: string = null;
+    private loggedInUser: string;
 
-    get accessJwt(): Jwt {
-        return this.jwtFromString(JSON.parse(this.accessToken));
+    public constructor(private loginService: LoginService) {
+
     }
 
-    get refreshJwt(): Jwt {
-        return this.jwtFromString(JSON.parse(this.refreshToken));
+
+    public login(username: string, password: string): Observable<boolean> {
+        return this.loginService.login({username, password})
+            .pipe(
+                tap(tokens => this.doLoginUser(username, tokens)),
+                mapTo(true),
+                catchError(err => {
+                    console.log(err);
+                    return of(false)
+                })
+            );
     }
 
-    // wer, wie lange, welche rolle, welche id, userobject (name, email, email_notifications)
-    get username(): string {
-        return this.accessJwt.body.sub;
+
+    public logout() {
+        return this.loginService.logout(this.getRefreshToken())
+            .pipe(
+                tap(() => this.doLogoutUser()),
+                mapTo(true),
+                catchError((err) => {
+                    console.log(err);
+                    return of(false);
+                })
+            );
     }
 
-    get role(): string {
-        return this.accessJwt.body.role;
+    public refreshToken() {
+        return this.loginService.refresh(this.getRefreshToken())
+            .pipe(
+                tap(tokens => this.storeTokens(tokens)),
+            );
     }
 
-    get isLoggedIn(): boolean {
-        return this.accessJwt != null;
+
+    private storeTokens(tokens: Token) {
+        localStorage.setItem(this.ACCESS_TOKEN_KEY, tokens.accessToken);
+        localStorage.setItem(this.REFRESH_TOKEN_KEY, tokens.refreshToken);
     }
 
-    get isAdmin(): boolean {
-        return null;
+    isLoggedIn() {
+        return !!this.getAccessToken();
     }
 
-    get userObject(): boolean {
-        return null;
+    public getRefreshToken() {
+        return localStorage.getItem(this.REFRESH_TOKEN_KEY);
     }
 
-    constructor(private loginService: LoginService) {
-        this.accessToken = localStorage.getItem("accessToken") || null;
-        this.refreshToken = localStorage.getItem("refreshToken") || null;
-
-        // let userObject: Observable<User> = this.userService.get(this.username);
+    public getAccessToken() {
+        return localStorage.getItem(this.ACCESS_TOKEN_KEY);
     }
 
-    jwtFromString(s: string) : Jwt {
-        let split = s.split('.');
-        let header = JSON.parse(atob(split[0]));
-        let body = JSON.parse(atob(split[1]));
-        let expires = body.exp;
-
-        return {header, body, expires};
+    private removeTokens() {
+        localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+        localStorage.removeItem(this.REFRESH_TOKEN_KEY);
     }
 
-    updateFromToken(token: Token) {
-        this.accessToken = token.accessToken;
-        this.refreshToken = token.refreshToken;
+    private doLogoutUser() {
+        this.loggedInUser = null;
+        this.removeTokens();
     }
 
-    updateAuth(userAuth: UserAuth, invalidate: boolean = false) {
-        if(invalidate) {
-            this.accessToken = null;
-            this.refreshToken = null;
-        }
-        this.loginService.login(userAuth)
-            .subscribe((token) => {
-                this.updateFromToken(token);
-            });
-    }
-
-    refresh() {
-        this.loginService.refresh(this.refreshToken)
-            .subscribe((token) => {
-                this.updateFromToken(token);
-            });
+    private doLoginUser(username: string, tokens: Token) {
+        this.loggedInUser = username;
+        this.storeTokens(tokens);
     }
 }
