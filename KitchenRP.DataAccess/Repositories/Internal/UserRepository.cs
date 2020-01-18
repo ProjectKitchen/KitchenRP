@@ -27,7 +27,9 @@ namespace KitchenRP.DataAccess.Repositories.Internal
 
         public Task<List<User>> GetAll()
         {
-            return _ctx.Users.ToListAsync();
+            return _ctx.Users
+                .Include(u => u.Role)
+                .ToListAsync();
         }
 
         public async Task<User> FindBySub(string sub)
