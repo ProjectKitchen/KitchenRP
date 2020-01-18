@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Token, UserAuth, Jwt} from "./user-auth";
-import {BehaviorSubject, Observable, of, ReplaySubject, Subject} from "rxjs";
+import {Injectable} from "@angular/core";
 import {LoginService} from "./login.service";
-import {catchError, map, mapTo, tap} from "rxjs/operators";
+import {Observable, of, ReplaySubject, Subject} from "rxjs";
+import {catchError, mapTo, tap} from "rxjs/operators";
+import {Token} from "./user-auth";
 import {User} from "../../types/user";
+import {UserService} from "../user/user.service";
+
 
 @Injectable({
     providedIn: 'root'
@@ -13,11 +15,12 @@ export class AuthService {
     private readonly REFRESH_TOKEN_KEY = "REFRESH_TOKEN";
 
     private loggedInUser: string;
+    private currentUser: Subject<User> = new ReplaySubject(1);
+    public currentUser$: Observable<User> = this.currentUser.asObservable();
 
-    public constructor(private loginService: LoginService) {
+    public constructor(private loginService: LoginService, private userService: UserService) {
 
     }
-
 
     public login(username: string, password: string): Observable<boolean> {
         return this.loginService.login({username, password})
@@ -30,7 +33,6 @@ export class AuthService {
                 })
             );
     }
-
 
     public logout() {
         return this.loginService.logout(this.getRefreshToken())
@@ -51,7 +53,6 @@ export class AuthService {
             );
     }
 
-
     private storeTokens(tokens: Token) {
         localStorage.setItem(this.ACCESS_TOKEN_KEY, tokens.accessToken);
         localStorage.setItem(this.REFRESH_TOKEN_KEY, tokens.refreshToken);
@@ -59,6 +60,10 @@ export class AuthService {
 
     isLoggedIn() {
         return !!this.getAccessToken();
+    }
+
+    public getUsername() {
+        return this.loggedInUser;
     }
 
     public getRefreshToken() {
@@ -81,6 +86,7 @@ export class AuthService {
 
     private doLoginUser(username: string, tokens: Token) {
         this.loggedInUser = username;
+        this.userService.getByName(username).subscribe((user) => this.currentUser.next(user));
         this.storeTokens(tokens);
     }
 }
