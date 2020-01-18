@@ -52,7 +52,7 @@ export class UserService {
 
     getByName(userName: string) {
         const url = this.baseUrl + "/user?username=" + userName;
-        return this.http.get(url);
+        return this.http.get<User>(url);
     }
 
     /*private handleError(error: HttpErrorResponse) {
