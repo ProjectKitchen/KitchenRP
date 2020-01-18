@@ -3,7 +3,7 @@ export interface Resource{
     displayName: string;
     metaData: any;
     description: string | null;
-    resourceType: any;
+    resourceType: ResourceType;
 }
 
 export class NewResource{
