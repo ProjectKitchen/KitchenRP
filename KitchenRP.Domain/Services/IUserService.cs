@@ -21,7 +21,7 @@ namespace KitchenRP.Domain.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<DomainUser> UserById(long id);
+        Task<DomainUser?> UserById(long id);
 
         /// <summary>
         ///     Activates the given uid for this application
@@ -31,6 +31,8 @@ namespace KitchenRP.Domain.Services
         /// <param name="uid">fh uid</param>
         /// <param name="email">optional email address</param>
         /// <returns>New activated user object</returns>
-        Task<DomainUser> ActivateNewUser(ActivateUserCommand cmd);
+        Task<DomainUser?> ActivateNewUser(ActivateUserCommand cmd);
+        Task<DomainUser> PromoteUser(PromoteUserCommand cmd);
+        Task<DomainUser> DemoteUser(DemoteUserCommand cmd);
     }
 }

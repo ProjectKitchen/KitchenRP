@@ -15,6 +15,13 @@ namespace KitchenRP.Test.UnitTests.DataAccess
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Resource>()
                 .Ignore(r => r.MetaData);
+
+            modelBuilder.Entity<UserRole>()
+                .HasData(
+                    new UserRole(1, "testRole1"),
+                    new UserRole(2, "testRole2"),
+                    new UserRole(3, "testRole3")
+                );
         }
     }
 }

@@ -46,7 +46,8 @@ namespace KitchenRP.Web.Controllers
         {
             var user = await _userService.ActivateNewUser(_mapper.Map<ActivateUserCommand>(model));
 
-            if (user == null) return this.Error(Errors.UnableToActivateUser(model.Uid));
+            if (user == null) return this.Error(Errors.UnableToActivateUser(model!.Uid));
+
             var uri = $"user/{user.Id}";
             return Created(uri,
                 new UserActivationResponse
@@ -55,5 +56,24 @@ namespace KitchenRP.Web.Controllers
                     Uri = uri
                 });
         }
+
+        
+        [HttpPut]
+        [Route("/{id}/promote")]
+        public async Task<IActionResult> PromoteUser(long id)
+        {
+            var promotedUser = await _userService.PromoteUser(new PromoteUserCommand{Id = id});
+            return NoContent();
+        }
+        
+        [HttpPut]
+        [Route("/{id}/demote")]
+        public async Task<IActionResult> DemoteUser(long id)
+        {
+            var demotedUser = await _userService.DemoteUser(new DemoteUserCommand{Id = id});
+            return NoContent();
+        }
+        
+        
     }
 }

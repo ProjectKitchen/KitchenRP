@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using KitchenRP.DataAccess;
 using KitchenRP.DataAccess.Models;
 using KitchenRP.DataAccess.Repositories;
 using KitchenRP.Domain.Commands;
@@ -12,14 +13,18 @@ namespace KitchenRP.Domain.Services.Internal
 {
     public class UserService : IUserService
     {
+        private const string UserDefaultRole = Roles.User;
+
         private readonly IUserRepository _users;
+        private readonly IRolesRepository _roles;
+        private readonly IMapper _mapper;
 
-        private static readonly string _userDefaultRole = "user";
-        private IMapper _mapper;
-
-        public UserService(IUserRepository users, IMapper mapper)
+        public UserService(IUserRepository users,
+            IRolesRepository roles,
+            IMapper mapper)
         {
             _users = users;
+            _roles = roles;
             _mapper = mapper;
         }
 
@@ -52,7 +57,34 @@ namespace KitchenRP.Domain.Services.Internal
             if (cmd.Email == null)
                 throw new NotImplementedException("Automatically fetching emails is currently nor supported");
 
-            return _mapper.Map<User, DomainUser>(await _users.CreateNewUser(cmd.Uid, _userDefaultRole, cmd.Email));
+            return _mapper.Map<User, DomainUser>(await _users.CreateNewUser(cmd.Uid, UserDefaultRole, cmd.Email));
+        }
+
+
+        public async Task<DomainUser> PromoteUser(PromoteUserCommand cmd)
+        {
+            var user = await _users.FindById(cmd.Id);
+            
+            if (user?.Role?.RoleName != Roles.User)
+                throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == user)");
+            
+            var modRole = await _roles.FindByRole(Roles.Moderator);
+            user.Role = modRole;
+            var promoted = await _users.UpdateUser(user);
+            return _mapper.Map<DomainUser>(promoted);
+        }
+
+        public async Task<DomainUser> DemoteUser(DemoteUserCommand cmd)
+        {
+            var user = await _users.FindById(cmd.Id);
+            
+            if (user?.Role?.RoleName != Roles.Moderator)
+                throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == moderator)");
+            
+            var modRole = await _roles.FindByRole(Roles.User);
+            user.Role = modRole;
+            var demoted = await _users.UpdateUser(user);
+            return _mapper.Map<DomainUser>(demoted);
         }
     }
 }
