@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using KitchenRP.Domain.Commands;
@@ -22,7 +23,14 @@ namespace KitchenRP.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetByUsername(string username)
+        public async Task<IActionResult> All()
+        {
+            var users = await _userService.All();
+            return Ok(users.Select(_mapper.Map<UserResponse>));
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetByUsername([FromQuery] string username = null)
         {
             var user = await _userService.UserByName(username);
             return Ok(_mapper.Map<UserResponse>(user));

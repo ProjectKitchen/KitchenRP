@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -46,6 +47,11 @@ namespace KitchenRP.Domain.Services.Internal
             return GenerateClaims(user);
         }
 
+        public async Task<List<DomainUser>> All()
+        {
+            var users = await _users.GetAll();
+            return users.Select(_mapper.Map<User, DomainUser>).ToList();
+        }
 
         private static IEnumerable<Claim> GenerateClaims(User user)
         {

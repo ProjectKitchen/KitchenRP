@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,11 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             return await _ctx.Users
                 .Include(u => u.Role)
                 .SingleOrDefaultAsync(u => u.Id == id);
+        }
+
+        public Task<List<User>> GetAll()
+        {
+            return _ctx.Users.ToListAsync();
         }
 
         public async Task<User> FindBySub(string sub)
