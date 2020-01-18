@@ -14,40 +14,10 @@ import {ResourceService} from "../../../../services/resource/resource.service";
 const table: Resource [] = [
     {
         "id": 1,
-        "name":"Printer1",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "123456"
-    },{
-        "id": 2,
-        "name":"Printer2",
-        "meta": "123",
-        "type": "3D-Printer",
-        "description": "aoewifaoewf"
-    },{
-        "id": 3,
-        "name":"Printer3",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "aoweifaowef"
-    },{
-        "id": 4,
-        "name":"Printer4",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "öoawnfeoawnef"
-    },{
-        "id": 5,
-        "name":"Printer5",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "eäsrbmserb"
-    },{
-        "id": 6,
-        "name":"Printer6",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "aüoaiefüoaef"
+        "displayName":"Printer1",
+        "metaData": "PLA, 20x20",
+        "description": "123456",
+        "resourceType": "3D-Printer"
     }
 ];
 

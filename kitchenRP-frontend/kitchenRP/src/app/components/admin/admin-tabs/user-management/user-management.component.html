@@ -23,7 +23,7 @@
             <tr class="table-row">
             <tr class="table-row modal-xl" *ngFor="let user of users$ | async; index as i" (click)="openModal(user)">
                 <th scope="row">{{ i + 1 }}</th>
-                <td>{{ user.username }}</td>
+                <td>{{ user.sub }}</td>
                 <td>{{ user.role }}</td>
                 <td>{{ user.email }}</td>
             </tr>

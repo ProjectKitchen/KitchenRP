@@ -11,7 +11,7 @@ import {User} from "../../../../types/user";
 import {UserService} from "../../../../services/user/user.service";
 
   // test data
-  const table: User [] = [
+  /*const table: User [] = [
     {
       "id": 1,
       "username":"Matthias",
@@ -63,12 +63,13 @@ import {UserService} from "../../../../services/user/user.service";
       "role": "Member",
       "email": "bla@bla.com"
     },
-  ];
+  ];*/
+  var table: User[] = [];
 
   function search(text: string, pipe: PipeTransform): User[] {
     return table.filter(user => {
     const term = text.toLowerCase();
-    return user.username.toLowerCase().includes(term)
+    return user.sub.toLowerCase().includes(term)
         || user.role.toLowerCase().includes(term)
         || user.email.toLowerCase().includes(term);
         //|| pipe.transform(user.id).includes(term); // ID search?
@@ -104,11 +105,8 @@ export class UserManagementComponent implements OnInit {
     //this.users$ = user;
 
     var user = this.userService.get(3);
-
     user.subscribe(val => {
       console.log(val);
-      table.concat(val);
-      console.log(table);
     });
 
   }

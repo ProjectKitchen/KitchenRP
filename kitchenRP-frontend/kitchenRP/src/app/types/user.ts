@@ -1,6 +1,13 @@
 export interface User{
     id: number;
-    username: string;
+    sub: string;
     role: string;
+    email: string;
+    allowNotifications: boolean;
+}
+
+export class NewUser{
+    sub: string;
+    //role: string;
     email: string;
 }

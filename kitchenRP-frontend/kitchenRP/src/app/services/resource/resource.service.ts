@@ -1,6 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Resource} from "../../types/resource";
+import {Resource, NewResource, ResourceType} from "../../types/resource";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +10,52 @@ export class ResourceService {
 
     constructor(private http: HttpClient, @Inject('API_BASE_URL') private baseUrl: string) { }
 
+    // -- Resource --
     get(id: number) {
-        return this.http.get<Resource>(this.baseUrl +"/resource/" + id);
+        const url = this.baseUrl +"/resource/" + id;
+        return this.http.get<Resource>(url);
     }
 
+    // TODO: rename to getByType
     getAll(type: string) {
-        return this.http.get<Resource[]>(this.baseUrl + "/resource?resourceType=" + type);
+        const url = this.baseUrl + "/resource?requestType=" + type;
+        return this.http.get<Resource[]>(url);
     }
 
-    getMyReservations() {
-
+    create(resource: NewResource): Observable<Resource> {
+        const url = this.baseUrl + "/resource";
+        return this.http.post<Resource>(url, resource);
     }
 
-    create() {
-
+    update(resource: Resource): Observable<Resource> {
+        const url = this.baseUrl + "/resource";
+        return this.http.put<Resource>(url, resource);
     }
 
-    update() {
+    delete(id: number): Observable<{}> {
+        const url = this.baseUrl + "/resource/" + id;
+        return this.http.delete(url);
     }
 
-    delete() {
+
+    // -- ResourceTypes -- 
+    getAllTypes(){
+        const url = this.baseUrl + "/resource/type";
+        return this.http.get<ResourceType[]>(url)
+    }
+
+    getType(type: string){
+        const url = this.baseUrl + "/resource/type/" + type;
+        return this.http.get<ResourceType>(url);
+    }
+
+    createType(type: ResourceType): Observable<ResourceType>{
+        const url = this.baseUrl + "/resource/type";
+        return this.http.post<ResourceType>(url);
+    }
+
+    deleteType(type: string): Observable<{}>{
+        const url = this.baseUrl + "/resource/type/" + type;
+        return this.http.delete(url);
     }
 }
