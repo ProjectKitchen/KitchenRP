@@ -22,6 +22,8 @@ namespace KitchenRP.Domain.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task<DomainUser?> UserById(long id);
+        
+        Task<DomainUser?> UserByName(string name);
 
         /// <summary>
         ///     Activates the given uid for this application

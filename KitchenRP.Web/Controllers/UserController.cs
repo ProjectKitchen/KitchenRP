@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using KitchenRP.Domain.Commands;
@@ -20,6 +21,13 @@ namespace KitchenRP.Web.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetByUsername(string username)
+        {
+            var user = await _userService.UserByName(username);
+            return Ok(_mapper.Map<UserResponse>(user));
+        }
+        
         /// <summary>
         ///     Gets a specific user data by their id.
         ///     If the requested user corresponds to the current no special role is required,
