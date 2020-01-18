@@ -18,7 +18,9 @@ namespace KitchenRP.Domain
             services.AddScoped(options.AuthService);
             services.AddScoped(options.JwtService);
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<IAuthorizationService, KitchenRpAuthorizationService>();
+            services.AddScoped<IReservationService, ReservationService>();
             return services;
         }
     }

@@ -9,16 +9,16 @@ namespace KitchenRP.DataAccess
         {
         }
 
-        internal DbSet<Reservation> Reservations { get; set; }
-        internal DbSet<ReservationStatus> ReservationStatuses { get; set; }
-        internal DbSet<Resource> Resources { get; set; }
-        internal DbSet<ResourceType> ResourceTypes { get; set; }
-        internal DbSet<Restriction> Restrictions { get; set; }
-        internal DbSet<RestrictionData> RestrictionData { get; set; }
-        internal DbSet<StatusChange> StatusChanges { get; set; }
-        internal DbSet<User> Users { get; set; }
-        internal DbSet<UserRole> UserRoles { get; set; }
-        internal DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<ReservationStatus> ReservationStatuses { get; set; }
+        public DbSet<Resource> Resources { get; set; }
+        public DbSet<ResourceType> ResourceTypes { get; set; }
+        public DbSet<Restriction> Restrictions { get; set; }
+        public DbSet<RestrictionData> RestrictionData { get; set; }
+        public DbSet<StatusChange> StatusChanges { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,10 +28,22 @@ namespace KitchenRP.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new ReservationTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new StatusChangedTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new RestrictionTypeConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(KitchenRpContext).Assembly);
+
+            modelBuilder.Entity<UserRole>()
+                .HasData(
+                    new UserRole(1, "admin"),
+                    new UserRole(2, "moderator"),
+                    new UserRole(3, "user")
+                );
+
+            modelBuilder.Entity<ReservationStatus>()
+                .HasData(
+                    new ReservationStatus(1, "PENDING", "Reservation pending ..."),
+                    new ReservationStatus(2, "NEEDS_APPROVAL", "Reservation needs approval ..."),
+                    new ReservationStatus(3, "DENIED", "Reservation was denied!"),
+                    new ReservationStatus(4, "APPROVED", "Reservation was approved!")
+                );
         }
     }
 }

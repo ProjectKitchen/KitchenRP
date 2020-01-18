@@ -21,9 +21,9 @@
         <tbody>
         <tr class="table-row modal-xl" *ngFor="let resource of resources$ | async; index as i" (click)="openModal(resource)">
             <th scope="row">{{ i + 1 }}</th>
-            <td>{{ resource.name }}</td>
-            <td>{{ resource.meta }}</td>
-            <td>{{ resource.type }}</td>
+            <td>{{ resource.displayName }}</td>
+            <td>{{ resource.metaData }}</td>
+            <td>{{ resource.resourceType }}</td>
         </tr>
         </tbody>
     </table>

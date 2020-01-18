@@ -4,8 +4,15 @@ export interface UserAuth {
 }
 
 export interface Token {
-    token: string;
-    expires: number;
+    refreshToken: string;
+    accessToken: string;
+    iat: string;
+}
+
+export interface Jwt {
+    header: any;
+    body: any;
+    expires: Date;
 }
 
 export function isToken(value: any): value is Token {

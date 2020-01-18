@@ -2,7 +2,7 @@ namespace KitchenRP.Domain.Models
 {
     public class DomainUser
     {
-        internal DomainUser(long id, string sub, string role, string email, bool allowNotifications)
+        public DomainUser(long id, string sub, string role, string email, bool allowNotifications)
         {
             Id = id;
             Sub = sub;

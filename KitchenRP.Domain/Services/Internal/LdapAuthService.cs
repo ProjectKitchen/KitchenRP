@@ -1,4 +1,5 @@
 using System;
+using KitchenRP.Domain.Commands;
 using Novell.Directory.Ldap;
 
 namespace KitchenRP.Domain.Services.Internal
@@ -30,21 +31,20 @@ namespace KitchenRP.Domain.Services.Internal
 
         /// <summary>
         ///     Authenticates
-        ///     <param name="username" />
+        ///     <param name="cmd.Username">Username</param>
         ///     against a Ldap server using
-        ///     <param name="password"></param>
+        ///     <param name="cmd.Password">Password</param>
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="cmd"></param>
         /// <returns>true if the connection could be successfully bound, false otherwise</returns>
-        public bool AuthenticateUser(string username, string password)
+        public bool AuthenticateUser(AuthCommand cmd)
         {
             using var connection = new LdapConnection();
             try
             {
                 connection.Connect(_ldapHost, _ldapPort);
                 connection.StartTls();
-                connection.Bind($"{_userSearch}={username},{_searchBase}", password);
+                connection.Bind($"{_userSearch}={cmd.Username},{_searchBase}", cmd.Password);
             }
             catch (LdapException e)
             {
