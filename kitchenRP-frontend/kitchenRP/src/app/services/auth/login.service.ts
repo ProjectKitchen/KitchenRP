@@ -18,4 +18,8 @@ export class LoginService {
     public refresh(refreshToken: string) {
         return this.http.post<Token>(this.baseUrl + '/token/refresh', {refreshToken:refreshToken});
     }
+
+    public logout(refreshToken: string) {
+        return this.http.request<any>('delete',this.baseUrl + '/token/refresh', {body: {token: refreshToken}});
+    }
 }

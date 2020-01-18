@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {environment} from '../environments/environment';
 
@@ -34,6 +34,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ResourceManagementComponent } from './components/admin/admin-tabs/resource-management/resource-management.component';
 import { ModalResourceComponent } from './modals/modal-resource/modal-resource.component';
 import { ResourceInfoComponent } from './components/calendar/resource-info/resource-info.component';
+import {TokenInterceptor} from "./token.interceptor";
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { ResourceInfoComponent } from './components/calendar/resource-info/resou
     ReactiveFormsModule,
     FullCalendarModule
   ],
-  providers: [{provide: 'API_BASE_URL', useValue: environment.baseUrl}],
+  providers: [{provide: 'API_BASE_URL', useValue: environment.baseUrl}, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent],
   entryComponents: [
     ModalReservationComponent,
