@@ -14,49 +14,19 @@ import {ResourceService} from "../../../../services/resource/resource.service";
 const table: Resource [] = [
     {
         "id": 1,
-        "name":"Printer1",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "123456"
-    },{
-        "id": 2,
-        "name":"Printer2",
-        "meta": "123",
-        "type": "3D-Printer",
-        "description": "aoewifaoewf"
-    },{
-        "id": 3,
-        "name":"Printer3",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "aoweifaowef"
-    },{
-        "id": 4,
-        "name":"Printer4",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "öoawnfeoawnef"
-    },{
-        "id": 5,
-        "name":"Printer5",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "eäsrbmserb"
-    },{
-        "id": 6,
-        "name":"Printer6",
-        "meta": "PLA, 20x20",
-        "type": "3D-Printer",
-        "description": "aüoaiefüoaef"
+        "displayName":"Printer1",
+        "metaData": "PLA, 20x20",
+        "description": "123456",
+        "resourceType": "3D-Printer"
     }
 ];
 
 function search(text: string, pipe: PipeTransform): Resource[] {
     return table.filter(resource => {
         const term = text.toLowerCase();
-        return resource.name.toLowerCase().includes(term)
-            || resource.meta.toLowerCase().includes(term)
-            || resource.type.toLowerCase().includes(term);
+        return resource.displayName.toLowerCase().includes(term)
+            || resource.metaData.toLowerCase().includes(term)
+            || resource.resourceType.toLowerCase().includes(term);
         //|| pipe.transform(resource.id).includes(term); // ID search?
     });
 }
@@ -91,13 +61,6 @@ export class ResourceManagementComponent implements OnInit {
             console.log(val);
         });
         //this.resources$ = resources;
-        table[0] = {
-            "id": 1,
-            "name":"Kein Printer",
-            "meta": "PLA, 20x20",
-            "type": "Test Typ",
-            "description": "987654321"
-        };
     }
 
     openModal(tableRow) {

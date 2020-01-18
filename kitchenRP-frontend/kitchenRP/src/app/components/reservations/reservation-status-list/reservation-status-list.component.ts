@@ -13,35 +13,10 @@ import {Reservation} from "../../../types/reservation";
   const table: Reservation[] = [
     {
       "id": 1,
-      "date":"11-12-2019",
-      "timeStart": "10:00",
-      "timeEnd": "12:00",
-      "duration": "2:00",
-      "resource": "Printer1",
-      "status": "Pending"
-    },{
-      "id": 2,
-      "date":"11-12-2019",
-      "timeStart": "10:00",
-      "timeEnd": "12:00",
-      "duration": "2:00",
-      "resource": "Printer2",
-      "status": "Accepted"
-    },{
-      "id": 3,
-      "date":"11-12-2019",
-      "timeStart": "10:00",
-      "timeEnd": "12:00",
-      "duration": "2:00",
-      "resource": "Printer3",
-      "status": "Denied"
-    },{
-      "id": 4,
-      "date":"11-12-2019",
-      "timeStart": "10:00",
-      "timeEnd": "12:00",
-      "duration": "2:00",
-      "resource": "Printer4",
+      "startTime": "10:00",
+      "endTime": "12:00",
+      "userId": 3,
+      "resourceId": 2,
       "status": "Pending"
     }
   ];
@@ -49,11 +24,8 @@ import {Reservation} from "../../../types/reservation";
   function search(text: string, pipe: PipeTransform): Reservation[] {
     return table.filter(reservation => {
     const term = text.toLowerCase();
-    return reservation.date.toLowerCase().includes(term)
-        || reservation.timeStart.toLowerCase().includes(term)
-        || reservation.timeEnd.toLowerCase().includes(term)
-        || reservation.duration.toLowerCase().includes(term)
-        || reservation.resource.toLowerCase().includes(term)
+    return  reservation.startTime.toLowerCase().includes(term)
+        || reservation.endTime.toLowerCase().includes(term)
         || reservation.status.toLowerCase().includes(term);
         //|| pipe.transform(reservation.id).includes(term); // ID search?
     });
