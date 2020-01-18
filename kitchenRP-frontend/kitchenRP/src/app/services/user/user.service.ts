@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {User, NewUser} from "../../types/user";
 import {catchError, retry} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
@@ -11,7 +11,7 @@ export class UserService {
 
     constructor(private http: HttpClient, @Inject('API_BASE_URL') private baseUrl: string) { }
 
-    getById(id: number) {
+    getById(id: number): Observable<User> {
         const url = this.baseUrl + "/user/" + id;
         return this.http.get<User>(url);
         /*.pipe(
@@ -20,7 +20,13 @@ export class UserService {
         )*/
     }
 
-    getAll() {
+    getByUsername(un: string): Observable<User[]>{
+        let params = new HttpParams().set("username", un);
+        const url = this.baseUrl + "/user";
+        return this.http.get<User[]>(url, { params: params });
+    }
+
+    getAll(): Observable<User[]> {
         const url = this.baseUrl + "/user";
         return this.http.get<User[]>(url);
     }

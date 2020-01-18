@@ -23,7 +23,7 @@ export class ResourceManagementComponent implements OnInit {
     filter = new FormControl('');
 
     constructor(private resourceService: ResourceService, private modalService: NgbModal, pipe: DecimalPipe) {
-        this.resources$ = this.resourceService.getByType("3D_PRINTER")
+        this.resources$ = this.resourceService.getAll()
         .pipe(
             tap(resources => this.data = resources),
             flatMap(r => this.filter.valueChanges
@@ -47,6 +47,7 @@ export class ResourceManagementComponent implements OnInit {
     return this.data.filter(resource => {
         const term = text.toLowerCase();
         return resource.displayName.toLowerCase().includes(term)
+            || resource.resourceType['displayName'];
             //|| resource.metaData.toLowerCase().includes(term)
             //|| resource.resourceType.toLowerCase().includes(term);
         //|| pipe.transform(resource.id).includes(term); // ID search?
