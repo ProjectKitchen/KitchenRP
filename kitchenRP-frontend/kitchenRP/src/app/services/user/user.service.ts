@@ -50,6 +50,11 @@ export class UserService {
         return this.http.delete(url);
     }
 
+    getByName(userName: string) {
+        const url = this.baseUrl + "/user?username=" + userName;
+        return this.http.get(url);
+    }
+
     /*private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
            console.error("An error occurred:", error.error.message);
