@@ -12,8 +12,10 @@ export class LoginService {
 
     public login(auth: UserAuth): Observable<Token> {
         console.log('sending user token request');
-        console.log(auth);
         return this.http.post<Token>(this.baseUrl + '/token', auth);
     }
 
+    public refresh(refreshToken: string) {
+        return this.http.post<Token>(this.baseUrl + '/token/refresh', {refreshToken:refreshToken});
+    }
 }
