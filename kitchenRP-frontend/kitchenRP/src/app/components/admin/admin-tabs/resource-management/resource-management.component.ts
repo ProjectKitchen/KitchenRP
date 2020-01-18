@@ -47,7 +47,7 @@ export class ResourceManagementComponent implements OnInit {
     return this.data.filter(resource => {
         const term = text.toLowerCase();
         return resource.displayName.toLowerCase().includes(term)
-            || resource.resourceType['displayName'];
+            || resource.resourceType['displayName'].toLowerCase().includes(term);
             //|| resource.metaData.toLowerCase().includes(term)
             //|| resource.resourceType.toLowerCase().includes(term);
         //|| pipe.transform(resource.id).includes(term); // ID search?
