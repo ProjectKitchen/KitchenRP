@@ -17,7 +17,10 @@
             </div>
             <div class="form-group">
                 <label for="inputType">Type</label>
-                <input type="text" class="form-control" name="inputType" [(ngModel)]="changedR.resourceType['type']">
+                <select name="inputType" [(ngModel)]="changedR.resourceType['type']">
+                    <option *ngFor="let type of rTypes$ | async" [value]="type['type']">{{type['type']}}</option>
+                </select>
+                <!--<input type="text" class="form-control" name="inputType" [(ngModel)]="changedR.resourceType['type']">-->
             </div>
             <div class="form-group">
                 <label for="inputMeta">Meta</label>
