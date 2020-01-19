@@ -46,6 +46,12 @@ export class UserManagementComponent implements OnInit {
     modalRef.componentInstance.refresh = () => this.refresh();
   }
 
+  openModalAdd() {
+    const modalRef = this.modalService.open(ModalUserComponent, { windowClass : "modal-size-lg"});
+    modalRef.componentInstance.Data = {id: "", sub: "", role: "", email: "", allowNotifications: true};
+    modalRef.componentInstance.Add = true;
+  }
+
   search(text: string, pipe: PipeTransform): User[] {
     return this.data.filter(user => {
     const term = text.toLowerCase();

@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModalRestrictionComponent implements OnInit {
 
   @Input() Data;
+  @Input() Add: boolean;
 
   constructor(private activeModal: NgbActiveModal) { }
 
