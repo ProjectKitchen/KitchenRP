@@ -19,7 +19,7 @@ export class FullcalComponent implements OnInit {
     }
 
     calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
-    calendarWeekends = false;
+    calendarWeekends = true;
 
     headerConfig = {
         left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
@@ -55,8 +55,8 @@ export class FullcalComponent implements OnInit {
 
     public addReservation(reservation: Reservation){
         let event = {
-            start: new Date(reservation.startTime),
-            end: new Date(reservation.startTime),
+            start: reservation.startTime,
+            end: reservation.endTime,
             backgroundColor: "#3369dd"
         };
         if(this.events.map(e => JSON.stringify(e)).indexOf(JSON.stringify(event)) === -1){
