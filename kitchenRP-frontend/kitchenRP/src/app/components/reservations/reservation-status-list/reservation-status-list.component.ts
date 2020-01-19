@@ -52,4 +52,10 @@ export class ReservationStatusListComponent implements OnInit {
     modalRef.componentInstance.Data = tableRow;
   }
 
+  openModalAdd() {
+    const modalRef = this.modalService.open(ModalReservationComponent, { windowClass : "modal-size-lg"});
+    modalRef.componentInstance.Data = {id: "", date: "", duration: "", startTime: "", endTime: "", userId: "", resourceId: "", status: ""};
+    modalRef.componentInstance.Add = true;
+  }
+
 }

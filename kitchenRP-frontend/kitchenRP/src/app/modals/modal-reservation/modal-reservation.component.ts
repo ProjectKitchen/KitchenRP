@@ -9,10 +9,19 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModalReservationComponent implements OnInit {
 
   @Input() Data;
+  @Input() Add: boolean;
 
   constructor(private activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+  }
+
+  save() {
+    if (this.Add === undefined || !this.Add) {
+
+    } else {
+
+    }
   }
 
 }

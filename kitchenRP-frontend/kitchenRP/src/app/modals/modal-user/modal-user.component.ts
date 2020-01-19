@@ -12,6 +12,7 @@ export class ModalUserComponent implements OnInit {
   refresh: () => void;
 
   @Input() Data;
+  @Input() Add: boolean;
   checkboxChecked: boolean;
   isAdmin: boolean;
   //changedUser: User;
@@ -35,14 +36,17 @@ export class ModalUserComponent implements OnInit {
   }
 
   save(){
-      if(!this.isAdmin){
-          if(this.checkboxChecked && this.Data.role == "user"){
-              this.userService.promote(this.Data.id).subscribe(x => this.refresh());
-          }
-          else if(!this.checkboxChecked && this.Data.role == "moderator"){
-              this.userService.demote(this.Data.id).subscribe(x => this.refresh());
-          }
+    if (this.Add === undefined || !this.Add) {
+      if (!this.isAdmin) {
+        if (this.checkboxChecked && this.Data.role == "user") {
+          this.userService.promote(this.Data.id).subscribe(x => this.refresh());
+        } else if (!this.checkboxChecked && this.Data.role == "moderator") {
+          this.userService.demote(this.Data.id).subscribe(x => this.refresh());
+        }
       }
-      this.activeModal.close();
+    } else {
+      this.userService.create({sub: this.Data, email: this.Data}).subscribe(x => this.refresh());
+    }
+    this.activeModal.close();
   }
 }
