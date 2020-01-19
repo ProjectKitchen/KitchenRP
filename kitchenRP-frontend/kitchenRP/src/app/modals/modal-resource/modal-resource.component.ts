@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import { Resource } from '../../types/resource'
+import {Resource} from '../../types/resource';
+import {ResourceService} from '../../services/resource/resource.service';
 
 @Component({
   selector: 'app-modal-resource',
@@ -11,19 +12,17 @@ export class ModalResourceComponent implements OnInit {
 
   @Input() Data;
 
-  changedR: Resource = {};
+  changedR: Resource;
 
-  constructor(private activeModal: NgbActiveModal) { }
+  constructor(private activeModal: NgbActiveModal) {
+  }
 
   ngOnInit() {
-    this.changedR.displayName = this.Data.displayName;
-    this.changedR.resourceType = this.Data.resourceType;
-    this.changedR.metaData = this.Data.metaData;
-    this.changedR.description = this.Data.description;
+    this.changedR = {...this.Data, resourceType:{...this.Data.resourceType}};
   }
 
   save(){
-      console.log(this.changedR);
+    console.log(this.changedR);
   }
 
 }
