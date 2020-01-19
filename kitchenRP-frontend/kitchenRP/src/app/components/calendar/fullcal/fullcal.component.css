@@ -1,6 +1,7 @@
 .fullcal-wrapper {
   margin: 10px auto;
   max-width: 1140px;
+  padding: 0 5%;
 }
 
 @media screen and (max-width: 775px) {
@@ -12,4 +13,5 @@
     margin-right: 2em !important;
     font-size: 0.6em;
   }
+
 }
