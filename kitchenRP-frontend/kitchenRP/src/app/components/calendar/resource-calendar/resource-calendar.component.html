@@ -1,5 +1,5 @@
 <div *ngIf="resource$ | async as resource" style="margin-left: 5%; margin-top: 30px;">
     <app-resource-info [resource]="resource"></app-resource-info>
     <!--<div class="border" style="width: 900px; height: 530px; background-color: #ededed; margin: 2% 0; text-align: center;">Calendar</div>-->
-    <app-fullcal></app-fullcal>
+    <app-fullcal #calendar (currentDateRange) = "handleUpdate($event)" ></app-fullcal>
 </div>

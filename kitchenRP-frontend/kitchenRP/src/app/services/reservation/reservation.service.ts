@@ -13,12 +13,12 @@ export class ReservationService {
 
     getBy(a: Partial<{id: number, startTime: string, endTime: string, userId: number, resourceId: number, status: string}>): Observable<Reservation[]> {
         let params = new HttpParams();
-        if(a.id) params.set("id", String(a.id));
-        if(a.startTime) params.set("startTime", a.startTime);
-        if(a.endTime) params.set("endTime", a.endTime);
-        if(a.userId) params.set("userId", String(a.userId));
-        if(a.resourceId) params.set("resourceId", String(a.resourceId));
-        if(a.status) params.set("status", a.status);
+        if(a.id) params = params.set("id", String(a.id));
+        if(a.startTime) params = params.set("startTime", a.startTime);
+        if(a.endTime) params = params.set("endTime", a.endTime);
+        if(a.userId) params = params.set("userId", String(a.userId));
+        if(a.resourceId) params = params.set("resourceId", String(a.resourceId));
+        if(a.status) params = params.set("status", a.status);
 
         const url = this.baseUrl + "/reservation";
         return this.http.get<Reservation[]>(url, { params: params });

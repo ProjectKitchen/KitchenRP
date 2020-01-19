@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using KitchenRP.Domain.Commands;
+using KitchenRP.Domain.Models;
 using KitchenRP.Domain.Services;
 using KitchenRP.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +39,8 @@ namespace KitchenRP.Web.Controllers
         public async Task<IActionResult> QueryReservation([FromQuery] QueryReservationRequest model)
         {
             var reservations = await _reservationService.QueryReservations(_mapper.Map<QueryReservationCommand>(model));
-            return Ok(reservations);
+            var mapped = reservations.Select(_mapper.Map<ReservationResponse>);
+            return Ok(mapped);
         }
     }
 }

@@ -1,14 +1,16 @@
 <div class="fullcal-wrapper">
-  <full-calendar
-    deepChangeDetection="true"
-    defaultView="dayGridMonth"
-    [plugins]="calendarPlugins"
-    [weekends]="calendarWeekends"
-    [header]="headerConfig"
-    [buttonText]="buttonConfig"
-    [selectable]="true"
-    [events]="calendarEvents"
-    (dateClick)="dateClickedHandler($event)"
-    (eventClick)="eventClickedHandler($event)"
-  ></full-calendar>
+    <full-calendar #fullcalendar
+                   id="calendar"
+                   deepChangeDetection="true"
+                   defaultView="dayGridMonth"
+                   [plugins]="calendarPlugins"
+                   [weekends]="calendarWeekends"
+                   [header]="headerConfig"
+                   [buttonText]="buttonConfig"
+                   [selectable]="true"
+                   [events]="events"
+                   (datesRender)="this.dateChanged($event)"
+                   (dateClick)="this.dateClickedHandler($event)"
+                   (eventClick)="this.eventClickedHandler($event)"
+    ></full-calendar>
 </div>
