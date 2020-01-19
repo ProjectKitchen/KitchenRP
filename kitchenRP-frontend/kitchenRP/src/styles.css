@@ -29,3 +29,19 @@
 .list-control-header {
     margin-top: 0.5rem;
 }
+
+.status-pending {
+    color: dodgerblue;
+}
+
+.status-needs-approval {
+    color: #d4d4d4;
+}
+
+.status-approved {
+    color: green;
+}
+
+.status-denied {
+    color: red;
+}
