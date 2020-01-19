@@ -9,28 +9,28 @@
         <form>
             <div class="form-group">
                 <label for="inputId">Id</label>
-                <input type="text" class="form-control" id="inputId" [value]="Data.id">
+                <input readonly type="text" class="form-control" id="inputId" [value]="Data.id">
             </div>
             <div class="form-group">
                 <label for="inputName">Name</label>
-                <input type="text" class="form-control" id="inputName" [value]="Data.name">
+                <input type="text" class="form-control" name="inputName" [(ngModel)]="changedR.displayName">
             </div>
             <div class="form-group">
                 <label for="inputType">Type</label>
-                <input type="text" class="form-control" id="inputType" [value]="Data.resourceType['displayName']">
+                <input type="text" class="form-control" name="inputType" [(ngModel)]="changedR.resourceType['displayName']">
             </div>
             <div class="form-group">
                 <label for="inputMeta">Meta</label>
-                <input type="text" class="form-control" id="inputMeta" [value]="Data.meta">
+                <input type="text" class="form-control" name="inputMeta" [(ngModel)]="changedR.metaData">
             </div>
             <div class="form-group">
                 <label for="inputDescription">Description</label>
-                <input type="text" class="form-control" id="inputDescription" [value]="Data.description">
+                <input type="text" class="form-control" name="inputDescription" [(ngModel)]="changedR.description">
             </div>
         </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
     </div>
 </div>
