@@ -43,7 +43,7 @@ export class UserManagementComponent implements OnInit {
   openModal(tableRow) {
     const modalRef = this.modalService.open(ModalUserComponent, { windowClass : "modal-size-lg"});
     modalRef.componentInstance.Data = tableRow;
-    modalRef.componentInstance.refresh = () => this.refresh()
+    modalRef.componentInstance.refresh = () => this.refresh();
   }
 
   search(text: string, pipe: PipeTransform): User[] {
