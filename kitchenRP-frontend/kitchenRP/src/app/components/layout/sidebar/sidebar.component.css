@@ -17,6 +17,13 @@
     overflow-x: hidden;
 }
 
+@media (min-width: 601px) {
+    .sidebar-wrapper {
+        margin-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+
 .sidebar-wrapper.sidebar-collapsed {
     left: -250px;
 }

@@ -5,11 +5,11 @@
     <div class="sidebar-content">
         <ul *ngIf="resources$ | async as resources" class="list-unstyled">
             <!-- 3D-Printer -->
-            <li *ngFor="let category of resources" class="sidebar-item sidebar-dropdown active">
-                <a class="nav-link dropdown-toggle" data-target="#printerSubmenu" data-toggle="collapse" aria-expanded="true">
+            <li *ngFor="let category of resources" class="sidebar-item active">
+                <a class="nav-link">
                     <span class="menu-text">{{category[0].resourceType.displayName | titlecase}}</span>
                 </a>
-                <div class="sidebar-submenu" id="printerSubmenu">
+                <div class="sidebar-submenu" >
                     <ul>
                         <li *ngFor="let resource of category" class="nav-item">
                             <a [routerLink]="['calendar', resource.id]" class="nav-link">{{resource.displayName | titlecase}}</a>
