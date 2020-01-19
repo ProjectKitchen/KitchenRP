@@ -17,7 +17,6 @@ import {ResourceService} from "../../../../services/resource/resource.service";
     providers: [DecimalPipe]
 })
 export class ResourceManagementComponent implements OnInit {
-
     data: Resource [] = [];
     resources$: Observable<Resource[]>;
     filter = new FormControl('');
@@ -44,13 +43,13 @@ export class ResourceManagementComponent implements OnInit {
     }
 
     search(text: string, pipe: PipeTransform): Resource[] {
-    return this.data.filter(resource => {
-        const term = text.toLowerCase();
-        return resource.displayName.toLowerCase().includes(term)
-            || resource.resourceType['displayName'].toLowerCase().includes(term);
-            //|| resource.metaData.toLowerCase().includes(term)
-            //|| resource.resourceType.toLowerCase().includes(term);
-        //|| pipe.transform(resource.id).includes(term); // ID search?
-    });
-}
+        return this.data.filter(resource => {
+            const term = text.toLowerCase();
+            return resource.displayName.toLowerCase().includes(term)
+                || resource.resourceType['type'].toLowerCase().includes(term);
+                //|| resource.metaData.toLowerCase().includes(term)
+                //|| resource.resourceType.toLowerCase().includes(term);
+            //|| pipe.transform(resource.id).includes(term); // ID search?
+        });
+    }
 }
