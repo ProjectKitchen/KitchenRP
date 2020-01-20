@@ -20,11 +20,15 @@
                 <select name="inputType" [(ngModel)]="changedR.resourceType['type']">
                     <option *ngFor="let type of rTypes$ | async" [value]="type['type']">{{type['type']}}</option>
                 </select>
-                <!--<input type="text" class="form-control" name="inputType" [(ngModel)]="changedR.resourceType['type']">-->
             </div>
             <div class="form-group">
                 <label for="inputMeta">Meta</label>
-                <input type="text" class="form-control" name="inputMeta" [(ngModel)]="changedR.metaData">
+                <div *ngFor="let m of meta">
+                    <input type="text" name="a+{{m.key}}" [(ngModel)]="m.key">
+                    :
+                    <input type="text" name="b+{{m.value}}" [(ngModel)]="m.value">
+                </div>
+                <!--<input type="text" class="form-control" name="inputMeta" [(ngModel)]="changedR.metaData">-->
             </div>
             <div class="form-group">
                 <label for="inputDescription">Description</label>
@@ -33,6 +37,7 @@
         </form>
     </div>
     <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
         <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
         <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
     </div>

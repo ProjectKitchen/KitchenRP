@@ -17,6 +17,7 @@ export class ModalResourceComponent implements OnInit {
   changedR: Resource;
 
   rTypes$: Observable<ResourceType[]>;
+  meta = [];
 
   constructor(private activeModal: NgbActiveModal, private resourceService: ResourceService) {
     this.rTypes$ = this.resourceService.getAllTypes();
@@ -24,17 +25,37 @@ export class ModalResourceComponent implements OnInit {
 
   ngOnInit() {
     this.changedR = {...this.Data, resourceType:{...this.Data.resourceType}};
+
+    let m = JSON.parse(JSON.stringify(this.Data.metaData)).rootElement;
+    let meta = [];
+    for(let key in m){
+        meta.push({key: key, value: m[key]});
+    }
+    this.meta = meta;
   }
 
   save(){
     if (this.Add === undefined || !this.Add) {
+      // metadata array to object
+      let meta: any = this.meta.reduce<any>((o, kv) => {
+            o[kv.key] = kv.value;
+            return o;
+        }, {});
+
+      // setup for changed check => copy data, so they are not overwritten
       let changed: boolean = false;
-      if(JSON.stringify(this.changedR) != JSON.stringify(this.Data)){
+      let compChanged = {...this.changedR};
+      compChanged.metaData = JSON.stringify(meta); // changed meta data string
+      let compData = {...this.Data};
+      compData.metaData = JSON.stringify(compData.metaData.rootElement); // data meta data string
+      // compare
+      if(JSON.stringify(compChanged) != JSON.stringify(compData)){
         changed = true;
       }
 
       if(changed){
         console.log("update");
+        this.changedR.metaData = JSON.stringify(meta); // stringify actual data that is sent to backend
         this.resourceService.update(this.changedR).subscribe(x => this.refresh());
       }
     } else {
@@ -46,6 +67,12 @@ export class ModalResourceComponent implements OnInit {
       }).subscribe(x => this.refresh());
     }
     this.activeModal.close();
+  }
+
+  delete(){
+      console.log("delete");
+      this.resourceService.delete(this.Data.id).subscribe(x => this.refresh());
+      this.activeModal.close();
   }
 
 }
