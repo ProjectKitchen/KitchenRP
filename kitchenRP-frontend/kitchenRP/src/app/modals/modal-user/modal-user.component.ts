@@ -45,7 +45,7 @@ export class ModalUserComponent implements OnInit {
         }
       }
     } else {
-      this.userService.create({sub: this.Data, email: this.Data}).subscribe(x => this.refresh());
+      this.userService.create({uid: this.Data.sub, email: this.Data.email}).subscribe(x => this.refresh());
     }
     this.activeModal.close();
   }

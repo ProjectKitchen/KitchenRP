@@ -7,7 +7,7 @@ export interface User{
 }
 
 export class NewUser{
-    sub: string;
+    uid: string;
     //role: string;
     email: string;
 }
