@@ -20,13 +20,13 @@
                 <input [readonly]="!Add" type="text" class="form-control" name="inputEmail" [(ngModel)]="Data.email">
             </div>
             <div *ngIf="!isAdmin; else elseBlock" class="form-group">
-                <label for="inputRole">Moderator</label>
-                <input type="checkbox" name="inputRole" [(ngModel)]="checkboxChecked">
+                <label for="inputRole" class="form-check-label">Moderator</label>
+                <input type="checkbox" class="input-checkbox" name="inputRole" [(ngModel)]="checkboxChecked" [disabled]="Add">
             </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button *ngIf="!isAdmin" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+        <button *ngIf="!isAdmin" type="button" class="btn btn-danger mr-auto" (click)="delete()">Delete</button>
         <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
         <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
     </div>
