@@ -19,7 +19,7 @@ namespace KitchenRP.Domain.Services.Internal
             return await Task.Run(() => new[]
             {
                 new Claim("sub", "if17b094"),
-                new Claim(ClaimTypes.Role, "admin")
+                new Claim(ClaimTypes.Role, "user")
             });
             return await _users.GetClaimsForUser(uid);
         }

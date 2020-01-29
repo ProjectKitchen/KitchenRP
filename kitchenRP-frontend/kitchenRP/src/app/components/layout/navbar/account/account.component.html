@@ -1,5 +1,5 @@
 <div class="m-1">
-    <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+    <button type="button" class="btn btn-outline-primary" (click)="toggle()"
             [attr.aria-expanded]="!isCollapsed" aria-controls="acc">
         Account
     </button>
@@ -10,10 +10,15 @@
                     Account Details:
                 </div>
                 <div *ngIf="currentUser | async as user">
-                    Name: {{user.sub}}
-                </div>
-                <div>
-                    UID: Test
+                    <div>
+                        Name: {{user.sub}}
+                    </div>
+                    <div>
+                        Email: {{user.email}}
+                    </div>
+                    <div>
+                        Role: {{user.role}}
+                    </div>
                 </div>
             </div>
             <button type="button" class="btn btn-outline-dark" (click)="logoutUser()" style="width: 50%; margin-left: 25%; margin-right: 25%;">

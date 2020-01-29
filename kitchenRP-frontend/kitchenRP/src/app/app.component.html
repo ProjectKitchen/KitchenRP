@@ -1,5 +1,5 @@
 <!-- user logged in -->
-<div *ngIf="true; else elseBlock">
+<div *ngIf="router.url !== '/login'; else elseBlock">
     <app-navbar></app-navbar>
     <app-sidebar></app-sidebar>
     <div id="content-wrapper" class="content-wrapper">

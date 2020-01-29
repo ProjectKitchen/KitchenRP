@@ -10,32 +10,31 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
+                <div class="col-sm-12 col-md-12 col-lg-10 align-self-center">
+                <ul class="nav nav-tabs flex-row nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/calendar']">Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/reservations']">My Reservations</a>
+                    </li>
 
-                <div class="col-sm-11 col-md-9 col-lg-9 pl-0 align-self-center">
-                    <ul class="nav nav-tabs flex-row nav-fill">
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['/calendar']">My Calendar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['/reservations']">My Reservations</a>
-                        </li>
-
-                        <!-- TODO: router guards -->
-                        <li class="nav-item">
+                    <div class="restricted-tabs" *ngIf="currentUser | async as user">
+                        <li class="nav-item" *ngIf="user.role === 'moderator' || user.role === 'admin'">
                             <a class="nav-link" [routerLink]="['/all-reservations']">All Reservations</a>
                         </li>
-
-                        <!-- TODO: router guards -->
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.role === 'admin'">
                             <a class="nav-link admin-link" [routerLink]="['/admin']">Admin</a>
                         </li>
+                    </div>
 
-                        <li class="nav-item">
-                            <div class="">
-                                <app-account></app-account>
-                            </div>
-                        </li>
-                    </ul>
+                    <li class="nav-item">
+                        <div class="">
+                            <app-account></app-account>
+                        </div>
+                    </li>
+
+                </ul>
                 </div>
             </div>
         </div>

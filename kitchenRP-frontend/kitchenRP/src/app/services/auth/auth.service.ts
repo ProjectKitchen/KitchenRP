@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnInit} from "@angular/core";
 import {LoginService} from "./login.service";
 import {Observable, of, ReplaySubject, Subject} from "rxjs";
-import {catchError, mapTo, tap} from "rxjs/operators";
+import {catchError, map, mapTo, tap} from "rxjs/operators";
 import {Token} from "./user-auth";
 import {User} from "../../types/user";
 import {UserService} from "../user/user.service";
@@ -10,7 +10,7 @@ import {UserService} from "../user/user.service";
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements  OnInit {
     private readonly ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
     private readonly REFRESH_TOKEN_KEY = "REFRESH_TOKEN";
 
@@ -21,6 +21,19 @@ export class AuthService {
     public constructor(private loginService: LoginService, private userService: UserService) {
 
     }
+
+    ngOnInit(): void {
+        if(this.getAccessToken()){
+            let token = this.getAccessToken();
+            let [head, body, sig] = token.split('.');
+            let payload = JSON.parse(atob(body));
+
+            let user = payload.sub;
+            this.userService.getByName(user)
+                .subscribe(u => this.currentUser.next(u));
+        }
+    }
+
 
     public login(username: string, password: string): Observable<boolean> {
         return this.loginService.login({username, password})
@@ -60,6 +73,36 @@ export class AuthService {
 
     isLoggedIn() {
         return !!this.getAccessToken();
+    }
+
+    public isAnyUser(): Observable<boolean> {
+        return  this.currentUser$.pipe(
+            tap(u => console.log(u)),
+            map((val) => val !== null && (val.role === 'user' || val.role === 'moderator' || val.role === 'admin')));
+    }
+
+    public userScope(): Observable<string> {
+        return this.currentUser$
+            .pipe(
+                map(u => u.role)
+            )
+    }
+
+    public isUser(): Observable<boolean> {
+      return this.userScope().pipe(
+          map(scope => scope === "user" || scope === "moderator" || scope === "admin")
+      )
+    }
+    public isAdmin(): Observable<boolean> {
+        return this.userScope().pipe(
+            map(scope => scope === "admin")
+        )
+    }
+
+    public isModerator(): Observable<boolean> {
+        return this.userScope().pipe(
+            map(scope => scope === "moderator" || scope === "admin")
+        )
     }
 
     public getUsername() {
