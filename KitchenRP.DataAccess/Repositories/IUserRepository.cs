@@ -14,5 +14,7 @@ namespace KitchenRP.DataAccess.Repositories
         Task<bool> Exists(string sub);
 
         Task<User> UpdateUser(User u);
+
+        Task<User> RemoveUser(long id);
     }
 }

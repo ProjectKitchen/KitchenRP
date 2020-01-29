@@ -37,5 +37,7 @@ namespace KitchenRP.Domain.Services
         Task<DomainUser?> ActivateNewUser(ActivateUserCommand cmd);
         Task<DomainUser> PromoteUser(PromoteUserCommand cmd);
         Task<DomainUser> DemoteUser(DemoteUserCommand cmd);
+
+        Task Remove(long id);
     }
 }

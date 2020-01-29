@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         public async Task<User> FindById(long id)
         {
             return await _ctx.Users
+                .Where(u => u.IsActive)
                 .Include(u => u.Role)
                 .SingleOrDefaultAsync(u => u.Id == id);
         }
@@ -28,6 +30,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         public Task<List<User>> GetAll()
         {
             return _ctx.Users
+                .Where(u => u.IsActive)
                 .Include(u => u.Role)
                 .ToListAsync();
         }
@@ -35,6 +38,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         public async Task<User> FindBySub(string sub)
         {
             return await _ctx.Users
+                .Where(u => u.IsActive)
                 .Include(u => u.Role)
                 .SingleOrDefaultAsync(u => u.Sub == sub);
         }
@@ -43,31 +47,51 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         {
             var userRole = await _roles.FindByRole(role) ??
                            throw new NotFoundException(nameof(UserRole), $"role = {role}");
+            var exists = await Exists(sub);
+            
+            if (exists)
+            {
+                throw new Exception("User already exists");
+            }
+            
             var u = new User
             {
                 Sub = sub,
                 Email = email,
                 AllowNotifications = true,
-                Role = userRole
+                Role = userRole,
+                IsActive = true
             };
             _ctx.Users.Add(u);
             await _ctx.SaveChangesAsync();
             return u;
         }
         
-        public async Task<User> UpdateUser(User u)
+        public async Task<User> UpdateUser(User update)
         {
-            var user = await _ctx.Users.FindAsync(u.Id);
-            user.AllowNotifications = u.AllowNotifications;
-            user.Email = u.Email;
-            user.Role = u.Role;
+            var user = await _ctx.Users
+                .Where(u => u.IsActive && update.Id == u.Id)
+                .FirstOrDefaultAsync();
+            user.AllowNotifications = update.AllowNotifications;
+            user.Email = update.Email;
+            user.Role = update.Role;
             await _ctx.SaveChangesAsync();
             return user;
         }
         
         public async Task<bool> Exists(string sub)
         {
-            return await _ctx.Users.CountAsync(u => u.Sub == sub) > 0;
+            return await _ctx.Users
+                       .Where(u => u.IsActive)
+                       .CountAsync(u => u.Sub == sub) > 0;
+        }
+
+        public async Task<User> RemoveUser(long id)
+        {
+            var user = await _ctx.Users.FindAsync(id);
+            user.IsActive = false;
+            await _ctx.SaveChangesAsync();
+            return user;
         }
     }
 }

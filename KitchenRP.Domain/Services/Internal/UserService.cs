@@ -100,5 +100,9 @@ namespace KitchenRP.Domain.Services.Internal
             var demoted = await _users.UpdateUser(user);
             return _mapper.Map<DomainUser>(demoted);
         }
+        
+        public async Task Remove(long userId) {
+            var _ = await _users.RemoveUser(userId);
+        }
     }
 }
