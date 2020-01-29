@@ -11,7 +11,7 @@ namespace KitchenRP.DataAccess.Models
         public long? RoleId { get; set; }
         public string Email { get; set; }
         public bool AllowNotifications { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     internal class UserTypeConfiguration : IEntityTypeConfiguration<User>

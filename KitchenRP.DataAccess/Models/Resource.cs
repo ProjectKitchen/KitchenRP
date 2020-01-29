@@ -1,4 +1,6 @@
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KitchenRP.DataAccess.Models
 {
@@ -40,6 +42,6 @@ namespace KitchenRP.DataAccess.Models
         public string Description { get; set; }
         public ResourceType ResourceType { get; set; }
         public long? ResourceTypeId { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }
