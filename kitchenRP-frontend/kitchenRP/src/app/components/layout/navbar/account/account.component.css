@@ -1,0 +1,6 @@
+#acc {
+    position: absolute;
+    min-width: 205px;
+    right: 10px;
+    z-index: 999;
+}

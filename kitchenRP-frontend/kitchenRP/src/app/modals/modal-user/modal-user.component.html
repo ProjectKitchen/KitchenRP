@@ -6,30 +6,33 @@
         </button>
     </div>
     <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="inputId">Id</label>
-          <input type="text" class="form-control" id="inputId" [value]="Data.id">
-        </div>
-        <div class="form-group">
-          <label for="inputUsername">Username</label>
-          <input type="text" class="form-control" id="inputUsername" [value]="Data.username">
-        </div>
-        <div class="row">
-          <div class="form-group col-md-6">
-            <label for="inputRole">Role</label>
-            <input type="text" class="form-control" id="inputRole" [value]="Data.role">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputEmail">Email</label>
-            <input type="text" class="form-control" id="inputEmail" [value]="Data.email">
-          </div>
-        </div>
-      </form>
+        <form>
+            <div class="form-group">
+                <label for="inputId">Id</label>
+                <input readonly type="text" class="form-control" name="inputId" [value]="Data.id">
+            </div>
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input [readonly]="!Add" type="text" class="form-control" name="username" [(ngModel)]="Data.sub">
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input [readonly]="!Add" type="text" class="form-control" name="inputEmail" [(ngModel)]="Data.email">
+            </div>
+            <div *ngIf="!isAdmin; else elseBlock" class="form-group">
+                <label for="inputRole" class="form-check-label">Moderator</label>
+                <input type="checkbox" class="input-checkbox" name="inputRole" [(ngModel)]="checkboxChecked" [disabled]="Add">
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
-      <button type="button" class="btn btn-primary">Save changes</button>
+        <button *ngIf="!isAdmin" type="button" class="btn btn-danger mr-auto" (click)="delete()">Delete</button>
+        <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
     </div>
 </div>
+
+<ng-template #elseBlock>
+    <p style="color: red">admin</p>
+</ng-template>
 

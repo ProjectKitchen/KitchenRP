@@ -1,8 +1,8 @@
 import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith, tap, flatMap } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { map, startWith, tap, flatMap, repeatWhen } from 'rxjs/operators';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalUserComponent} from "../../../../modals/modal-user/modal-user.component";
@@ -17,6 +17,8 @@ import {UserService} from "../../../../services/user/user.service";
   providers: [DecimalPipe]
 })
 export class UserManagementComponent implements OnInit {
+  private refreshSubject = new BehaviorSubject<any>(1);
+
   data: User[] = [];
   users$: Observable<User[]>;
   filter = new FormControl('');
@@ -24,6 +26,7 @@ export class UserManagementComponent implements OnInit {
   constructor(private userService: UserService, private modalService: NgbModal, pipe: DecimalPipe) {
     this.users$ = this.userService.getAll()
         .pipe(
+            repeatWhen(_ => this.refreshSubject.asObservable()),
             tap(users => this.data = users),
             flatMap(r => this.filter.valueChanges
                 .pipe(
@@ -40,6 +43,14 @@ export class UserManagementComponent implements OnInit {
   openModal(tableRow) {
     const modalRef = this.modalService.open(ModalUserComponent, { windowClass : "modal-size-lg"});
     modalRef.componentInstance.Data = tableRow;
+    modalRef.componentInstance.refresh = () => this.refresh();
+  }
+
+  openModalAdd() {
+    const modalRef = this.modalService.open(ModalUserComponent, { windowClass : "modal-size-lg"});
+    modalRef.componentInstance.Data = {id: "", sub: "", role: "", email: "", allowNotifications: true};
+    modalRef.componentInstance.Add = true;
+    modalRef.componentInstance.refresh = () => this.refresh();
   }
 
   search(text: string, pipe: PipeTransform): User[] {
@@ -52,4 +63,7 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  refresh(): void{
+    this.refreshSubject.next(null);
+  }
 }

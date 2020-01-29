@@ -2,13 +2,17 @@
     color: red;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
     .nav {
-        margin: 0em 0em 2em 0em;
-        padding: 2em 0em 2em 0em;
+        margin: 1em 0em 2em 0em;
     }
 
     .nav-content{
         margin-bottom: auto;
     }
-  }
+}
+
+#navbar {
+    display: block;
+    height: 60px;
+}

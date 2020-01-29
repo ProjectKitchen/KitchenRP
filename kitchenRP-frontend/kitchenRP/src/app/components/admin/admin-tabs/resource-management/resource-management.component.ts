@@ -1,13 +1,13 @@
 import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { tap, map, startWith, flatMap } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { tap, map, startWith, flatMap, repeatWhen } from 'rxjs/operators';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResourceComponent} from "../../../../modals/modal-resource/modal-resource.component";
 
-import {Resource} from "../../../../types/resource";
+import {Resource, ResourceType} from "../../../../types/resource";
 import {ResourceService} from "../../../../services/resource/resource.service";
 
 @Component({
@@ -17,6 +17,7 @@ import {ResourceService} from "../../../../services/resource/resource.service";
     providers: [DecimalPipe]
 })
 export class ResourceManagementComponent implements OnInit {
+    private refreshSubject = new Subject<any>();
 
     data: Resource [] = [];
     resources$: Observable<Resource[]>;
@@ -25,6 +26,7 @@ export class ResourceManagementComponent implements OnInit {
     constructor(private resourceService: ResourceService, private modalService: NgbModal, pipe: DecimalPipe) {
         this.resources$ = this.resourceService.getAll()
         .pipe(
+            repeatWhen(_ => this.refreshSubject.asObservable()),
             tap(resources => this.data = resources),
             flatMap(r => this.filter.valueChanges
                 .pipe(
@@ -41,16 +43,28 @@ export class ResourceManagementComponent implements OnInit {
     openModal(tableRow) {
         const modalRef = this.modalService.open(ModalResourceComponent, { windowClass : "modal-size-lg"});
         modalRef.componentInstance.Data = tableRow;
+        modalRef.componentInstance.refresh = () => this.refresh();
+    }
+
+    openModalAdd() {
+        const modalRef = this.modalService.open(ModalResourceComponent, { windowClass : "modal-size-lg"});
+        modalRef.componentInstance.Data = {id: "-", displayName: "", metaData: {}, description: ""};
+        modalRef.componentInstance.Add = true;
+        modalRef.componentInstance.refresh = () => this.refresh();
     }
 
     search(text: string, pipe: PipeTransform): Resource[] {
-    return this.data.filter(resource => {
-        const term = text.toLowerCase();
-        return resource.displayName.toLowerCase().includes(term)
-            || resource.resourceType['displayName'].toLowerCase().includes(term);
-            //|| resource.metaData.toLowerCase().includes(term)
-            //|| resource.resourceType.toLowerCase().includes(term);
-        //|| pipe.transform(resource.id).includes(term); // ID search?
-    });
-}
+        return this.data.filter(resource => {
+            const term = text.toLowerCase();
+            return resource.displayName.toLowerCase().includes(term)
+                || resource.resourceType['type'].toLowerCase().includes(term);
+                //|| resource.metaData.toLowerCase().includes(term)
+                //|| resource.resourceType.toLowerCase().includes(term);
+            //|| pipe.transform(resource.id).includes(term); // ID search?
+        });
+    }
+
+    refresh(): void{
+        this.refreshSubject.next(null);
+    }
 }

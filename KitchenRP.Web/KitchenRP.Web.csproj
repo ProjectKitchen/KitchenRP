@@ -21,6 +21,7 @@
         <PackageReference Include="AutoMapper" Version="9.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+        <PackageReference Include="NodaTime.Serialization.SystemTextJson" Version="1.0.0-beta01" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
     </ItemGroup>

@@ -1,54 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import {DateRangeInput} from "@fullcalendar/core/datelib/date-range";
+import {FullCalendarComponent} from "@fullcalendar/angular";
+import {EventSourceInput} from "@fullcalendar/core/structs/event-source";
+import {ReplaySubject} from "rxjs";
+import {Reservation} from "../../../types/reservation";
 
 @Component({
-  selector: 'app-fullcal',
-  templateUrl: './fullcal.component.html',
-  styleUrls: ['./fullcal.component.css']
+    selector: 'app-fullcal',
+    templateUrl: './fullcal.component.html',
+    styleUrls: ['./fullcal.component.css']
 })
 export class FullcalComponent implements OnInit {
+    ngOnInit(): void {
+    }
 
-  calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
-  calendarWeekends = false;
+    calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+    calendarWeekends = true;
 
-  headerConfig = {
-    left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
-    center: 'title',
-    right: 'today prev,next'
-  };
-  buttonConfig = {
-    today: 'Today',
-    month: 'Month',
-    week: 'Week',
-    day: 'Day'
-  };
+    headerConfig = {
+        left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+        center: 'title',
+        right: 'today prev,next'
+    };
+    buttonConfig = {
+        today: 'Today',
+        month: 'Month',
+        week: 'Week',
+        day: 'Day'
+    };
 
-  calendarEvents = [
-    { title: 'event 1', date: '2020-01-12' },
-    { title: 'event 2', date: '2020-01-13' }
-  ];
+    private events: any[] = [];
 
-  constructor() { }
+    @Output()
+    public currentDateRange = new EventEmitter<{start:Date, end:Date}>();
 
-  ngOnInit() {
-  }
 
-  dateClickedHandler(e) {
-    console.log(e);
-    this.addEvent();
-  }
+    dateChanged(event){
+        this.currentDateRange.emit({
+            start: event.view.currentStart,
+            end: event.view.currentEnd,
+            });
+    }
 
-  addEvent() {
-    this.calendarEvents.push(
-      { title: 'event 3', date: '2020-01-15' }
-    );
-  }
+    dateClickedHandler(event){
+        console.log(event)
+    }
+    eventClickedHandler(event){
+        console.log(event)
+    }
 
-  eventClickedHandler(e) {
-    console.log(e);
-  }
+    public addReservation(reservation: Reservation){
+        let event = {
+            start: reservation.startTime,
+            end: reservation.endTime,
+            backgroundColor: "#3369dd"
+        };
+        if(this.events.map(e => JSON.stringify(e)).indexOf(JSON.stringify(event)) === -1){
+            this.events.push(event);
+        }
+    }
 
 }

@@ -1,6 +1,7 @@
 <div style="margin-left: 5%; margin-top: 30px;">
-    <app-resource-info></app-resource-info>
+    <!--<app-resource-info></app-resource-info>-->
+    <h3>My Calendar</h3>
     <!--<div class="border" style="width: 900px; height: 530px; background-color: #ededed; margin: 2% 0; text-align: center;">Calendar</div>-->
-    <app-fullcal></app-fullcal>
+    <app-fullcal #mycalendar (currentDateRange) = "handleUpdate($event)" ></app-fullcal>
 
 </div>

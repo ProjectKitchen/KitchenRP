@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AutoMapper;
 using KitchenRP.DataAccess.Models;
+using NodaTime;
 
 namespace KitchenRP.Domain.Models
 {
@@ -25,7 +26,11 @@ namespace KitchenRP.Domain.Models
 
             CreateMap<Resource, DomainResource>();
 
-            CreateMap<Reservation, DomainReservation>();
+            CreateMap<Reservation, DomainReservation>()
+                .ForMember(r => r.ReservedFor,
+                    opt =>
+                        opt.MapFrom(src => new Interval(src.StartTime, src.EndTime)));
+
         }
     }
 }

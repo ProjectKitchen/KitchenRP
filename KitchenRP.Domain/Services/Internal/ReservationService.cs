@@ -66,7 +66,7 @@ namespace KitchenRP.Domain.Services.Internal
             // there are already Reservations for the specified time slot
             if (collisions.Count != 0) throw new ReservationCollisionException();
 
-            var reservation = CreateReservationWithPendingStatus(user, resource, cmd);
+            var reservation = await CreateReservationWithPendingStatus(user, resource, cmd);
 
             return _mapper.Map<DomainReservation>(reservation);
         }
@@ -97,7 +97,7 @@ namespace KitchenRP.Domain.Services.Internal
                 Reason = "Created by user",
                 ChangedBy = user,
                 ChangeTo = status,
-                Reservation = _mapper.Map<DomainReservation>(reservation)
+                Reservation = _mapper.Map<DomainReservation>(newReservation)
             });
 
             return newReservation;

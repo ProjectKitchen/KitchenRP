@@ -1,11 +1,11 @@
 <!-- Search bar -->
-<div class="md-form mt-0" style="width: 20%;">
-    <form>
-        <div class="form-group form-inline">
-            <input class="form-control ml-2" type="text" [formControl]="filter" />
-        </div>
-    </form>
-</div>
+<form>
+    <div class="form-group form-inline list-control-header">
+        <label><b>Search:</b></label>
+        <input class="form-control ml-2" type="text" [formControl]="filter" />
+        <button class="btn btn-outline-primary" style="margin-left: auto; display: block;" (click)="openModalAdd()">Add User</button>
+    </div>
+</form>
 
 <!-- Table -->
 <div class="table-container">
@@ -16,7 +16,6 @@
                 <th scope="col">Username</th>
                 <th scope="col">Role</th>
                 <th scope="col">Email</th>
-                <th scope="col">...</th>
             </tr>
         </thead>
         <tbody>

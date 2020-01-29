@@ -42,12 +42,12 @@ export class UserService {
     }
 
     promote(id: string): Observable<User> {
-        const url = this.baseUrl + "/" + id + "/promote";
+        const url = this.baseUrl + "/user/" + id + "/promote";
         return this.http.put<User>(url, {});
     }
 
     demote(id: string): Observable<User> {
-        const url = this.baseUrl + "/" + id + "/demote";
+        const url = this.baseUrl + "/user/" + id + "/demote";
         return this.http.put<User>(url, {});
     }
 
