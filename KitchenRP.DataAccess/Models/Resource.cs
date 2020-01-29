@@ -40,5 +40,6 @@ namespace KitchenRP.DataAccess.Models
         public string Description { get; set; }
         public ResourceType ResourceType { get; set; }
         public long? ResourceTypeId { get; set; }
+        public bool IsActive { get; set; }
     }
 }

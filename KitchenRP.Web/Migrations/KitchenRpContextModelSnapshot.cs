@@ -146,6 +146,10 @@ namespace KitchenRP.Web.Migrations
                         .HasColumnName("display_name")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnName("is_active")
+                        .HasColumnType("boolean");
+
                     b.Property<JsonDocument>("MetaData")
                         .HasColumnName("meta_data")
                         .HasColumnType("jsonb");

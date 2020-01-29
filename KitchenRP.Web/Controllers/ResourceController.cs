@@ -48,7 +48,7 @@ namespace KitchenRP.Web.Controllers
 
 
         [HttpPost]
-        [Microsoft.AspNetCore.Mvc.Route("type")]
+        [Route("type")]
         public async Task<IActionResult> AddResourceType(AddResourceTypeRequest model)
         {
             var rt = await _resourceService.AddNewResourceType(_mapper.Map<AddResourceTypeCommand>(model));
@@ -60,19 +60,21 @@ namespace KitchenRP.Web.Controllers
         }
 
         [HttpGet]
-        [Microsoft.AspNetCore.Mvc.Route("type")]
+        [Route("type")]
         public async Task<IActionResult> GetAllResourceTypes()
         {
             var resourceTypes = await _resourceService.GetAllTypes();
             return Ok(resourceTypes);
         }
 
-        [HttpGet]
-        [Microsoft.AspNetCore.Mvc.Route("type/{type}")]
-        public async Task<IActionResult> GetAllResourceTypes(string type)
+        
+        [HttpDelete]
+        [Route("/{id}")]
+        public async Task<IActionResult> DeactivateResource(long id)
         {
-            var resourceType = await _resourceService.GetOneTypeByName(type);
-            return Ok(resourceType);
+            await _resourceService.Deactivate(id);
+            return NoContent();
         }
+        
     }
 }

@@ -14,5 +14,6 @@ namespace KitchenRP.Domain.Services
         Task<DomainResourceType> AddNewResourceType(AddResourceTypeCommand cmd);
         Task<IEnumerable<DomainResourceType>> GetAllTypes();
         Task<DomainResourceType> GetOneTypeByName(string type);
+        Task Deactivate(long id);
     }
 }

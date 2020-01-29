@@ -56,5 +56,10 @@ namespace KitchenRP.Domain.Services.Internal
         {
             return _mapper.Map<DomainResourceType>(await _resources.FindResourceTypByType(type));
         }
+
+        public async Task Deactivate(long id)
+        {
+            await _resources.Deactivate(id);
+        }
     }
 }

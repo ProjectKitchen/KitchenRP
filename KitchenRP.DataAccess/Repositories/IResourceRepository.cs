@@ -21,5 +21,7 @@ namespace KitchenRP.DataAccess.Repositories
         Task<List<ResourceType>> TypeAll();
 
         Task<ResourceType> FindResourceTypByType(string type);
+        
+        Task<Resource> Deactivate(long id);
     }
 }

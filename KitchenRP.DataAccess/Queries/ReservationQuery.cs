@@ -16,6 +16,8 @@ namespace KitchenRP.DataAccess.Queries
         private Instant? From { get; set; }
         private Instant? To { get; set; }
         private Duration Buffer { get; set; }
+        
+        private bool OnlyActiveResources { get; set; }
         private IEnumerable<ReservationStatus> Statuses { get; set; }
 
         public ReservationQuery ForOwner(User owner)
@@ -79,7 +81,9 @@ namespace KitchenRP.DataAccess.Queries
 
             if (Resource != null)
             {
-                reservations = reservations.Where(r => r.ReservedResource.Id == Resource.Id);
+                reservations = reservations
+                    .Where(r => r.ReservedResource.IsActive)
+                    .Where(r => r.ReservedResource.Id == Resource.Id);
             }
 
             if (From != null && To != null)

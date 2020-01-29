@@ -68,5 +68,14 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             return resourceType ??
                    throw new EntityNotFoundException(nameof(ResourceType), $"(type == {type})");
         }
+
+        public async Task<Resource> Deactivate(long id)
+        {
+            var resource = await _ctx.Resources
+                .FindAsync(id);
+            resource.IsActive = false;
+            await _ctx.SaveChangesAsync();
+            return resource;
+        }
     }
 }
