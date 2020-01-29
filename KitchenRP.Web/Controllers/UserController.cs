@@ -90,7 +90,7 @@ namespace KitchenRP.Web.Controllers
             return NoContent();
         }
         
-        [HttpPost]
+        [HttpDelete]
         [Route("/{id}")]
         public async Task<IActionResult> RemoveUser(long id)
         {
