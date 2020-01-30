@@ -52,7 +52,7 @@ export class ModalUserComponent implements OnInit {
 
   delete(){
     if(!this.isAdmin){
-      console.log("delete");
+      // console.log("delete");
       this.userService.delete(this.Data.id).subscribe(x => this.refresh());
       this.activeModal.close();
     }

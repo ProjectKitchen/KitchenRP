@@ -12,8 +12,8 @@ import {AuthGuardLoggedIn} from "./services/auth/auth-guard-logged-in";
 import {ResourceCalendarComponent} from "./components/calendar/resource-calendar/resource-calendar.component";
 
 const routes: Routes = [
-    {path: 'login', canActivate: [], component: LoginComponent, pathMatch: 'full'},
-    {path: 'calendar', component: CalendarComponent},
+    {path: 'login', component: LoginComponent, pathMatch: 'full'},
+    {path: 'calendar', canActivate: [AuthGuardLoggedIn, AuthGuardUser], component: CalendarComponent},
     {path: 'calendar/:id', canActivate: [AuthGuardLoggedIn, AuthGuardUser], component: ResourceCalendarComponent},
     {path: 'reservations', canActivate: [AuthGuardLoggedIn,AuthGuardUser], component: ReservationsComponent, pathMatch: 'full'},
     {path: 'all-reservations', canActivate: [AuthGuardLoggedIn, AuthGuardModerator], component: AllReservationsComponent, pathMatch: 'full'},

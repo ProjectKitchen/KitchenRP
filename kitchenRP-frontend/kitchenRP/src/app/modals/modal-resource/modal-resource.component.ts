@@ -70,7 +70,7 @@ export class ModalResourceComponent implements OnInit {
   }
 
   delete(){
-      console.log("delete");
+      // console.log("delete");
       this.resourceService.delete(this.Data.id).subscribe(x => this.refresh());
       this.activeModal.close();
   }

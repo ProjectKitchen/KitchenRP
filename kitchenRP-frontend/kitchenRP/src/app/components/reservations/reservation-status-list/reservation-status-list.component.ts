@@ -9,6 +9,9 @@ import {ModalReservationComponent} from "../../../modals/modal-reservation/modal
 
 import {Reservation} from "../../../types/reservation";
 import {ReservationService} from "../../../services/reservation/reservation.service";
+import {ResourceService} from "../../../services/resource/resource.service";
+import {UserService} from "../../../services/user/user.service";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-reservation-status-list',
@@ -21,8 +24,13 @@ export class ReservationStatusListComponent implements OnInit {
   reservations$: Observable<Reservation[]>;
   filter = new FormControl('');
 
-  constructor(private reservationService: ReservationService, private modalService: NgbModal, pipe: DecimalPipe) {
-    this.reservations$ = this.reservationService.getBy({id: 1})
+  constructor(private reservationService: ReservationService,
+              private resourceService: ResourceService,
+              private userService: UserService,
+              private authService: AuthService,
+              private modalService: NgbModal, pipe: DecimalPipe) {
+
+    this.reservations$ = this.reservationService.getBy({id: 6})
         .pipe(
             tap(reservations => this.data = reservations),
             flatMap(r => this.filter.valueChanges
@@ -47,10 +55,25 @@ export class ReservationStatusListComponent implements OnInit {
     });
   }
 
-  /*openModal(tableRow) {
-    const modalRef = this.modalService.open(ModalReservationComponent, { windowClass : "modal-size-lg"});
-    modalRef.componentInstance.Data = tableRow;
-  }*/
+  openModal(tableRow) {
+      const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
+      ref.componentInstance.Add = false;
+
+      let start = new Date(tableRow.startTime);
+      let end = new Date(tableRow.endTime);
+      ref.componentInstance.date = start;
+      ref.componentInstance.timeStart.hour = start.getHours();
+      ref.componentInstance.timeStart.minute = start.getMinutes();
+
+      const milliDiff = end.getTime() - start.getTime();
+      const minuteDiff = milliDiff / (1000 * 60);
+      const hourDiff = minuteDiff / 60;
+      ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
+
+      ref.componentInstance.status = tableRow.status;
+      ref.componentInstance.resourceName = tableRow.reservedResource ? tableRow.reservedResource.id : "";
+      ref.componentInstance.userName = tableRow.owner ? tableRow.owner.sub : "";
+  }
 
   openModalAdd() {
     const modalRef = this.modalService.open(ModalReservationComponent, { windowClass : "modal-size-lg"});

@@ -65,7 +65,9 @@ export class ResourceCalendarComponent implements OnInit {
 
         this.reservations$.subscribe(r => {
             this.cal.addReservations(r);
-            this.cal.eventClicked.subscribe(event => this.openReservationModal(event));
+            if (this.cal.eventClicked.observers.length === 0) {
+                this.cal.eventClicked.subscribe(event => this.openReservationModal(event));
+            }
         });
     }
 
@@ -85,7 +87,7 @@ export class ResourceCalendarComponent implements OnInit {
         const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
         ref.componentInstance.Add = true;
         ref.componentInstance.date = this.lastSelectedRange.start;
-        ref.componentInstance.dateString = this.lastSelectedRange.start.getFullYear() + "-" + this.lastSelectedRange.start.getMonth() + "-" + this.lastSelectedRange.start.getDate();
+        ref.componentInstance.dateField = this.lastSelectedRange.start.getFullYear() + "-" + this.lastSelectedRange.start.getMonth() + "-" + this.lastSelectedRange.start.getDate();
         // ref.componentInstance.dateField = {
         //     year: this.lastSelectedRange.start.getFullYear(),
         //     month: this.lastSelectedRange.start.getMonth(),
@@ -101,8 +103,11 @@ export class ResourceCalendarComponent implements OnInit {
         const milliDiff = this.lastSelectedRange.end.getTime() - this.lastSelectedRange.start.getTime();
         const minuteDiff = milliDiff / (1000 * 60);
         const hourDiff = minuteDiff / 60;
-        // ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
-        ref.componentInstance.duration = {hour: Math.floor(0), minute: Math.floor(60)};
+        if (minuteDiff !== 1440) {
+            ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
+        } else {
+            ref.componentInstance.duration = {hour: Math.floor(0), minute: Math.floor(60)};
+        }
 
         ref.componentInstance.status = "";
         this.resource$.subscribe(r => {

@@ -1,9 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ReplaySubject} from "rxjs";
+import {Observable, ReplaySubject, Subject} from "rxjs";
 import {FullcalComponent} from "./fullcal/fullcal.component";
 import {ActivatedRoute} from "@angular/router";
 import {ResourceService} from "../../services/resource/resource.service";
 import {ReservationService} from "../../services/reservation/reservation.service";
+import {map, startWith, tap, flatMap, repeatWhen, switchMap} from 'rxjs/operators';
+import {Reservation} from "../../types/reservation";
+import {User} from "../../types/user";
+import {AuthService} from "../../services/auth/auth.service";
+import {ModalReservationComponent} from "../../modals/modal-reservation/modal-reservation.component";
+import {UserService} from "../../services/user/user.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-calendar',
@@ -13,11 +20,41 @@ import {ReservationService} from "../../services/reservation/reservation.service
 export class CalendarComponent implements OnInit {
 
   private currentDateSpan$ = new ReplaySubject<{ start: Date, end: Date }>();
+  private reservations$: Observable<Reservation[]>;
+  private userId: number;
+  private refreshSubject = new Subject<any>();
 
-  @ViewChild('calendar', {static: false})
+  @ViewChild('mycalendar', {static: false})
   private cal: FullcalComponent;
 
-  constructor(private route: ActivatedRoute, private resourceService: ResourceService, private reservationService: ReservationService) {
+  constructor(private route: ActivatedRoute,
+              private resourceService: ResourceService,
+              private authService: AuthService,
+              private userService: UserService,
+              private reservationService: ReservationService,
+              private modalService: NgbModal,) {
+      this.authService.currentUser$.subscribe(u => this.userId = u.id);
+
+      this.reservations$ = this.authService.currentUser$
+          .pipe(
+              repeatWhen(_ => this.refreshSubject.asObservable()),
+              flatMap((user) => this.currentDateSpan$.pipe(
+                  map(dateSpan => {
+                      return {user, dateSpan}
+                  })
+              )),
+              switchMap(data => this.reservationService.getBy({
+                  startTime: data.dateSpan.start.toISOString(),
+                  endTime: data.dateSpan.end.toISOString(),
+                  userId: data.user.id
+              }))
+          );
+      this.reservations$.subscribe(r => {
+          this.cal.addReservations(r);
+          if (this.cal.eventClicked.observers.length === 0) {
+              this.cal.eventClicked.subscribe(event => this.openReservationModal(event));
+          }
+      });
   }
 
   ngOnInit() {
@@ -27,4 +64,35 @@ export class CalendarComponent implements OnInit {
     this.currentDateSpan$.next({start, end});
   }
 
+  openReservationModal(event: any) {
+    const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
+    ref.componentInstance.Add = false;
+
+    ref.componentInstance.dateField = event.start.getFullYear() + "-" + event.start.getMonth() + "-" + event.start.getDate();
+    ref.componentInstance.date = event.start;
+    ref.componentInstance.timeStart.hour = event.start.getHours();
+    ref.componentInstance.timeStart.minute = event.start.getMinutes();
+
+    const milliDiff = event.end.getTime() - event.start.getTime();
+    const minuteDiff = milliDiff / (1000 * 60);
+    const hourDiff = minuteDiff / 60;
+    ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
+
+    ref.componentInstance.status = event.status;
+    this.resourceService.getById(event.extendedProps.reservationId).subscribe(r => {
+        ref.componentInstance.resourceId = r.id;
+        ref.componentInstance.resourceName = r.displayName;
+    });
+    this.userService.getById(event.extendedProps.userId).subscribe(u => {
+        ref.componentInstance.userId = u.id;
+        ref.componentInstance.userName = u.sub;
+    });
+
+
+    ref.result.then(
+        _ => {
+            this.refreshSubject.next(true)
+        }
+    )
+  }
 }

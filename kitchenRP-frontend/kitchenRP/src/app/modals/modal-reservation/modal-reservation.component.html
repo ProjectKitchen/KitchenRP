@@ -21,7 +21,7 @@
                 <div class="form-group col-md-6">
                     <label for="inputDate">Start date</label>
                     <div class="input-group date" id="datePicker">
-                        <input type="text" class="form-control" id="inputDate" [(ngModel)]="dateField" [value]="dateString" placeholder="yyyy-mm-dd"
+                        <input type="text" class="form-control" id="inputDate" [(ngModel)]="dateField" placeholder="yyyy-mm-dd"
                                name="dateField" ngbDatepicker #d="ngbDatepicker">
                         <span class="input-group-append">
                           <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">

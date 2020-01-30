@@ -13,20 +13,20 @@
         <thead class="thead-light">
             <tr>
                 <th scope="col">#</th>
-                <!--<th scope="col">Date</th>-->
                 <th scope="col">Start</th>
                 <th scope="col">End</th>
-                <!--<th scope="col">Duration (h)</th>-->
+                <th scope="col">User</th>
                 <th scope="col">Resource</th>
                 <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="table-row modal-xl" *ngFor="let reservation of reservations$ | async; index as i">
+            <tr class="table-row modal-xl" *ngFor="let reservation of reservations$ | async; index as i" (click)="openModal(reservation)">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ reservation.startTime }}</td>
                 <td>{{ reservation.endTime }}</td>
-                <td>{{ reservation.resourceId }}</td>
+                <td>{{ reservation.owner ? reservation.owner.sub : ""}}</td>
+                <td>{{ reservation.reservedResource ? reservation.reservedResource.id : "" }}</td>
                 <td>{{ reservation.status }}</td>
             </tr>
         </tbody>

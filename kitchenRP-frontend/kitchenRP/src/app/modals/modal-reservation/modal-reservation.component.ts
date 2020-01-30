@@ -32,8 +32,8 @@ export class ModalReservationComponent implements OnInit {
     }
 
     saveReservation() {
-        let test = new Date(this.dateField.year + "-" + this.dateField.month + "-" + this.dateField.day);
-        let startDate = new Date(this.date);
+        let startDate = new Date(this.dateField.year + "-" + this.dateField.month + "-" + this.dateField.day);
+        // let startDate = new Date(this.date);
         startDate.setHours(this.timeStart.hour);
         startDate.setMinutes(this.timeStart.minute);
 
@@ -53,7 +53,7 @@ export class ModalReservationComponent implements OnInit {
             startTime: startDate.toISOString(),
             endTime: endDate.toISOString(),
             resourceId: this.resourceId,
-            userId: 6 //this.userId
+            userId: this.userId
         }).subscribe(
             _ => this.activeModal.close()
         )

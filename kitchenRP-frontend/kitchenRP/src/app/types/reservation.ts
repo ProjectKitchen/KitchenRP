@@ -1,3 +1,6 @@
+import {User} from "./user";
+import {Resource} from "./resource";
+
 export interface Reservation{
     id: number;
     //date: any;
@@ -7,6 +10,8 @@ export interface Reservation{
     userId: number;
     resourceId: number;
     status: string;
+    owner: User;
+    reservedResource: Resource;
 }
 
 export class NewReservation{

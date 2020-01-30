@@ -72,15 +72,15 @@ export class FullcalComponent implements OnInit {
         this.eventClicked.next(event.event);
     }
 
-    public addReservations(reservations: any[]){
+    public addReservations(reservations: Reservation[]){
         this.events = reservations.map(reservation => { return {
             start: reservation.startTime,
             end: reservation.endTime,
             reservationId: reservation.id,
             userId: reservation.owner.id,
             userName: reservation.owner.sub,
-            resourceId: reservation.reservedResource.id,
-            resourceName: reservation.reservedResource.displayName,
+            resourceId: reservation.reservedResource ? reservation.reservedResource.id : "",
+            resourceName: reservation.reservedResource ? reservation.reservedResource.displayName : "",
             status: reservation.status,
             backgroundColor: "#3369dd"
         }});
