@@ -65,7 +65,8 @@ import { ResourceCalendarComponent } from './components/calendar/resource-calend
         ModalRestrictionComponent,
         ResourceManagementComponent,
         ModalResourceComponent,
-        ResourceInfoComponent
+        ResourceInfoComponent,
+        ResourceCalendarComponent
     ],
     imports: [
         BrowserModule,

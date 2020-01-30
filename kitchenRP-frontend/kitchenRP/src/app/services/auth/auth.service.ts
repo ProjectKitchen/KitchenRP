@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from "@angular/core";
 import {LoginService} from "./login.service";
 import {Observable, of, ReplaySubject, Subject} from "rxjs";
-import {catchError, map, mapTo, tap} from "rxjs/operators";
+import {catchError, filter, map, mapTo, tap} from "rxjs/operators";
 import {Token} from "./user-auth";
 import {User} from "../../types/user";
 import {UserService} from "../user/user.service";
@@ -30,7 +30,8 @@ export class AuthService implements  OnInit {
 
             let user = payload.sub;
             this.userService.getByName(user)
-                .subscribe(u => this.currentUser.next(u));
+                .pipe(filter(u => u && u[0]))
+                .subscribe(u => this.currentUser.next(u[0]));
         }
     }
 
@@ -129,7 +130,7 @@ export class AuthService implements  OnInit {
 
     private doLoginUser(username: string, tokens: Token) {
         this.loggedInUser = username;
-        this.userService.getByName(username).subscribe((user) => this.currentUser.next(user));
+        this.userService.getByName(username).subscribe((user) => this.currentUser.next(user[0]));
         this.storeTokens(tokens);
     }
 }

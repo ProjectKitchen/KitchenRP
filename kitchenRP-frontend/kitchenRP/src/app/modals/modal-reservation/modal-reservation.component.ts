@@ -10,9 +10,11 @@ import {ReservationService} from "../../services/reservation/reservation.service
 export class ModalReservationComponent implements OnInit {
 
 
-    @Input() 
+    @Input()
     Add: boolean;
+    @Input() Data;
 
+    reservationId: number;
     dateField;
     dateString: string;
     date = new Date();
