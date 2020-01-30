@@ -3,6 +3,7 @@
                    id="calendar"
                    deepChangeDetection="true"
                    defaultView="dayGridMonth"
+                   [firstDay]="1"
                    [plugins]="calendarPlugins"
                    [weekends]="calendarWeekends"
                    [header]="headerConfig"
@@ -12,5 +13,7 @@
                    (datesRender)="this.dateChanged($event)"
                    (dateClick)="this.dateClickedHandler($event)"
                    (eventClick)="this.eventClickedHandler($event)"
+                   (select)="this.dateRangeSelectedCallback($event)"
+                   (unselect)="this.dateRangeUnselect($event)"
     ></full-calendar>
 </div>

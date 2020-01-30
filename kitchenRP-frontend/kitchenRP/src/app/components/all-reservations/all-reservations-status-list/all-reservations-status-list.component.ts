@@ -61,9 +61,9 @@ export class AllReservationsStatusListComponent implements OnInit {
     });
   }
 
-  openModal(tableRow) {
+  /*openModal(tableRow) {
     const modalRef = this.modalService.open(ModalReservationComponent, { windowClass : "modal-size-lg"});
     modalRef.componentInstance.Data = tableRow;
-  }
+  }*/
 
 }
