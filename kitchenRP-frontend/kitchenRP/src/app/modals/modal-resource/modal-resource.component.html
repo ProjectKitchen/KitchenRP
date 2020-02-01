@@ -24,11 +24,16 @@
             <div class="form-group">
                 <label for="inputMeta">Meta</label>
                 <div *ngFor="let m of meta">
-                    <input type="text" name="a+{{m.key}}" [(ngModel)]="m.key">
-                    :
-                    <input type="text" name="b+{{m.value}}" [(ngModel)]="m.value">
+                    <div *ngIf="showMeta">
+                        <input type="text" name="a+{{m.key}}" [(ngModel)]="m.key">
+                        :
+                        <input type="text" name="b+{{m.value}}" [(ngModel)]="m.value">
+                    </div>
                 </div>
-                <!--<input type="text" class="form-control" name="inputMeta" [(ngModel)]="changedR.metaData">-->
+                <div>
+                    <button type="button" class="btn btn-primary" (click)="addMeta()">+</button>
+                </div>
+                    <!--<input type="text" class="form-control" name="inputMeta" [(ngModel)]="changedR.metaData">-->
             </div>
             <div class="form-group">
                 <label for="inputDescription">Description</label>

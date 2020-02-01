@@ -10,6 +10,8 @@ namespace KitchenRP.DataAccess.Repositories
         Task<Resource> CreateNewResource(string displayName, JsonDocument metaData, string description,
             string resourceTypeName);
 
+        Task<Resource> UpdateResource(Resource update);
+
         Task<List<Resource>> ByType(string type);
 
         Task<Resource> FindById(long id);

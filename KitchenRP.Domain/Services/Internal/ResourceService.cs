@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using KitchenRP.DataAccess;
 using KitchenRP.DataAccess.Models;
 using KitchenRP.DataAccess.Repositories;
 using KitchenRP.Domain.Commands;
@@ -26,6 +27,19 @@ namespace KitchenRP.Domain.Services.Internal
             var resource =
                 await _resources.CreateNewResource(r.DisplayName, r.MetaData, r.Description, r.ResourceTypeName);
             return _mapper.Map<DomainResource>(resource);
+        }
+
+        public async Task<DomainResource?> UpdateResource(UpdateResourceCommand r)
+        {
+            var resource = await _resources.FindById(r.id);
+            if(resource == null)
+                throw new EntityNotFoundException(nameof(resource), $"(id == {r.id}");
+
+            var rType = await _resources.FindResourceTypByType(r.ResourceTypeName);
+            resource.ResourceType = rType;
+
+            var updated = await _resources.UpdateResource(resource);
+            return _mapper.Map<DomainResource>(updated);
         }
 
         public async Task<DomainResource> GetById(long id)

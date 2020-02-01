@@ -31,6 +31,14 @@ namespace KitchenRP.Web.Controllers
                 Uri = $"resource/{resource.Id}"
             });
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateResource(UpdateResourceCommand cmd)
+        {
+            var updateResource = await _resourceService.UpdateResource(cmd);
+            return NoContent();
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(long id)
         {

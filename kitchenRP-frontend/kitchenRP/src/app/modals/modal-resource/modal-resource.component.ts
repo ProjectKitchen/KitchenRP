@@ -18,6 +18,7 @@ export class ModalResourceComponent implements OnInit {
 
   rTypes$: Observable<ResourceType[]>;
   meta = [];
+  showMeta = true;
 
   constructor(private activeModal: NgbActiveModal, private resourceService: ResourceService) {
     this.rTypes$ = this.resourceService.getAllTypes();
@@ -26,7 +27,8 @@ export class ModalResourceComponent implements OnInit {
   ngOnInit() {
     this.changedR = {...this.Data, resourceType:{...this.Data.resourceType}};
 
-    let m = JSON.parse(JSON.stringify(this.Data.metaData)).rootElement;
+    let m = this.Data.metaData.rootElement;
+    console.log(m);
     let meta = [];
     for(let key in m){
         meta.push({key: key, value: m[key]});
@@ -35,13 +37,13 @@ export class ModalResourceComponent implements OnInit {
   }
 
   save(){
-    if (this.Add === undefined || !this.Add) {
-      // metadata array to object
-      let meta: any = this.meta.reduce<any>((o, kv) => {
-            o[kv.key] = kv.value;
-            return o;
-        }, {});
+    // metadata array to object
+    let meta: any = this.meta.reduce<any>((o, kv) => {
+        o[kv.key] = kv.value;
+        return o;
+    }, {});
 
+    if (this.Add === undefined || !this.Add) {
       // setup for changed check => copy data, so they are not overwritten
       let changed: boolean = false;
       let compChanged = {...this.changedR};
@@ -55,10 +57,12 @@ export class ModalResourceComponent implements OnInit {
 
       if(changed){
         console.log("update");
-        this.changedR.metaData = JSON.stringify(meta); // stringify actual data that is sent to backend
+        this.changedR.metaData = meta; // stringify actual data that is sent to backend
+        console.log(this.changedR);
         this.resourceService.update(this.changedR).subscribe(x => this.refresh());
       }
     } else {
+      this.changedR.metaData = meta;
       this.resourceService.create({
         displayName: this.changedR.displayName,
         description: this.changedR.description,
@@ -73,6 +77,17 @@ export class ModalResourceComponent implements OnInit {
       // console.log("delete");
       this.resourceService.delete(this.Data.id).subscribe(x => this.refresh());
       this.activeModal.close();
+  }
+
+  addMeta(){
+      this.meta.push({"": ""});
+      //console.log(this.meta[""]);
+      this.reloadMeta();
+  }
+
+  reloadMeta(){
+      this.showMeta = false;
+      setTimeout(() => this.showMeta = true);
   }
 
 }

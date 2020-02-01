@@ -26,6 +26,20 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             return resource;
         }
 
+        public async Task<Resource> UpdateResource(Resource update)
+        {
+            //var resourceType = await FindResourceTypByType(update.re);
+            var resource = await _ctx.Resources
+                .Where(u => update.Id == u.Id)
+                .FirstOrDefaultAsync();
+            resource.DisplayName = update.DisplayName;
+            resource.Description = update.Description;
+            resource.MetaData = update.MetaData;
+            resource.ResourceType = update.ResourceType;
+            await _ctx.SaveChangesAsync();
+            return resource;
+        }
+
         public Task<Resource> FindById(long id)
         {
             return _ctx.Resources
