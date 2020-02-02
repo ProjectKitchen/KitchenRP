@@ -33,9 +33,9 @@ namespace KitchenRP.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateResource(UpdateResourceCommand cmd)
+        public async Task<IActionResult> UpdateResource(UpdateResourceRequest model)
         {
-            var updateResource = await _resourceService.UpdateResource(cmd);
+            var updateResource = await _resourceService.UpdateResource(_mapper.Map<UpdateResourceCommand>(model));
             return NoContent();
         }
 

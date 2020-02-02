@@ -16,7 +16,8 @@ namespace KitchenRP.Web.Models
             CreateMap<AuthRequest, AuthCommand>();
             CreateMap<UserActivationRequest, ActivateUserCommand>();
             CreateMap<AddReservationRequest, AddReservationCommand>();
-            
+            CreateMap<UpdateResourceRequest, UpdateResourceCommand>();
+
             CreateMap<QueryReservationRequest, QueryReservationCommand>()
                 .ForMember(q => q.EndTime, 
                     opt => opt.MapFrom(

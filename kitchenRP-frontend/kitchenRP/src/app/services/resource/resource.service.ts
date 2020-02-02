@@ -31,9 +31,13 @@ export class ResourceService {
         return this.http.post<Resource>(url, resource);
     }
 
-    update(resource: Resource): Observable<Resource> {
+    update(resource): Observable<Resource> {
         const url = this.baseUrl + "/resource";
-        return this.http.put<Resource>(url, resource);
+        let uResource = {...resource};
+        uResource.resourceTypeName = resource.resourceType['type'];
+        delete uResource.resourceType
+        console.log(uResource);
+        return this.http.put<Resource>(url, uResource);
     }
 
     delete(id: number): Observable<{}> {

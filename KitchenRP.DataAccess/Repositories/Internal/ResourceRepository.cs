@@ -28,7 +28,6 @@ namespace KitchenRP.DataAccess.Repositories.Internal
 
         public async Task<Resource> UpdateResource(Resource update)
         {
-            //var resourceType = await FindResourceTypByType(update.re);
             var resource = await _ctx.Resources
                 .Where(u => update.Id == u.Id)
                 .FirstOrDefaultAsync();

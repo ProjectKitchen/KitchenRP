@@ -12,7 +12,7 @@ namespace KitchenRP.Web.Models
         [JsonConverter(typeof(NewResourceRequestJsonConverter))]
         public JsonDocument? MetaData { get; set; }
 
-        [Required] public string? Description { get; set; }
+        public string? Description { get; set; }
 
         [Required] public string? ResourceTypeName { get; set; }
     }

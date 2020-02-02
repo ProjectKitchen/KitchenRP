@@ -37,6 +37,9 @@ namespace KitchenRP.Domain.Services.Internal
 
             var rType = await _resources.FindResourceTypByType(r.ResourceTypeName);
             resource.ResourceType = rType;
+            resource.MetaData = r.MetaData;
+            resource.DisplayName = r.DisplayName;
+            resource.Description = r.Description;
 
             var updated = await _resources.UpdateResource(resource);
             return _mapper.Map<DomainResource>(updated);
