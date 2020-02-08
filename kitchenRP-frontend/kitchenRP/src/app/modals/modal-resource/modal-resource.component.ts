@@ -86,7 +86,7 @@ export class ModalResourceComponent implements OnInit {
   }
 
   removeMeta(data){
-      let metaDataIndex = this.getKeyByValue(this.meta, data);
+      let metaDataIndex: number = +this.getKeyByValue(this.meta, data);
       this.meta.splice(metaDataIndex, 1);
       //this.reloadMeta();
   }
