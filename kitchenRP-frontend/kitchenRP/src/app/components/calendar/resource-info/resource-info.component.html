@@ -1,8 +1,9 @@
-<div>
+<div ng-init="this.updateMeta()">
     <h4>{{resource.displayName | titlecase }}</h4>
     <div class="resource-info-container">
         <span class="border resource-info">{{resource.resourceType.displayName | titlecase }}<span class="tooltiptext">Device type</span></span>
-        <span class="border resource-info">{{resource.metaData.material || "unkown material"}}<span class="tooltiptext">Available material</span></span>
-        <span class="border resource-info">{{resource.metaData.printarea || "unkown material"}}<span class="tooltiptext">Printing-area size</span></span>
+        <span *ngFor="let m of resource.metaData.rootElement | keyvalue">
+            <span class="border resource-info">{{m.value}}<span class="tooltiptext">{{m.key}}</span></span>
+        </span>
     </div>
 </div>
