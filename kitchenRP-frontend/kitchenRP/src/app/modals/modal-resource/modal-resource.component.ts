@@ -85,9 +85,42 @@ export class ModalResourceComponent implements OnInit {
       this.reloadMeta();
   }
 
+  removeMeta(data){
+      let metaDataIndex = this.getKeyByValue(this.meta, data);
+      this.meta.splice(metaDataIndex, 1);
+      //this.reloadMeta();
+  }
+
   reloadMeta(){
       this.showMeta = false;
       setTimeout(() => this.showMeta = true);
   }
 
+  getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
+
+  /* Useless because database mixes up order... ------
+  moveMetaUp(data){
+      let metaDataIndex = this.getKeyByValue(this.meta, data);
+      if(metaDataIndex > 0){
+          let temp = this.meta[metaDataIndex];
+          this.meta[metaDataIndex] = this.meta[metaDataIndex - 1];
+          this.meta[metaDataIndex - 1] = temp;
+
+          this.reloadMeta();
+      }
+  }
+
+  moveMetaDown(data){
+      let metaDataIndex = this.getKeyByValue(this.meta, data);
+      if(metaDataIndex < this.meta.length - 1){
+          let temp = this.meta[metaDataIndex];
+          this.meta[metaDataIndex] = this.meta[metaDataIndex + 1];
+          this.meta[metaDataIndex + 1] = temp;
+
+          this.reloadMeta();
+      }
+  }
+  ---------------------------------------------------------*/
 }

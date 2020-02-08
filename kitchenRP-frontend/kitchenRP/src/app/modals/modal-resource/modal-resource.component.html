@@ -28,6 +28,11 @@
                         <input type="text" name="a+{{m.key}}" [(ngModel)]="m.key">
                         :
                         <input type="text" name="b+{{m.value}}" [(ngModel)]="m.value">
+                        <!-- Useless because database mixes up order...
+                        <button type="button" style="margin-left: 5px; margin-bottom: 5px;" class="btn btn-primary" (click)="moveMetaUp(m)">&uarr;</button>
+                        <button type="button" style="margin-left: 5px; margin-bottom: 5px;" class="btn btn-primary" (click)="moveMetaDown(m)">&darr;</button>
+                        -->
+                        <button type="button" style="margin-left: 5px; margin-bottom: 5px;" class="btn btn-danger" (click)="removeMeta(m)">-</button>
                     </div>
                 </div>
                 <div>
