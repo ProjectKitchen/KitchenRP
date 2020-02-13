@@ -26,13 +26,13 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button *ngIf="!isAdmin" type="button" class="btn btn-danger mr-auto" (click)="delete()">Delete</button>
+        <button *ngIf="!isAdmin && !Add" type="button" class="btn btn-danger mr-auto" (click)="delete()">Delete</button>
         <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
         <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
     </div>
 </div>
 
 <ng-template #elseBlock>
-    <p style="color: red">admin</p>
+    <p style="color: red">Admin</p>
 </ng-template>
 

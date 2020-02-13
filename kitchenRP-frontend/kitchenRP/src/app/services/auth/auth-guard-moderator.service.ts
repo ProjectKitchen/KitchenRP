@@ -17,7 +17,7 @@ export class AuthGuardModerator implements CanActivate {
                 tap(
                     isUser => {
                         // console.log("is not a moderator");
-                        if(!isUser) this.router.navigate(["login"]).then();
+                        if(!isUser) this.router.navigate(["calendar"]).then();
                     }
                 )
             )

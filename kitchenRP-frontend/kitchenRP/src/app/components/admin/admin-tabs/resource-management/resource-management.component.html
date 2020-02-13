@@ -14,17 +14,16 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Meta Data</th>
             <th scope="col">Type</th>
+            <th scope="col">Description</th>
         </tr>
         </thead>
         <tbody>
         <tr class="table-row modal-xl" *ngFor="let resource of resources$ | async; index as i" (click)="openModal(resource)">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ resource.displayName }}</td>
-            <!--<td>{{ resource.metaData }}</td>-->
-            <td>...</td>
             <td>{{ resource.resourceType['type'] }}</td>
+            <td>{{ resource.description }}</td>
         </tr>
         </tbody>
     </table>

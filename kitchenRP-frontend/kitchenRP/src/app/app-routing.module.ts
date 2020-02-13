@@ -15,7 +15,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent, pathMatch: 'full'},
     {path: 'calendar', canActivate: [AuthGuardLoggedIn, AuthGuardUser], component: CalendarComponent},
     {path: 'calendar/:id', canActivate: [AuthGuardLoggedIn, AuthGuardUser], component: ResourceCalendarComponent},
-    {path: 'reservations', canActivate: [AuthGuardLoggedIn,AuthGuardUser], component: ReservationsComponent, pathMatch: 'full'},
+    {path: 'reservations', canActivate: [AuthGuardLoggedIn, AuthGuardUser], component: ReservationsComponent, pathMatch: 'full'},
     {path: 'all-reservations', canActivate: [AuthGuardLoggedIn, AuthGuardModerator], component: AllReservationsComponent, pathMatch: 'full'},
     {path: 'admin', canActivate: [AuthGuardLoggedIn, AuthGuardAdmin], component: AdminComponent, pathMatch: 'full'},
     {path: '', redirectTo: '/calendar', pathMatch: 'full'},

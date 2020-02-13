@@ -80,7 +80,6 @@ export class ResourceCalendarComponent implements OnInit {
         //console.log("range form event:");
         //console.log(range);
         this.lastSelectedRange = range;
-        //this.openNewReservationModal();
     }
 
     openNewReservationModal() {

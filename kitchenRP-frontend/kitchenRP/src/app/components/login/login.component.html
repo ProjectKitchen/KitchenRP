@@ -13,25 +13,19 @@
                 <input type="password" placeholder="Enter Password" name="password" id="password" [(ngModel)]="password" required>
             </div>
             <div class="alert alert-danger show" *ngIf="invalidLogin">
-                <strong>ERROR:</strong> Invalid username or password.
+                <strong>ERROR:</strong> Invalid username/password or user not authorized.
             </div>
             <div class="form-group btn-wrapper">
-                <button class="btn btn btn-primary" type="button" (click)="this.loginUser()">Login</button>
+                <button class="btn btn btn-primary" type="submit" (click)="this.loginUser()">Login</button>
             </div>
         </div>
         <div class="container">
             <div class="text-center">
-                <button type="button" class="btn btn-outline-secondary mr-2" placement="bottom"
-                        ngbPopover="Use your student credentials to log in. A User must be enabled by the ProjectKitchen admins.To contact them write to '@'"
+                <button type="button" class="btn btn-outline-secondary mr-2" placement="left-bottom"
+                        ngbPopover="Use your student credentials to log in. A User must be enabled by the ProjectKitchen admins. To contact them write to '@'"
                         popoverTitle="Login help">
                     Unable to log in?
                 </button>
-            </div>
-        </div>
-        <div class="login-info collapse" id="login-info">
-            <div class="card card-body">
-                Use your student credentials to log in.
-                A User must be enabled by the ProjectKitchen admins. To contact them write to '@'
             </div>
         </div>
     </form>

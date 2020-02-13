@@ -10,6 +10,7 @@ export interface Reservation{
     userId: number;
     resourceId: number;
     status: string;
+    statuses: string;
     owner: User;
     reservedResource: Resource;
 }

@@ -47,6 +47,7 @@ namespace KitchenRP.Domain.Services.Internal
                 query.WithStatuses((await _statuses.All()).Where(st => cmd.StatusList.Contains(st.Status)));
             }
 
+            var t = (await _reservations.Query(query)).ToList();
             return (await _reservations.Query(query))
                 .Select(r => _mapper.Map<DomainReservation>(r))
                 .ToList();

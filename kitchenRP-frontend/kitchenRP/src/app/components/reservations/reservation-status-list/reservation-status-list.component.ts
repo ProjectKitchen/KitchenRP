@@ -30,7 +30,9 @@ export class ReservationStatusListComponent implements OnInit {
               private authService: AuthService,
               private modalService: NgbModal, pipe: DecimalPipe) {
 
-    this.reservations$ = this.reservationService.getBy({id: 6})
+    let id: number;
+    this.authService.currentUser$.subscribe(val => id = val.id);
+    this.reservations$ = this.reservationService.getBy({userId: id})
         .pipe(
             tap(reservations => this.data = reservations),
             flatMap(r => this.filter.valueChanges
@@ -79,6 +81,10 @@ export class ReservationStatusListComponent implements OnInit {
     const modalRef = this.modalService.open(ModalReservationComponent, { windowClass : "modal-size-lg"});
     modalRef.componentInstance.Data = {id: "", date: "", duration: "", startTime: "", endTime: "", userId: "", resourceId: "", status: ""};
     modalRef.componentInstance.Add = true;
+  }
+
+  timestampToReadable(ts: string) {
+      return ts.replace(/[TZ]/g, " ");
   }
 
 }

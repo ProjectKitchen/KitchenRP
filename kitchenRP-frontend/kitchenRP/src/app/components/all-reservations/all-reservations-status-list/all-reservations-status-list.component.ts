@@ -30,7 +30,7 @@ export class AllReservationsStatusListComponent implements OnInit {
               private resourceService: ResourceService,
               private userService: UserService,
               private modalService: NgbModal, pipe: DecimalPipe) {
-    this.pendingReservations$ = this.reservationService.getBy({status: "Pending"})
+    this.pendingReservations$ = this.reservationService.getBy({statuses: "Pending"})
         .pipe(
             tap(reservations => this.pendingData = reservations),
             flatMap(r => this.filter.valueChanges
@@ -41,7 +41,7 @@ export class AllReservationsStatusListComponent implements OnInit {
             )
         );
 
-    this.checkedReservations$ = this.reservationService.getBy({status: "Accepted,Denied"})
+    this.checkedReservations$ = this.reservationService.getBy({statuses: "Accepted,Denied"})
         .pipe(
             tap(reservations => this.checkedData = reservations),
             flatMap(r => this.filter.valueChanges
@@ -86,4 +86,7 @@ export class AllReservationsStatusListComponent implements OnInit {
       ref.componentInstance.userName = tableRow.owner ? tableRow.owner.sub : "";
   }
 
+    timestampToReadable(ts: string) {
+        return ts.replace(/[TZ]/g, " ");
+    }
 }

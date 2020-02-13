@@ -25,8 +25,8 @@
         <tbody>
             <tr class="table-row modal-xl" *ngFor="let reservation of pendingReservations$ | async; index as i" (click)="openModal(reservation)">
                 <th scope="row">{{ i + 1 }}</th>
-                <td>{{ reservation.startTime }}</td>
-                <td>{{ reservation.endTime }}</td>
+                <td>{{ timestampToReadable(reservation.startTime) }}</td>
+                <td>{{ timestampToReadable(reservation.endTime) }}</td>
                 <td>{{ reservation.owner ? reservation.owner.sub : ""}}</td>
                 <td>{{ reservation.reservedResource ? reservation.reservedResource.id : "" }}</td>
                 <td>{{ reservation.status }}</td>

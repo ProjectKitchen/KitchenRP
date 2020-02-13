@@ -15,12 +15,6 @@ namespace KitchenRP.Domain.Services.Internal
 
         public async Task<IEnumerable<Claim>> Authorize(string uid)
         {
-            //TODO: make a real implementation
-            return await Task.Run(() => new[]
-            {
-                new Claim("sub", "if17b094"),
-                new Claim(ClaimTypes.Role, "user")
-            });
             return await _users.GetClaimsForUser(uid);
         }
     }
