@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Restriction} from "../../types/restriction";
+import {Restriction, NewRestriction} from "../../types/restriction";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -20,9 +20,14 @@ export class RestrictionService {
         return this.http.get<Restriction[]>(url);
     }
 
-    create(restriction: Restriction): Observable<Restriction> {
+    create(restriction: NewRestriction): Observable<Restriction> {
         const url = this.baseUrl + "/restriction";
         return this.http.post<Restriction>(url, restriction);
+    }
+
+    update(restriction): Observable<Restriction> {
+        const url = this.baseUrl + "/restriction";
+        return this.http.put<Restriction>(url, restriction);
     }
 
     delete(id: number): Observable<{}> {
