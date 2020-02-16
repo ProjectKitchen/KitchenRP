@@ -97,7 +97,10 @@ namespace KitchenRP.DataAccess.Queries
                     );
             }
 
-            return reservations.Include(r =>  r.Owner);
+            return reservations
+                .Include(r => r.Owner)
+                .Include(r => r.ReservedResource)
+                .Include(r => r.StatusChanges);
         }
 
         private class TempResult

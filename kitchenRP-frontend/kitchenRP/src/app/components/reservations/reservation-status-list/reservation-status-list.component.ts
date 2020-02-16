@@ -53,7 +53,6 @@ export class ReservationStatusListComponent implements OnInit {
     return  reservation.startTime.toLowerCase().includes(term)
         || reservation.endTime.toLowerCase().includes(term)
         || reservation.status.toLowerCase().includes(term);
-        //|| pipe.transform(reservation.id).includes(term); // ID search?
     });
   }
 
@@ -61,6 +60,7 @@ export class ReservationStatusListComponent implements OnInit {
       const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
       ref.componentInstance.Add = false;
 
+      ref.componentInstance.reservationId = tableRow.id;
       let start = new Date(tableRow.startTime);
       let end = new Date(tableRow.endTime);
       ref.componentInstance.date = start;
@@ -73,14 +73,9 @@ export class ReservationStatusListComponent implements OnInit {
       ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
 
       ref.componentInstance.status = tableRow.status;
-      ref.componentInstance.resourceName = tableRow.reservedResource ? tableRow.reservedResource.id : "";
+      ref.componentInstance.resourceId = tableRow.reservedResource ? tableRow.reservedResource.id : "";
+      ref.componentInstance.resourceName = tableRow.reservedResource ? tableRow.reservedResource.displayName : "";
       ref.componentInstance.userName = tableRow.owner ? tableRow.owner.sub : "";
-  }
-
-  openModalAdd() {
-    const modalRef = this.modalService.open(ModalReservationComponent, { windowClass : "modal-size-lg"});
-    modalRef.componentInstance.Data = {id: "", date: "", duration: "", startTime: "", endTime: "", userId: "", resourceId: "", status: ""};
-    modalRef.componentInstance.Add = true;
   }
 
   timestampToReadable(ts: string) {

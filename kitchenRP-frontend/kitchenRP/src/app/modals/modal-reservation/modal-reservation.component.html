@@ -22,7 +22,7 @@
                     <label for="inputDate">Start date</label>
                     <div class="input-group date" id="datePicker">
                         <input type="text" class="form-control" id="inputDate" [(ngModel)]="dateField" placeholder="yyyy-mm-dd"
-                               name="dateField" ngbDatepicker #d="ngbDatepicker">
+                               name="dateField" ngbDatepicker #d="ngbDatepicker" [readOnly]="!Add">
                         <span class="input-group-append">
                           <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" [value]="status" readonly>
+                    <input type="text" class="form-control" id="status" name="status" [value]="status" [readonly]="!isAdmin">
                 </div>
             </div>
             <div class="row">
@@ -44,7 +44,7 @@
                 <div class="form-group col-md-6">
                     <label for="duration-picker">Duration (min)</label>
                     <input type="number" class="form-control" id="duration-picker" name="duration-picker"
-                           [(ngModel)]="duration.minute">
+                           [(ngModel)]="duration.minute" [readonly]="!Add">
                 </div>
             </div>
         </form>

@@ -13,6 +13,7 @@ export class ModalReservationComponent implements OnInit {
     @Input()
     Add: boolean;
     @Input() Data;
+    isAdmin: boolean = false;
 
     reservationId: number;
     dateField;

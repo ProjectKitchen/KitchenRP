@@ -41,7 +41,7 @@ export class AllReservationsStatusListComponent implements OnInit {
             )
         );
 
-    this.checkedReservations$ = this.reservationService.getBy({statuses: "Accepted,Denied"})
+    this.checkedReservations$ = this.reservationService.getBy({}) // {statuses: "Accepted,Denied"})
         .pipe(
             tap(reservations => this.checkedData = reservations),
             flatMap(r => this.filter.valueChanges
@@ -70,6 +70,7 @@ export class AllReservationsStatusListComponent implements OnInit {
     const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
       ref.componentInstance.Add = false;
 
+      ref.componentInstance.reservationId = tableRow.id;
       let start = new Date(tableRow.startTime);
       let end = new Date(tableRow.endTime);
       ref.componentInstance.date = start;
@@ -82,7 +83,8 @@ export class AllReservationsStatusListComponent implements OnInit {
       ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
 
       ref.componentInstance.status = tableRow.status;
-      ref.componentInstance.resourceName = tableRow.reservedResource ? tableRow.reservedResource.id : "";
+      ref.componentInstance.resourceId = tableRow.reservedResource ? tableRow.reservedResource.id : "";
+      ref.componentInstance.resourceName = tableRow.reservedResource ? tableRow.reservedResource.displayName : "";
       ref.componentInstance.userName = tableRow.owner ? tableRow.owner.sub : "";
   }
 
