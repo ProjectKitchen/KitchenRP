@@ -76,9 +76,6 @@ export class ResourceCalendarComponent implements OnInit {
     }
 
     handleDateRangeSelection(range: { start: Date, end: Date }) {
-
-        //console.log("range form event:");
-        //console.log(range);
         this.lastSelectedRange = range;
     }
 
@@ -93,12 +90,6 @@ export class ResourceCalendarComponent implements OnInit {
         //     day: this.lastSelectedRange.start.getDate(),
         // };
 
-        // ref.componentInstance.timeStart.hour = this.lastSelectedRange.start.getHours();
-        // ref.componentInstance.timeStart.minute = this.lastSelectedRange.start.getMinutes();
-        let now = new Date();
-        ref.componentInstance.timeStart.hour = now.getHours();
-        ref.componentInstance.timeStart.minute = now.getMinutes();
-
         const milliDiff = this.lastSelectedRange.end.getTime() - this.lastSelectedRange.start.getTime();
         const minuteDiff = milliDiff / (1000 * 60);
         const hourDiff = minuteDiff / 60;
@@ -108,7 +99,16 @@ export class ResourceCalendarComponent implements OnInit {
             ref.componentInstance.duration = {hour: Math.floor(0), minute: Math.floor(60)};
         }
 
-        ref.componentInstance.status = "";
+        if (this.lastSelectedRange && minuteDiff !== 1440) {
+            ref.componentInstance.timeStart.hour = this.lastSelectedRange.start.getHours();
+            ref.componentInstance.timeStart.minute = this.lastSelectedRange.start.getMinutes();
+        } else {
+            let now = new Date();
+            ref.componentInstance.timeStart.hour = now.getHours();
+            ref.componentInstance.timeStart.minute = now.getMinutes();
+        }
+
+        ref.componentInstance.status = "NEW";
         this.resource$.subscribe(r => {
             ref.componentInstance.resourceId = r.id;
             ref.componentInstance.resourceName = r.displayName;
@@ -138,13 +138,13 @@ export class ResourceCalendarComponent implements OnInit {
         const hourDiff = minuteDiff / 60;
         ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
 
-        ref.componentInstance.status = event.status;
-        this.resourceService.getById(event.extendedProps.reservationId).subscribe(r => {
-            ref.componentInstance.resourceId = r.id;
+        ref.componentInstance.status = event.extendedProps.status ? event.extendedProps.status.status : "";
+        ref.componentInstance.resourceId = event.extendedProps.resourceId;
+        this.resourceService.getById(event.extendedProps.resourceId).subscribe(r => {
             ref.componentInstance.resourceName = r.displayName;
         });
+        ref.componentInstance.userId = event.extendedProps.userId;
         this.userService.getById(event.extendedProps.userId).subscribe(u => {
-            ref.componentInstance.userId = u.id;
             ref.componentInstance.userName = u.sub;
         });
 

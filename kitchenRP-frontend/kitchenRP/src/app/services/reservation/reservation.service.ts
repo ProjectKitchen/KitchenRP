@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Reservation, NewReservation} from "../../types/reservation";
 import {catchError, retry} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
+import {User} from "../../types/user";
 
 @Injectable({
     providedIn: 'root'
@@ -52,6 +53,16 @@ export class ReservationService {
     delete(id: number): Observable<{}> {
         const url = this.baseUrl + "/reservation/" + id;
         return this.http.delete(url);
+    }
+
+    accept(id: number) {
+        const url = this.baseUrl + "/reservation/" + id + "/accept";
+        return this.http.put<Reservation>(url, {});
+    }
+
+    deny(id: number) {
+        const url = this.baseUrl + "/reservation/" + id + "/deny";
+        return this.http.put<Reservation>(url, {});
     }
 
     /*private handleError(error: HttpErrorResponse) {

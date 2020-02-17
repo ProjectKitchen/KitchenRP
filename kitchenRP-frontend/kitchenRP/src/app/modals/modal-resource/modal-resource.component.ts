@@ -28,7 +28,7 @@ export class ModalResourceComponent implements OnInit {
     this.changedR = {...this.Data, resourceType:{...this.Data.resourceType}};
 
     let m = this.Data.metaData.rootElement;
-    console.log(m);
+
     let meta = [];
     for(let key in m){
         meta.push({key: key, value: m[key]});

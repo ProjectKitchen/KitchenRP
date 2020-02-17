@@ -30,7 +30,7 @@ export class AllReservationsStatusListComponent implements OnInit {
               private resourceService: ResourceService,
               private userService: UserService,
               private modalService: NgbModal, pipe: DecimalPipe) {
-    this.pendingReservations$ = this.reservationService.getBy({statuses: "Pending"})
+    this.pendingReservations$ = this.reservationService.getBy({statuses: "PENDING"})
         .pipe(
             tap(reservations => this.pendingData = reservations),
             flatMap(r => this.filter.valueChanges
@@ -41,7 +41,7 @@ export class AllReservationsStatusListComponent implements OnInit {
             )
         );
 
-    this.checkedReservations$ = this.reservationService.getBy({}) // {statuses: "Accepted,Denied"})
+    this.checkedReservations$ = this.reservationService.getBy({statuses: "ACCEPTED,DENIED"})
         .pipe(
             tap(reservations => this.checkedData = reservations),
             flatMap(r => this.filter.valueChanges
@@ -61,8 +61,9 @@ export class AllReservationsStatusListComponent implements OnInit {
     const term = text.toLowerCase();
     return  reservation.startTime.toLowerCase().includes(term)
         || reservation.endTime.toLowerCase().includes(term)
-        || reservation.status.toLowerCase().includes(term);
-        //|| pipe.transform(reservation.id).includes(term); // ID search?
+        || reservation.owner.sub.toLowerCase().includes(term)
+        || reservation.reservedResource.displayName.toLowerCase().includes(term)
+        || reservation.status.status.toLowerCase().includes(term);
     });
   }
 
@@ -82,9 +83,10 @@ export class AllReservationsStatusListComponent implements OnInit {
       const hourDiff = minuteDiff / 60;
       ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
 
-      ref.componentInstance.status = tableRow.status;
+      ref.componentInstance.status = tableRow.status ? tableRow.status.status : "";
       ref.componentInstance.resourceId = tableRow.reservedResource ? tableRow.reservedResource.id : "";
       ref.componentInstance.resourceName = tableRow.reservedResource ? tableRow.reservedResource.displayName : "";
+      ref.componentInstance.userId = tableRow.owner ? tableRow.owner.id : "";
       ref.componentInstance.userName = tableRow.owner ? tableRow.owner.sub : "";
   }
 

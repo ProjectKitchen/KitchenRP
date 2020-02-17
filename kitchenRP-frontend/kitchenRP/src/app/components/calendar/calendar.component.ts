@@ -78,13 +78,13 @@ export class CalendarComponent implements OnInit {
     const hourDiff = minuteDiff / 60;
     ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
 
-    ref.componentInstance.status = event.status;
-    this.resourceService.getById(event.extendedProps.reservationId).subscribe(r => {
-        ref.componentInstance.resourceId = r.id;
+    ref.componentInstance.status = event.extendedProps.status ? event.extendedProps.status.status : "";
+    ref.componentInstance.resourceId = event.extendedProps.resourceId;
+    this.resourceService.getById(event.extendedProps.resourceId).subscribe(r => {
         ref.componentInstance.resourceName = r.displayName;
     });
+    ref.componentInstance.userId = event.extendedProps.userId;
     this.userService.getById(event.extendedProps.userId).subscribe(u => {
-        ref.componentInstance.userId = u.id;
         ref.componentInstance.userName = u.sub;
     });
 

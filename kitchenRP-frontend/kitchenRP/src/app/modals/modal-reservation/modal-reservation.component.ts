@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReservationService} from "../../services/reservation/reservation.service";
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
     selector: 'app-modal-reservation',
@@ -13,7 +14,8 @@ export class ModalReservationComponent implements OnInit {
     @Input()
     Add: boolean;
     @Input() Data;
-    isAdmin: boolean = false;
+    isModOrAdmin: boolean = false;
+    isLoggedInUser: boolean = false;
 
     reservationId: number;
     dateField;
@@ -29,7 +31,8 @@ export class ModalReservationComponent implements OnInit {
     status: string;
 
     constructor(private activeModal: NgbActiveModal,
-                private reservationService: ReservationService) {
+                private reservationService: ReservationService,
+                private authService: AuthService) {
     }
 
     saveReservation() {
@@ -41,13 +44,6 @@ export class ModalReservationComponent implements OnInit {
         let endDate = new Date(startDate.getTime()
             + (1000 * 60) * this.duration.minute
             + (1000 * 60 * 60) * this.duration.hour);
-
-        console.log({
-            startTime: startDate.toISOString(),
-            endTime: endDate.toISOString(),
-            resourceId: this.resourceId,
-            userId: this.userId
-        });
 
         this.reservationService.create({
             allowNotifications: true,
@@ -65,15 +61,23 @@ export class ModalReservationComponent implements OnInit {
         this.activeModal.close();
     }
 
+    accept() {
+        this.reservationService.accept(this.reservationId).subscribe();
+        this.activeModal.close();
+    }
+
+    deny() {
+        this.reservationService.deny(this.reservationId).subscribe();
+        this.activeModal.close();
+    }
+
     ngOnInit() {
+        this.authService.isModerator().subscribe(val => this.isModOrAdmin = val);
+        this.authService.currentUser$.subscribe(val => {
+            if (val.id == this.userId) {
+                this.isLoggedInUser = true;
+            }
+        });
     }
-
-  save() {
-    if (this.Add === undefined || !this.Add) {
-
-    } else {
-
-    }
-  }
 
 }

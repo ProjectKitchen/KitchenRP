@@ -42,5 +42,21 @@ namespace KitchenRP.Web.Controllers
             var mapped = reservations.Select(_mapper.Map<ReservationResponse>);
             return Ok(mapped);
         }
+        
+        [HttpPut]
+        [Route("{id}/accept")]
+        public async Task<IActionResult> AcceptReservation(long id)
+        {
+            var reservation = await _reservationService.AcceptReservation(new AcceptReservationCommand{Id = id});
+            return NoContent();
+        }
+        
+        [HttpPut]
+        [Route("{id}/deny")]
+        public async Task<IActionResult> DenyReservation(long id)
+        {
+            var demotedUser = await _reservationService.DenyReservation(new DenyReservationCommand{Id = id});
+            return NoContent();
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace KitchenRP.Web.Models
         public String EndTime { get; set; }
         public UserResponse Owner { get; set; }
         public DomainResource ReservedResource { get; set; }
-        // public HashSet<StatusChange> StatusChanges { get; set; }
+        public DomainReservationStatus Status { get; set; }
         public bool AllowNotifications { get; set; }
     }
 }

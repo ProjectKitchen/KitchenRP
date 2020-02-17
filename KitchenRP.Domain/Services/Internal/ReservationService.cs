@@ -46,8 +46,7 @@ namespace KitchenRP.Domain.Services.Internal
             {
                 query.WithStatuses((await _statuses.All()).Where(st => cmd.StatusList.Contains(st.Status)));
             }
-
-            var t = (await _reservations.Query(query)).ToList();
+            
             return (await _reservations.Query(query))
                 .Select(r => _mapper.Map<DomainReservation>(r))
                 .ToList();
@@ -110,5 +109,38 @@ namespace KitchenRP.Domain.Services.Internal
             var reservation = await _reservations.FindById(cmd.Reservation.Id);
             await _reservations.CreateNewStatusChange(cmd.Reason, reservation, cmd.ChangedBy, newStatus);
         }
+        
+        public async Task<DomainReservation> AcceptReservation(AcceptReservationCommand cmd)
+        {
+            /*
+            var user = await _users.FindById(cmd.Id);
+            
+            if (user?.Role?.RoleName != Roles.User)
+                throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == user)");
+            
+            var modRole = await _roles.FindByRole(Roles.Moderator);
+            user.Role = modRole;
+            var promoted = await _users.UpdateUser(user);
+            return _mapper.Map<Reservation>(promoted);
+            */
+            return _mapper.Map<DomainReservation>(new Reservation());
+        }
+
+        public async Task<DomainReservation> DenyReservation(DenyReservationCommand cmd)
+        {
+            /*
+            var user = await _users.FindById(cmd.Id);
+            
+            if (user?.Role?.RoleName != Roles.Moderator)
+                throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == moderator)");
+            
+            var modRole = await _roles.FindByRole(Roles.User);
+            user.Role = modRole;
+            var demoted = await _users.UpdateUser(user);
+            return _mapper.Map<Reservation>(demoted);
+            */
+            return _mapper.Map<DomainReservation>(new Reservation());
+        }
+        
     }
 }

@@ -9,5 +9,7 @@ namespace KitchenRP.Domain.Services
     {
         Task<DomainReservation> AddNewReservation(AddReservationCommand cmd);
         Task<List<DomainReservation>> QueryReservations(QueryReservationCommand cmd);
+        Task<DomainReservation> AcceptReservation(AcceptReservationCommand cmd);
+        Task<DomainReservation> DenyReservation(DenyReservationCommand cmd);
     }
 }

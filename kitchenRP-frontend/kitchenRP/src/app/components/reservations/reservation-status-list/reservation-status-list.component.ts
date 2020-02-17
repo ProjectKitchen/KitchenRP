@@ -50,9 +50,11 @@ export class ReservationStatusListComponent implements OnInit {
   search(text: string, pipe: PipeTransform): Reservation[] {
     return this.data.filter(reservation => {
     const term = text.toLowerCase();
-    return  reservation.startTime.toLowerCase().includes(term)
+    return reservation.startTime.toLowerCase().includes(term)
         || reservation.endTime.toLowerCase().includes(term)
-        || reservation.status.toLowerCase().includes(term);
+        || reservation.owner.sub.toLowerCase().includes(term)
+        || reservation.reservedResource.displayName.toLowerCase().includes(term)
+        || reservation.status.status.toLowerCase().includes(term);
     });
   }
 
@@ -72,9 +74,10 @@ export class ReservationStatusListComponent implements OnInit {
       const hourDiff = minuteDiff / 60;
       ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
 
-      ref.componentInstance.status = tableRow.status;
+      ref.componentInstance.status = tableRow.status ? tableRow.status.status : "";
       ref.componentInstance.resourceId = tableRow.reservedResource ? tableRow.reservedResource.id : "";
       ref.componentInstance.resourceName = tableRow.reservedResource ? tableRow.reservedResource.displayName : "";
+      ref.componentInstance.userId = tableRow.owner ? tableRow.owner.id : "";
       ref.componentInstance.userName = tableRow.owner ? tableRow.owner.sub : "";
   }
 

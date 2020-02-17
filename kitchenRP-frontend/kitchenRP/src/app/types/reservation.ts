@@ -1,5 +1,6 @@
 import {User} from "./user";
 import {Resource} from "./resource";
+import {Status} from "./status";
 
 export interface Reservation{
     id: number;
@@ -9,7 +10,7 @@ export interface Reservation{
     endTime: string;
     userId: number;
     resourceId: number;
-    status: string;
+    status: Status;
     statuses: string;
     owner: User;
     reservedResource: Resource;

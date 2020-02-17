@@ -26,7 +26,7 @@
                 <td>{{ timestampToReadable(reservation.endTime) }}</td>
                 <td>{{ reservation.owner ? reservation.owner.sub : ""}}</td>
                 <td>{{ reservation.reservedResource ? reservation.reservedResource.displayName : "" }}</td>
-                <td>{{ reservation.status }}</td>
+                <td>{{ reservation.status ? reservation.status.status : "" }}</td>
             </tr>
         </tbody>
     </table>

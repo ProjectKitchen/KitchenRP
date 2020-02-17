@@ -50,7 +50,11 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button *ngIf="!Add" type="button" class="btn btn-danger mr-auto" (click)="delete()">Delete</button>
+        <div class="buttons-left mr-auto">
+            <button *ngIf="!Add && isLoggedInUser" type="button" class="btn btn-danger mr-2" (click)="delete()">Delete</button>
+            <button *ngIf="!Add && isModOrAdmin" type="button" class="btn btn-warning mr-2" (click)="deny()">Deny Res.</button>
+            <button *ngIf="!Add && isModOrAdmin" type="button" class="btn btn-info mr-2" (click)="accept()">Accept Res.</button>
+        </div>
         <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
         <button *ngIf="Add" type="button" class="btn btn-primary" (click)="saveReservation()">Save changes</button>
     </div>
