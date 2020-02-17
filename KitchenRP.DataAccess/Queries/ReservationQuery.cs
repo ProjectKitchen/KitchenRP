@@ -100,7 +100,10 @@ namespace KitchenRP.DataAccess.Queries
             return reservations
                 .Include(r => r.Owner)
                 .Include(r => r.ReservedResource)
-                .Include(r => r.StatusChanges);
+                .Include(r => r.StatusChanges)
+                .ThenInclude(r => r.CurrentStatus)
+                .Include(r => r.StatusChanges)
+                .ThenInclude(r => r.PreviousStatus);
         }
 
         private class TempResult

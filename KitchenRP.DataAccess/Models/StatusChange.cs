@@ -7,8 +7,8 @@ namespace KitchenRP.DataAccess.Models
     public class StatusChange
     {
         public long? Id { get; set; }
-        public ReservationStatus PreviousStatus { get; set; }
-        public ReservationStatus CurrentStatus { get; set; }
+        public ReservationStatus? PreviousStatus { get; set; }
+        public ReservationStatus? CurrentStatus { get; set; }
         public string Reason { get; set; }
         public Instant ChangedAt { get; set; }
         public long? ReservationId { get; set; }
