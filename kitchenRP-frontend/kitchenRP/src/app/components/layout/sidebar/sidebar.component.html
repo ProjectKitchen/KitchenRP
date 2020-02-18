@@ -1,0 +1,22 @@
+<nav id="sidebar" class="sidebar-wrapper border-right navbar-light bg-white">
+    <div class="sidebar-header border-bottom">
+        <h4>Devices</h4>
+    </div>
+    <div class="sidebar-content">
+        <ul *ngIf="resources$ | async as resources" class="list-unstyled">
+            <!-- 3D-Printer -->
+            <li *ngFor="let category of resources" class="sidebar-item active">
+                <a class="nav-link">
+                    <span class="menu-text">{{category[0].resourceType.displayName | titlecase}}</span>
+                </a>
+                <div class="sidebar-submenu" >
+                    <ul>
+                        <li *ngFor="let resource of category" class="nav-item">
+                            <a [routerLink]="['calendar', resource.id]" class="nav-link">{{resource.displayName | titlecase}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

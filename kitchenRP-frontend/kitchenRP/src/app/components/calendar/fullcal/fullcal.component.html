@@ -1,0 +1,19 @@
+<div class="fullcal-wrapper">
+    <full-calendar #fullcalendar
+                   id="calendar"
+                   deepChangeDetection="true"
+                   defaultView="dayGridMonth"
+                   [firstDay]="1"
+                   [plugins]="calendarPlugins"
+                   [weekends]="calendarWeekends"
+                   [header]="headerConfig"
+                   [buttonText]="buttonConfig"
+                   [selectable]="true"
+                   [events]="events"
+                   (datesRender)="this.dateChanged($event)"
+                   (dateClick)="this.dateClickedHandler($event)"
+                   (eventClick)="this.eventClickedHandler($event)"
+                   (select)="this.dateRangeSelectedCallback($event)"
+                   (unselect)="this.dateRangeUnselect($event)"
+    ></full-calendar>
+</div>

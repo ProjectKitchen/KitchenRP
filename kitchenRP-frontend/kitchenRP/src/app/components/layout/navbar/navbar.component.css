@@ -1,0 +1,18 @@
+﻿.admin-link {
+    color: red;
+}
+
+@media screen and (max-width: 600px) {
+    .nav {
+        margin: 1em 0em 2em 0em;
+    }
+
+    .nav-content{
+        margin-bottom: auto;
+    }
+}
+
+#navbar {
+    display: block;
+    height: 60px;
+}

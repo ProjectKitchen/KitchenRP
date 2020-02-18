@@ -1,0 +1,36 @@
+<ngb-tabset justify="fill">
+    <ngb-tab title="Resources">
+        <ng-template ngbTabContent>
+            <app-resource-management></app-resource-management>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Users">
+        <ng-template ngbTabContent>
+            <app-user-management></app-user-management>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Restrictions">
+        <ng-template ngbTabContent>
+            <app-restriction-management></app-restriction-management>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>
+<!--
+<div class="tabbed tabs-container">
+    <input checked="checked" id="tab1" type="radio" name="tabs" />
+    <input id="tab2" type="radio" name="tabs" />
+    <input id="tab3" type="radio" name="tabs" />
+
+    <nav>
+        <label for="tab1">Devices</label>
+        <label for="tab2">Users</label>
+        <label for="tab3">Restrictions</label>
+    </nav>
+
+    <figure>
+        <div class="tab1"> <app-device-management></app-device-management> </div>
+        <div class="tab2"> <app-user-management></app-user-management> </div>
+        <div class="tab3"> <app-restriction-management></app-restriction-management> </div>
+    </figure>
+</div>
+-->

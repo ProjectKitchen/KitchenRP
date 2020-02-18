@@ -1,0 +1,54 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Resource Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="inputId">Id</label>
+                <input readonly type="text" class="form-control" id="inputId" [value]="Data.id">
+            </div>
+            <div class="form-group">
+                <label for="inputName">Name</label>
+                <input type="text" class="form-control" name="inputName" [(ngModel)]="changedR.displayName">
+            </div>
+            <div class="form-group">
+                <label for="inputType">Type</label>
+                <select class="form-control" name="inputType" [(ngModel)]="changedR.resourceType['type']">
+                    <option *ngFor="let type of rTypes$ | async" [value]="type['type']">{{type['type']}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputMeta">Meta</label>
+                <div *ngFor="let m of meta">
+                    <div *ngIf="showMeta">
+                        <input type="text" name="a+{{m.key}}" [(ngModel)]="m.key">
+                        :
+                        <input type="text" name="b+{{m.value}}" [(ngModel)]="m.value">
+                        <!-- Useless because database mixes up order...
+                        <button type="button" style="margin-left: 5px; margin-bottom: 5px;" class="btn btn-primary" (click)="moveMetaUp(m)">&uarr;</button>
+                        <button type="button" style="margin-left: 5px; margin-bottom: 5px;" class="btn btn-primary" (click)="moveMetaDown(m)">&darr;</button>
+                        -->
+                        <button type="button" style="margin-left: 5px; margin-bottom: 5px;" class="btn btn-danger" (click)="removeMeta(m)">-</button>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" (click)="addMeta()">+</button>
+                </div>
+                    <!--<input type="text" class="form-control" name="inputMeta" [(ngModel)]="changedR.metaData">-->
+            </div>
+            <div class="form-group">
+                <label for="inputDescription">Description</label>
+                <input type="text" class="form-control" name="inputDescription" [(ngModel)]="changedR.description">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger mr-auto" (click)="delete()">Delete</button>
+        <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
+    </div>
+</div>

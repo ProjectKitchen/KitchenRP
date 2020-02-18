@@ -1,0 +1,38 @@
+.login-container {
+    max-width: 350px;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #b0b0b0;
+}
+
+@media screen and (max-width: 450px) {
+    .login-container {
+        top: 50%;
+        left: 20%;
+        transform: translate(-12%, -50%);
+    }
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 8px 20px;
+    margin: 4px 0;
+    border: none;
+    cursor: pointer;
+    width: 66%;
+}
+
+.btn-wrapper {
+    text-align: center;
+}

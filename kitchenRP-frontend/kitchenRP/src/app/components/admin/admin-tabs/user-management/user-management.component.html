@@ -1,0 +1,32 @@
+<!-- Search bar -->
+<form>
+    <div class="form-group form-inline list-control-header">
+        <label><b>Search:</b></label>
+        <input class="form-control ml-2" type="text" [formControl]="filter" />
+        <button class="btn btn-outline-primary" style="margin-left: auto; display: block;" (click)="openModalAdd()">Add User</button>
+    </div>
+</form>
+
+<!-- Table -->
+<div class="table-container">
+    <table class="table border table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-row">
+            <tr class="table-row modal-xl" *ngFor="let user of users$ | async; index as i" (click)="openModal(user)">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ user.sub }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

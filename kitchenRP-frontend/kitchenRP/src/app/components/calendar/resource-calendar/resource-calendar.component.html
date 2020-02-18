@@ -1,0 +1,12 @@
+<div *ngIf="resource$ | async as resource" style="margin-left: 5%; margin-top: 30px;">
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <app-resource-info [resource]="resource"></app-resource-info>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <input type="button" class="btn btn-primary ml-auto" value="Add Reservation" (click)="this.openNewReservationModal()">
+        </div>
+    </div>
+    <!--<div class="border" style="width: 900px; height: 530px; background-color: #ededed; margin: 2% 0; text-align: center;">Calendar</div>-->
+    <app-fullcal #calendar (dateRangeSelected)="handleDateRangeSelection($event)" (currentDateRange) = "handleUpdate($event)" ></app-fullcal>
+</div>

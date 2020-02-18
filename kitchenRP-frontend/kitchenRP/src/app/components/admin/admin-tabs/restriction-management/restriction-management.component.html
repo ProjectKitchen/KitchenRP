@@ -1,0 +1,31 @@
+<!-- Search bar -->
+<form>
+    <div class="form-group form-inline list-control-header">
+        <label><b>Search:</b></label>
+        <input class="form-control ml-2" type="text" [formControl]="filter" />
+        <button class="btn btn-outline-primary" style="margin-left: auto; display: block;">Add Restriction</button>
+    </div>
+</form>
+
+<!-- Table -->
+<div class="table-container">
+    <table class="table border table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Resource</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-row modal-xl" *ngFor="let restriction of restrictions$ | async; index as i" (click)="openModal(restriction)">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ restriction.dateFrom }}</td>
+                <td>{{ restriction.dateTo }}</td>
+                <td>{{ restriction.resource }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

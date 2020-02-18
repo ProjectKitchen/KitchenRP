@@ -1,0 +1,40 @@
+.sidebar-wrapper {
+    width: 250px;
+    height: 100%;
+    max-height: 100%;
+
+    z-index: 999;
+    position: fixed;
+    left: 250px;
+    margin-left: -250px;
+
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+    overflow-x: hidden;
+}
+
+@media (min-width: 601px) {
+    .sidebar-wrapper {
+        margin-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+
+.sidebar-wrapper.sidebar-collapsed {
+    left: -250px;
+}
+
+.sidebar-header {
+    padding: 10px;
+    text-align: center;
+    overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+}
+

@@ -1,0 +1,30 @@
+<!-- Search bar -->
+<form>
+    <div class="form-group form-inline list-control-header">
+        <label><b>Search:</b></label>
+        <input class="form-control ml-2" type="text" [formControl]="filter" />
+        <button class="btn btn-outline-primary" style="margin-left: auto; display: block;" (click)="openModalAdd()">Add Resource</button>
+    </div>
+</form>
+
+<!-- Table -->
+<div class="table-container">
+    <table class="table border table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-row modal-xl" *ngFor="let resource of resources$ | async; index as i" (click)="openModal(resource)">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ resource.displayName }}</td>
+            <td>{{ resource.resourceType['type'] }}</td>
+            <td>{{ resource.description }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

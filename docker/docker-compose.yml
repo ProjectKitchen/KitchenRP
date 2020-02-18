@@ -1,0 +1,23 @@
+version: "3.0"
+
+services:
+  kitchenrp-server:
+    build:
+      dockerfile: ./docker/kitchen-rp-server/Dockerfile
+      context: ../
+  database:
+    build:
+      dockerfile: ./docker/database/Dockerfile
+      context: ../
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=kitchenrp
+    ports:
+      - "5432:5432"
+  frontend:
+    build:
+      dockerfile: ./docker/frontend/Dockerfile
+      context: ../
+    ports:
+      - 80:80
+
