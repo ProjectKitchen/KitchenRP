@@ -68,8 +68,8 @@ export class CalendarComponent implements OnInit {
     const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
     ref.componentInstance.Add = false;
 
-    ref.componentInstance.dateField = event.start.getFullYear() + "-" + event.start.getMonth() + "-" + event.start.getDate();
     ref.componentInstance.date = event.start;
+    ref.componentInstance.dateField = {year: event.start.getFullYear(), month: event.start.getMonth()+1, day: event.start.getDate()};
     ref.componentInstance.timeStart.hour = event.start.getHours();
     ref.componentInstance.timeStart.minute = event.start.getMinutes();
 

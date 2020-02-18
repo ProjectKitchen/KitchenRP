@@ -77,5 +77,11 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             await _ctx.SaveChangesAsync();
             return statusChange;
         }
+        
+        public async Task RemoveReservation(Reservation reservation)
+        {
+            _ctx.Reservations.Remove(reservation);
+            await _ctx.SaveChangesAsync();
+        }
     }
 }

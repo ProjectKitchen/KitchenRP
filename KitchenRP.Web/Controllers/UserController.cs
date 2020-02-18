@@ -91,7 +91,7 @@ namespace KitchenRP.Web.Controllers
         }
         
         [HttpDelete]
-        [Route("/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> RemoveUser(long id)
         {
             await _userService.Remove(id);

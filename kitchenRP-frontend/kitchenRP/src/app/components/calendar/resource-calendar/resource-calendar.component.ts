@@ -83,17 +83,12 @@ export class ResourceCalendarComponent implements OnInit {
         const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
         ref.componentInstance.Add = true;
         ref.componentInstance.date = this.lastSelectedRange.start;
-        ref.componentInstance.dateField = this.lastSelectedRange.start.getFullYear() + "-" + this.lastSelectedRange.start.getMonth() + "-" + this.lastSelectedRange.start.getDate();
-        // ref.componentInstance.dateField = {
-        //     year: this.lastSelectedRange.start.getFullYear(),
-        //     month: this.lastSelectedRange.start.getMonth(),
-        //     day: this.lastSelectedRange.start.getDate(),
-        // };
+        ref.componentInstance.dateField = {year: this.lastSelectedRange.start.getFullYear(), month: this.lastSelectedRange.start.getMonth()+1, day: this.lastSelectedRange.start.getDate()};
 
         const milliDiff = this.lastSelectedRange.end.getTime() - this.lastSelectedRange.start.getTime();
         const minuteDiff = milliDiff / (1000 * 60);
         const hourDiff = minuteDiff / 60;
-        if (minuteDiff !== 1440) {
+        if (minuteDiff !== 1440 && minuteDiff !== 0) {
             ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
         } else {
             ref.componentInstance.duration = {hour: Math.floor(0), minute: Math.floor(60)};
@@ -110,26 +105,26 @@ export class ResourceCalendarComponent implements OnInit {
 
         ref.componentInstance.status = "NEW";
         this.resource$.subscribe(r => {
-            ref.componentInstance.resourceId = r.id;
-            ref.componentInstance.resourceName = r.displayName;
+            if (ref.componentInstance) {
+                ref.componentInstance.resourceId = r.id;
+                ref.componentInstance.resourceName = r.displayName;
+            }
         });
         this.authService.currentUser$.subscribe(u => {
             ref.componentInstance.userId = u.id;
             ref.componentInstance.userName = u.sub;
         });
 
-        ref.result.then(
-            _ => {
-                this.refreshSubject.next(true)
-            }
-        )
+        ref.componentInstance.refresh = () => this.refreshSubject.next(null);
     }
 
     openReservationModal(event: any) {
         const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
         ref.componentInstance.Add = false;
 
+        ref.componentInstance.reservationId = event.extendedProps.reservationId;
         ref.componentInstance.date = event.start;
+        ref.componentInstance.dateField = {year: event.start.getFullYear(), month: event.start.getMonth()+1, day: event.start.getDate()};
         ref.componentInstance.timeStart.hour = event.start.getHours();
         ref.componentInstance.timeStart.minute = event.start.getMinutes();
 
@@ -148,16 +143,10 @@ export class ResourceCalendarComponent implements OnInit {
             ref.componentInstance.userName = u.sub;
         });
 
-
-        ref.result.then(
-            _ => {
-                this.refreshSubject.next(true)
-            }
-        )
+        ref.componentInstance.refresh = () => this.refreshSubject.next(null);
     }
 
     ngOnInit() {
 
     }
-
 }

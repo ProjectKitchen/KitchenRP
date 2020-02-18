@@ -24,7 +24,7 @@
                         <input type="text" class="form-control" id="inputDate" [(ngModel)]="dateField" placeholder="yyyy-mm-dd"
                                name="dateField" ngbDatepicker #d="ngbDatepicker" [readOnly]="!Add">
                         <span class="input-group-append">
-                          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button" [disabled]="!Add">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                           </button>
                         </span>
@@ -32,14 +32,15 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" [value]="status" [readonly]="!isAdmin">
+                    <input type="text" class="form-control" id="status" name="status" [value]="status" readonly
+                           [ngClass]="{'status-pending': status === 'PENDING', 'status-approved': status === 'APPROVED', 'status-denied': status === 'DENIED'}">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="inputStartTime">Start time</label>
-                    <ngb-timepicker name="start-time-picker" id="inputStartTime"
-                                    [(ngModel)]="timeStart"></ngb-timepicker>
+                    <ngb-timepicker name="start-time-picker" id="inputStartTime" [(ngModel)]="timeStart"
+                                    [hourStep]="hourStep" [minuteStep]="minuteStep" [readonlyInputs]="!Add"></ngb-timepicker>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="duration-picker">Duration (min)</label>

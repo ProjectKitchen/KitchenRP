@@ -55,14 +55,14 @@ export class ReservationService {
         return this.http.delete(url);
     }
 
-    accept(id: number) {
+    accept(id: number, userId: number) {
         const url = this.baseUrl + "/reservation/" + id + "/accept";
-        return this.http.put<Reservation>(url, {});
+        return this.http.put<Reservation>(url, {Id:id, UserId:userId});
     }
 
-    deny(id: number) {
+    deny(id: number, userId: number) {
         const url = this.baseUrl + "/reservation/" + id + "/deny";
-        return this.http.put<Reservation>(url, {});
+        return this.http.put<Reservation>(url, {Id:id, UserId:userId});
     }
 
     /*private handleError(error: HttpErrorResponse) {

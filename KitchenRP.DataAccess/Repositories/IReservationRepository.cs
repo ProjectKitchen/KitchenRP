@@ -20,5 +20,8 @@ namespace KitchenRP.DataAccess.Repositories
 
         Task<StatusChange> CreateNewStatusChange(string reason, Reservation reservation, User changedBy,
             ReservationStatus newStatus);
+
+        Task<ReservationStatus> CurrentStatus(Reservation r);
+        Task RemoveReservation(Reservation r);
     }
 }

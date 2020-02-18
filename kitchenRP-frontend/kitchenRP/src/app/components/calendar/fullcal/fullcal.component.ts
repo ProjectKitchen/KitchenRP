@@ -74,6 +74,7 @@ export class FullcalComponent implements OnInit {
 
     public addReservations(reservations: Reservation[]){
         this.events = reservations.map(reservation => { return {
+            title: reservation.owner.sub,
             start: reservation.startTime,
             end: reservation.endTime,
             reservationId: reservation.id,
@@ -82,7 +83,7 @@ export class FullcalComponent implements OnInit {
             resourceId: reservation.reservedResource ? reservation.reservedResource.id : "",
             resourceName: reservation.reservedResource ? reservation.reservedResource.displayName : "",
             status: reservation.status,
-            backgroundColor: "#3369dd"
+            backgroundColor: "rgba(77,102,222,0.88)"
         }});
     }
 

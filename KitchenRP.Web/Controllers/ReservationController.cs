@@ -45,17 +45,25 @@ namespace KitchenRP.Web.Controllers
         
         [HttpPut]
         [Route("{id}/accept")]
-        public async Task<IActionResult> AcceptReservation(long id)
+        public async Task<IActionResult> AcceptReservation(StatusChangeRequest model)
         {
-            var reservation = await _reservationService.AcceptReservation(new AcceptReservationCommand{Id = id});
+            var reservation = await _reservationService.AcceptReservation(new AcceptReservationCommand{Id = model.Id, UserId = model.UserId});
             return NoContent();
         }
         
         [HttpPut]
         [Route("{id}/deny")]
-        public async Task<IActionResult> DenyReservation(long id)
+        public async Task<IActionResult> DenyReservation(StatusChangeRequest model)
         {
-            var demotedUser = await _reservationService.DenyReservation(new DenyReservationCommand{Id = id});
+            var reservation = await _reservationService.DenyReservation(new DenyReservationCommand{Id = model.Id, UserId = model.UserId});
+            return NoContent();
+        }
+        
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteReservation(long id)
+        {
+            await _reservationService.DeleteReservation(new DeleteReservationCommand{Id = id});
             return NoContent();
         }
     }

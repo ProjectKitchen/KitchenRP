@@ -1,8 +1,8 @@
 import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith, tap, flatMap } from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import {map, startWith, tap, flatMap, repeatWhen} from 'rxjs/operators';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalReservationComponent} from "../../../modals/modal-reservation/modal-reservation.component";
@@ -20,6 +20,8 @@ import {AuthService} from "../../../services/auth/auth.service";
   providers: [DecimalPipe]
 })
 export class ReservationStatusListComponent implements OnInit {
+  private refreshSubject = new Subject<any>();
+
   data: Reservation[] = [];
   reservations$: Observable<Reservation[]>;
   filter = new FormControl('');
@@ -34,6 +36,7 @@ export class ReservationStatusListComponent implements OnInit {
     this.authService.currentUser$.subscribe(val => id = val.id);
     this.reservations$ = this.reservationService.getBy({userId: id})
         .pipe(
+            repeatWhen(_ => this.refreshSubject.asObservable()),
             tap(reservations => this.data = reservations),
             flatMap(r => this.filter.valueChanges
                 .pipe(
@@ -61,18 +64,20 @@ export class ReservationStatusListComponent implements OnInit {
   openModal(tableRow) {
       const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
       ref.componentInstance.Add = false;
+      ref.componentInstance.refresh = () => this.refresh();
 
       ref.componentInstance.reservationId = tableRow.id;
-      let start = new Date(tableRow.startTime);
-      let end = new Date(tableRow.endTime);
+      let start = new Date(tableRow.startTime.slice(0,-1));
+      let end = new Date(tableRow.endTime.slice(0,-1));
       ref.componentInstance.date = start;
+      ref.componentInstance.dateField = {year: start.getFullYear(), month: start.getMonth()+1, day: start.getDate()};
       ref.componentInstance.timeStart.hour = start.getHours();
       ref.componentInstance.timeStart.minute = start.getMinutes();
 
       const milliDiff = end.getTime() - start.getTime();
       const minuteDiff = milliDiff / (1000 * 60);
       const hourDiff = minuteDiff / 60;
-      ref.componentInstance.duration = {hour: Math.floor(minuteDiff), minute: Math.floor(minuteDiff)};
+      ref.componentInstance.duration = {hour: Math.floor(hourDiff), minute: Math.floor(minuteDiff)};
 
       ref.componentInstance.status = tableRow.status ? tableRow.status.status : "";
       ref.componentInstance.resourceId = tableRow.reservedResource ? tableRow.reservedResource.id : "";
@@ -85,4 +90,7 @@ export class ReservationStatusListComponent implements OnInit {
       return ts.replace(/[TZ]/g, " ");
   }
 
+  refresh(): void{
+    this.refreshSubject.next(null);
+  }
 }

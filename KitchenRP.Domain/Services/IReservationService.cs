@@ -11,5 +11,6 @@ namespace KitchenRP.Domain.Services
         Task<List<DomainReservation>> QueryReservations(QueryReservationCommand cmd);
         Task<DomainReservation> AcceptReservation(AcceptReservationCommand cmd);
         Task<DomainReservation> DenyReservation(DenyReservationCommand cmd);
+        Task DeleteReservation(DeleteReservationCommand cmd);
     }
 }

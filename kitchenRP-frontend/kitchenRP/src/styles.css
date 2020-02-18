@@ -54,10 +54,6 @@
     color: dodgerblue;
 }
 
-.status-needs-approval {
-    color: #d4d4d4;
-}
-
 .status-approved {
     color: green;
 }

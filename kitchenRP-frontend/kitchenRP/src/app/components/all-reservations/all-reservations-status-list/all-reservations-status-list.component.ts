@@ -1,8 +1,8 @@
 import { Component, OnInit, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith, tap, flatMap } from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import {map, startWith, tap, flatMap, repeatWhen} from 'rxjs/operators';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ModalReservationComponent} from "../../../modals/modal-reservation/modal-reservation.component";
@@ -19,6 +19,7 @@ import {UserService} from "../../../services/user/user.service";
   providers: [DecimalPipe]
 })
 export class AllReservationsStatusListComponent implements OnInit {
+  private refreshSubject = new Subject<any>();
   pendingData: Reservation[] = [];
   checkedData: Reservation[] = [];
 
@@ -32,6 +33,7 @@ export class AllReservationsStatusListComponent implements OnInit {
               private modalService: NgbModal, pipe: DecimalPipe) {
     this.pendingReservations$ = this.reservationService.getBy({statuses: "PENDING"})
         .pipe(
+            repeatWhen(_ => this.refreshSubject.asObservable()),
             tap(reservations => this.pendingData = reservations),
             flatMap(r => this.filter.valueChanges
                 .pipe(
@@ -41,8 +43,9 @@ export class AllReservationsStatusListComponent implements OnInit {
             )
         );
 
-    this.checkedReservations$ = this.reservationService.getBy({statuses: "ACCEPTED,DENIED"})
+    this.checkedReservations$ = this.reservationService.getBy({statuses: "APPROVED,DENIED"})
         .pipe(
+            repeatWhen(_ => this.refreshSubject.asObservable()),
             tap(reservations => this.checkedData = reservations),
             flatMap(r => this.filter.valueChanges
                 .pipe(
@@ -70,11 +73,13 @@ export class AllReservationsStatusListComponent implements OnInit {
   openModal(tableRow) {
     const ref = this.modalService.open(ModalReservationComponent,{ windowClass : "modal-size-lg"});
       ref.componentInstance.Add = false;
+      ref.componentInstance.refresh = () => this.refresh();
 
       ref.componentInstance.reservationId = tableRow.id;
-      let start = new Date(tableRow.startTime);
-      let end = new Date(tableRow.endTime);
+      let start = new Date(tableRow.startTime.slice(0,-1));
+      let end = new Date(tableRow.endTime.slice(0,-1));
       ref.componentInstance.date = start;
+      ref.componentInstance.dateField = {year: start.getFullYear(), month: start.getMonth()+1, day: start.getDate()};
       ref.componentInstance.timeStart.hour = start.getHours();
       ref.componentInstance.timeStart.minute = start.getMinutes();
 
@@ -92,5 +97,9 @@ export class AllReservationsStatusListComponent implements OnInit {
 
     timestampToReadable(ts: string) {
         return ts.replace(/[TZ]/g, " ");
+    }
+
+    refresh(): void{
+        this.refreshSubject.next(null);
     }
 }

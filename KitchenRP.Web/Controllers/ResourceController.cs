@@ -77,7 +77,7 @@ namespace KitchenRP.Web.Controllers
 
         
         [HttpDelete]
-        [Route("/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeactivateResource(long id)
         {
             await _resourceService.Deactivate(id);

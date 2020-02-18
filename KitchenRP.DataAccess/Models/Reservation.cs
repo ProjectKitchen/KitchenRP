@@ -15,7 +15,7 @@ namespace KitchenRP.DataAccess.Models
         public Resource ReservedResource { get; set; }
         public bool AllowNotifications { get; set; }
 
-        public ICollection<StatusChange> StatusChanges { get; set; }
+        public ICollection<StatusChange>? StatusChanges { get; set; }
     }
 
     internal class ReservationTypeConfiguration : IEntityTypeConfiguration<Reservation>

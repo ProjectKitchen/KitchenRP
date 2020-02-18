@@ -112,34 +112,36 @@ namespace KitchenRP.Domain.Services.Internal
         
         public async Task<DomainReservation> AcceptReservation(AcceptReservationCommand cmd)
         {
-            /*
-            var user = await _users.FindById(cmd.Id);
-            
-            if (user?.Role?.RoleName != Roles.User)
-                throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == user)");
-            
-            var modRole = await _roles.FindByRole(Roles.Moderator);
-            user.Role = modRole;
-            var promoted = await _users.UpdateUser(user);
-            return _mapper.Map<Reservation>(promoted);
-            */
-            return _mapper.Map<DomainReservation>(new Reservation());
+            var reservation = await _reservations.FindById(cmd.Id);
+            var currentStatus = await _reservations.CurrentStatus(reservation);
+
+            if (currentStatus.Status != DomainReservationStatus.Approved)
+            {
+                var newStatus = await _statuses.ByStatus(DomainReservationStatus.Approved);
+                var user = await _users.FindById(cmd.UserId);
+                await _reservations.CreateNewStatusChange("Approved by Mod/Admin", reservation, user, newStatus);
+            }
+            return _mapper.Map<DomainReservation>(reservation);
         }
 
         public async Task<DomainReservation> DenyReservation(DenyReservationCommand cmd)
         {
-            /*
-            var user = await _users.FindById(cmd.Id);
+            var reservation = await _reservations.FindById(cmd.Id);
+            var currentStatus = await _reservations.CurrentStatus(reservation);
             
-            if (user?.Role?.RoleName != Roles.Moderator)
-                throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == moderator)");
-            
-            var modRole = await _roles.FindByRole(Roles.User);
-            user.Role = modRole;
-            var demoted = await _users.UpdateUser(user);
-            return _mapper.Map<Reservation>(demoted);
-            */
-            return _mapper.Map<DomainReservation>(new Reservation());
+            if (currentStatus.Status != DomainReservationStatus.Denied)
+            {
+                var newStatus = await _statuses.ByStatus(DomainReservationStatus.Denied);
+                var user = await _users.FindById(cmd.UserId);
+                await _reservations.CreateNewStatusChange("Denied by Mod/Admin", reservation, user, newStatus);
+            }
+            return _mapper.Map<DomainReservation>(reservation);
+        }
+        
+        public async Task DeleteReservation(DeleteReservationCommand cmd)
+        {
+            var reservation = await _reservations.FindById(cmd.Id);
+            await _reservations.RemoveReservation(reservation);
         }
         
     }
