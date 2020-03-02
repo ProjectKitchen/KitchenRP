@@ -24,7 +24,9 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         {
             var token = new RefreshToken
             {
-                Expires = expires, Key = tokenKey, Sub = sub
+                Expires = expires,
+                Key = tokenKey,
+                Sub = sub
             };
             _ctx.RefreshTokens.Add(token);
             await _ctx.SaveChangesAsync();

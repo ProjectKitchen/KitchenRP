@@ -38,7 +38,7 @@ namespace KitchenRP.Domain.Services.Internal
             if (cmd.ResourceId.HasValue) query.ForResource(await _resources.FindById(cmd.ResourceId.Value));
 
             query.CollideWith(
-                cmd.StartTime.GetValueOrDefault(Instant.FromUnixTimeMilliseconds(0)),    
+                cmd.StartTime.GetValueOrDefault(Instant.FromUnixTimeMilliseconds(0)),
                 cmd.EndTime.GetValueOrDefault(Instant.MaxValue)
             );
 
@@ -46,7 +46,7 @@ namespace KitchenRP.Domain.Services.Internal
             {
                 query.WithStatuses((await _statuses.All()).Where(st => cmd.StatusList.Contains(st.Status)));
             }
-            
+
             return (await _reservations.Query(query))
                 .Select(r => _mapper.Map<DomainReservation>(r))
                 .ToList();
@@ -70,7 +70,7 @@ namespace KitchenRP.Domain.Services.Internal
 
             return _mapper.Map<DomainReservation>(reservation);
         }
-    
+
         private async Task<ICollection<Reservation>> GetCollisionsFor(Resource resource, Instant start, Instant end)
         {
             var statuses = await _statuses.All();
@@ -109,7 +109,7 @@ namespace KitchenRP.Domain.Services.Internal
             var reservation = await _reservations.FindById(cmd.Reservation.Id);
             await _reservations.CreateNewStatusChange(cmd.Reason, reservation, cmd.ChangedBy, newStatus);
         }
-        
+
         public async Task<DomainReservation> AcceptReservation(AcceptReservationCommand cmd)
         {
             var reservation = await _reservations.FindById(cmd.Id);
@@ -128,7 +128,7 @@ namespace KitchenRP.Domain.Services.Internal
         {
             var reservation = await _reservations.FindById(cmd.Id);
             var currentStatus = await _reservations.CurrentStatus(reservation);
-            
+
             if (currentStatus.Status != DomainReservationStatus.Denied)
             {
                 var newStatus = await _statuses.ByStatus(DomainReservationStatus.Denied);
@@ -137,12 +137,12 @@ namespace KitchenRP.Domain.Services.Internal
             }
             return _mapper.Map<DomainReservation>(reservation);
         }
-        
+
         public async Task DeleteReservation(DeleteReservationCommand cmd)
         {
             var reservation = await _reservations.FindById(cmd.Id);
             await _reservations.RemoveReservation(reservation);
         }
-        
+
     }
 }

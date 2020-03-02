@@ -34,7 +34,7 @@ namespace KitchenRP.Web.Controllers
                 Uri = uri,
             });
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> QueryReservation([FromQuery] QueryReservationRequest model)
         {
@@ -42,28 +42,28 @@ namespace KitchenRP.Web.Controllers
             var mapped = reservations.Select(_mapper.Map<ReservationResponse>);
             return Ok(mapped);
         }
-        
+
         [HttpPut]
         [Route("{id}/accept")]
         public async Task<IActionResult> AcceptReservation(StatusChangeRequest model)
         {
-            var reservation = await _reservationService.AcceptReservation(new AcceptReservationCommand{Id = model.Id, UserId = model.UserId});
+            var reservation = await _reservationService.AcceptReservation(new AcceptReservationCommand { Id = model.Id, UserId = model.UserId });
             return NoContent();
         }
-        
+
         [HttpPut]
         [Route("{id}/deny")]
         public async Task<IActionResult> DenyReservation(StatusChangeRequest model)
         {
-            var reservation = await _reservationService.DenyReservation(new DenyReservationCommand{Id = model.Id, UserId = model.UserId});
+            var reservation = await _reservationService.DenyReservation(new DenyReservationCommand { Id = model.Id, UserId = model.UserId });
             return NoContent();
         }
-        
+
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteReservation(long id)
         {
-            await _reservationService.DeleteReservation(new DeleteReservationCommand{Id = id});
+            await _reservationService.DeleteReservation(new DeleteReservationCommand { Id = id });
             return NoContent();
         }
     }

@@ -33,7 +33,7 @@ namespace KitchenRP.Domain.Models
                     opt =>
                         opt.MapFrom(src => new Interval(src.StartTime, src.EndTime)))
                 .ForMember(r => r.Status,
-                    opt => 
+                    opt =>
                         opt.MapFrom(src => (src.StatusChanges != null) ? src.StatusChanges.MaxBy(s => s.ChangedAt).FirstOrDefault().CurrentStatus : new ReservationStatus(0, "UNDEFINED", "")));
         }
     }

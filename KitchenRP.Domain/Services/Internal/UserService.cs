@@ -35,11 +35,11 @@ namespace KitchenRP.Domain.Services.Internal
             return _mapper.Map<User, DomainUser>(u);
         }
 
-        public async  Task<List<DomainUser>> UserByName(string name)
+        public async Task<List<DomainUser>> UserByName(string name)
         {
-            var u = string.IsNullOrWhiteSpace(name) ? 
-                (IEnumerable<User>) await _users.GetAll() :
-                new []{await _users.FindBySub(name)};
+            var u = string.IsNullOrWhiteSpace(name) ?
+                (IEnumerable<User>)await _users.GetAll() :
+                new[] { await _users.FindBySub(name) };
             return u.Select(_mapper.Map<User, DomainUser>).ToList();
         }
 
@@ -78,10 +78,10 @@ namespace KitchenRP.Domain.Services.Internal
         public async Task<DomainUser> PromoteUser(PromoteUserCommand cmd)
         {
             var user = await _users.FindById(cmd.Id);
-            
+
             if (user?.Role?.RoleName != Roles.User)
                 throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == user)");
-            
+
             var modRole = await _roles.FindByRole(Roles.Moderator);
             user.Role = modRole;
             var promoted = await _users.UpdateUser(user);
@@ -91,17 +91,18 @@ namespace KitchenRP.Domain.Services.Internal
         public async Task<DomainUser> DemoteUser(DemoteUserCommand cmd)
         {
             var user = await _users.FindById(cmd.Id);
-            
+
             if (user?.Role?.RoleName != Roles.Moderator)
                 throw new EntityNotFoundException(nameof(user), $"(id == {cmd.Id} && role == moderator)");
-            
+
             var modRole = await _roles.FindByRole(Roles.User);
             user.Role = modRole;
             var demoted = await _users.UpdateUser(user);
             return _mapper.Map<DomainUser>(demoted);
         }
-        
-        public async Task Remove(long userId) {
+
+        public async Task Remove(long userId)
+        {
             var _ = await _users.RemoveUser(userId);
         }
     }

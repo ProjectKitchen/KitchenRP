@@ -71,7 +71,7 @@ namespace KitchenRP.DataAccess.Queries
         {
             // zip parameters (map from parameters of second to parameters of first)
             var map = first.Parameters
-                .Select((f, i) => new {f, s = second.Parameters[i]})
+                .Select((f, i) => new { f, s = second.Parameters[i] })
                 .ToDictionary(p => p.s, p => p.f);
 
             // replace parameters in the second lambda expression with the parameters in the first

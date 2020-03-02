@@ -32,7 +32,7 @@ namespace KitchenRP.Domain.Services.Internal
         public async Task<DomainResource?> UpdateResource(UpdateResourceCommand r)
         {
             var resource = await _resources.FindById(r.id);
-            if(resource == null)
+            if (resource == null)
                 throw new EntityNotFoundException(nameof(resource), $"(id == {r.id}");
 
             var rType = await _resources.FindResourceTypByType(r.ResourceTypeName);
@@ -48,7 +48,7 @@ namespace KitchenRP.Domain.Services.Internal
         public async Task<DomainResource> GetById(long id)
         {
             var resource = await _resources.FindById(id);
-            return _mapper.Map<DomainResource>(resource); 
+            return _mapper.Map<DomainResource>(resource);
         }
 
         public async Task<IEnumerable<DomainResource?>> GetAllByType(string type)

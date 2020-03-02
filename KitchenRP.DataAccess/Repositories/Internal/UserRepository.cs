@@ -48,12 +48,12 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             var userRole = await _roles.FindByRole(role) ??
                            throw new NotFoundException(nameof(UserRole), $"role = {role}");
             var exists = await Exists(sub);
-            
+
             if (exists)
             {
                 throw new Exception("User already exists");
             }
-            
+
             var u = new User
             {
                 Sub = sub,
@@ -66,7 +66,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             await _ctx.SaveChangesAsync();
             return u;
         }
-        
+
         public async Task<User> UpdateUser(User update)
         {
             var user = await _ctx.Users
@@ -78,7 +78,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             await _ctx.SaveChangesAsync();
             return user;
         }
-        
+
         public async Task<bool> Exists(string sub)
         {
             return await _ctx.Users

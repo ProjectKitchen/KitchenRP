@@ -27,7 +27,10 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         {
             var reservation = new Reservation
             {
-                StartTime = start, EndTime = end, Owner = owner, ReservedResource = resource,
+                StartTime = start,
+                EndTime = end,
+                Owner = owner,
+                ReservedResource = resource,
                 AllowNotifications = allowNotifications
             };
             _ctx.Reservations.Add(reservation);
@@ -77,7 +80,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             await _ctx.SaveChangesAsync();
             return statusChange;
         }
-        
+
         public async Task RemoveReservation(Reservation reservation)
         {
             _ctx.Reservations.Remove(reservation);

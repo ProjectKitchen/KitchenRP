@@ -3,8 +3,8 @@ using System.Collections.ObjectModel;
 
 namespace KitchenRP.Domain.Models
 {
-    
-    
+
+
     public class DomainReservationStatus
     {
         public const string Pending = "PENDING";
@@ -17,7 +17,7 @@ namespace KitchenRP.Domain.Models
             Status = status;
             DisplayName = displayName;
         }
-        
+
         public string Status { get; }
         public string DisplayName { get; }
 
