@@ -20,7 +20,7 @@ namespace KitchenRP.Web
     public class Startup
     {
         private const string DevelopmentCorsOrigins = "__DEV_CORS_ORIGINS__";
-        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -55,7 +55,7 @@ namespace KitchenRP.Web
 
             services.AddSwaggerGen(c =>
             {
-                c.ResolveConflictingActions (apiDescriptions => apiDescriptions.First());
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "KitchenRP-Api",
@@ -138,7 +138,7 @@ namespace KitchenRP.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
- 
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "KitchenRP-API"));

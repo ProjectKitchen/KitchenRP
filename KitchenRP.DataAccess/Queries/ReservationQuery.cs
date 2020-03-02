@@ -16,7 +16,7 @@ namespace KitchenRP.DataAccess.Queries
         private Instant? From { get; set; }
         private Instant? To { get; set; }
         private Duration Buffer { get; set; }
-        
+
         private bool OnlyActiveResources { get; set; }
         private IEnumerable<ReservationStatus> Statuses { get; set; }
 
@@ -57,12 +57,12 @@ namespace KitchenRP.DataAccess.Queries
                     from innerst in ctx.StatusChanges
                     group innerst by innerst.Reservation.Id
                     into g
-                    select new {change = g.Max(sc => sc.ChangedAt), id = g.Key}
+                    select new { change = g.Max(sc => sc.ChangedAt), id = g.Key }
                     into min
                     from res in reservations1
                     join statuses in ctx.StatusChanges on res.Id equals statuses.Reservation.Id
                     where statuses.ChangedAt == min.change && res.Id == min.id
-                    select new TempResult {R = res, S = statuses};
+                    select new TempResult { R = res, S = statuses };
 
                 var pred = PredicateBuilder.False<TempResult>();
 

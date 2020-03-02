@@ -94,7 +94,7 @@ namespace KitchenRP.Domain.Services.Internal
             byte[] secret)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var claimDict = claimList.ToDictionary(c => c.Type, v => (object) v.Value);
+            var claimDict = claimList.ToDictionary(c => c.Type, v => (object)v.Value);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

@@ -20,7 +20,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
             string resourceTypeName)
         {
             var resourceType = await FindResourceTypByType(resourceTypeName);
-            var resource = new Resource(displayName, metaData, description, resourceType) {IsActive = true};
+            var resource = new Resource(displayName, metaData, description, resourceType) { IsActive = true };
             _ctx.Resources.Add(resource);
             await _ctx.SaveChangesAsync();
             return resource;
@@ -43,7 +43,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         {
             return _ctx.Resources
                 .Include(r => r.ResourceType)
-                .Where(r =>  r.IsActive)
+                .Where(r => r.IsActive)
                 .FirstAsync(r => r.Id == id);
         }
 
@@ -51,7 +51,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         {
             return _ctx.Resources
                 .Include(r => r.ResourceType)
-                .Where(r =>  r.IsActive)
+                .Where(r => r.IsActive)
                 .ToListAsync();
         }
 
@@ -59,7 +59,7 @@ namespace KitchenRP.DataAccess.Repositories.Internal
         {
             var resources = _ctx.Resources
                 .Include(r => r.ResourceType)
-                .Where(r =>  r.IsActive)
+                .Where(r => r.IsActive)
                 .Where(r => r.ResourceType.Type == type);
 
             return resources.ToListAsync();

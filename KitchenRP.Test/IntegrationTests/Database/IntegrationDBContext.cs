@@ -42,23 +42,38 @@ namespace KitchenRP.Test.IntegrationTests.Database
             modelBuilder.Entity<User>()
                 .HasData(new User
                 {
-                    Id = 1, Sub = "if17b001", Email = "if17b001@technikum-wien.at", AllowNotifications = true,
+                    Id = 1,
+                    Sub = "if17b001",
+                    Email = "if17b001@technikum-wien.at",
+                    AllowNotifications = true,
                     RoleId = 1
                 }, new User
                 {
-                    Id = 2, Sub = "if17b002", Email = "if17b002@technikum-wien.at", AllowNotifications = true,
+                    Id = 2,
+                    Sub = "if17b002",
+                    Email = "if17b002@technikum-wien.at",
+                    AllowNotifications = true,
                     RoleId = 2
                 }, new User
                 {
-                    Id = 3, Sub = "if17b003", Email = "if17b003@technikum-wien.at", AllowNotifications = true,
+                    Id = 3,
+                    Sub = "if17b003",
+                    Email = "if17b003@technikum-wien.at",
+                    AllowNotifications = true,
                     RoleId = 3
                 }, new User
                 {
-                    Id = 4, Sub = "if17b004", Email = "if17b004@technikum-wien.at", AllowNotifications = true,
+                    Id = 4,
+                    Sub = "if17b004",
+                    Email = "if17b004@technikum-wien.at",
+                    AllowNotifications = true,
                     RoleId = 3
                 }, new User
                 {
-                    Id = 5, Sub = "if17b005", Email = "if17b005@technikum-wien.at", AllowNotifications = true,
+                    Id = 5,
+                    Sub = "if17b005",
+                    Email = "if17b005@technikum-wien.at",
+                    AllowNotifications = true,
                     RoleId = 3
                 });
         }
@@ -77,27 +92,35 @@ namespace KitchenRP.Test.IntegrationTests.Database
                 .HasData(
                     new Resource
                     {
-                        Id = 1, DisplayName = "3D Printer 3001",
-                        Description = "A 3d Printer. Lorem ipsum sit dolor ...", MetaData = JsonDocument.Parse("{}"),
+                        Id = 1,
+                        DisplayName = "3D Printer 3001",
+                        Description = "A 3d Printer. Lorem ipsum sit dolor ...",
+                        MetaData = JsonDocument.Parse("{}"),
                         ResourceTypeId = 1
                     },
                     new Resource
                     {
-                        Id = 2, DisplayName = "3D Printer 3002v4",
-                        Description = "A 3d Printer. Lorem ipsum sit dolor ...", MetaData = JsonDocument.Parse("{}"),
+                        Id = 2,
+                        DisplayName = "3D Printer 3002v4",
+                        Description = "A 3d Printer. Lorem ipsum sit dolor ...",
+                        MetaData = JsonDocument.Parse("{}"),
                         ResourceTypeId = 1
                     },
                     new Resource
                     {
-                        Id = 3, DisplayName = "LazorCuttor",
+                        Id = 3,
+                        DisplayName = "LazorCuttor",
                         Description = "A laser cutter. It cuts lasers. Lorem ipsum sit dolor ...",
-                        MetaData = JsonDocument.Parse("{}"), ResourceTypeId = 2
+                        MetaData = JsonDocument.Parse("{}"),
+                        ResourceTypeId = 2
                     },
                     new Resource
                     {
-                        Id = 4, DisplayName = "L4Z05CU7705",
+                        Id = 4,
+                        DisplayName = "L4Z05CU7705",
                         Description = "A laser cutter. It cuts lasers. Lorem ipsum sit dolor ...",
-                        MetaData = JsonDocument.Parse("{}"), ResourceTypeId = 2
+                        MetaData = JsonDocument.Parse("{}"),
+                        ResourceTypeId = 2
                     }
                 );
         }

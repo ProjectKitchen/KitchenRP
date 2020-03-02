@@ -45,7 +45,7 @@ namespace KitchenRP.Web.Controllers
             var resources = await _resourceService.GetById(id);
             return Ok(resources);
         }
-        
+
 
         [HttpGet]
         public async Task<IActionResult> GetByResourceType(string? requestType)
@@ -75,7 +75,7 @@ namespace KitchenRP.Web.Controllers
             return Ok(resourceTypes);
         }
 
-        
+
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeactivateResource(long id)
@@ -83,6 +83,6 @@ namespace KitchenRP.Web.Controllers
             await _resourceService.Deactivate(id);
             return NoContent();
         }
-        
+
     }
 }

@@ -19,13 +19,13 @@ namespace KitchenRP.Web.Models
             CreateMap<UpdateResourceRequest, UpdateResourceCommand>();
 
             CreateMap<QueryReservationRequest, QueryReservationCommand>()
-                .ForMember(q => q.EndTime, 
+                .ForMember(q => q.EndTime,
                     opt => opt.MapFrom(
                         q => InstantPattern.ExtendedIso.Parse(q.EndTime).Value))
-                .ForMember(q => q.StartTime, 
+                .ForMember(q => q.StartTime,
                     opt => opt.MapFrom(
                         q => InstantPattern.ExtendedIso.Parse(q.StartTime).Value));
-            
+
             CreateMap<DomainReservation, ReservationResponse>()
                 .ForMember(r => r.EndTime,
                     opt =>

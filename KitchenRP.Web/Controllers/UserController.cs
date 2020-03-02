@@ -21,21 +21,21 @@ namespace KitchenRP.Web.Controllers
             _userService = service;
             _mapper = mapper;
         }
-/*
-        [HttpGet]
-        public async Task<IActionResult> All()
-        {
-            var users = await _userService.All();
-            return Ok(users.Select(_mapper.Map<UserResponse>));
-        }
-*/        
+        /*
+                [HttpGet]
+                public async Task<IActionResult> All()
+                {
+                    var users = await _userService.All();
+                    return Ok(users.Select(_mapper.Map<UserResponse>));
+                }
+        */
         [HttpGet]
         public async Task<IActionResult> GetByUsername(string? username = null)
         {
             var user = await _userService.UserByName(username);
             return Ok(user.Select(_mapper.Map<UserResponse>));
         }
-        
+
         /// <summary>
         ///     Gets a specific user data by their id.
         ///     If the requested user corresponds to the current no special role is required,
@@ -73,23 +73,23 @@ namespace KitchenRP.Web.Controllers
                 });
         }
 
-        
+
         [HttpPut]
         [Route("{id}/promote")]
         public async Task<IActionResult> PromoteUser(long id)
         {
-            var promotedUser = await _userService.PromoteUser(new PromoteUserCommand{Id = id});
+            var promotedUser = await _userService.PromoteUser(new PromoteUserCommand { Id = id });
             return NoContent();
         }
-        
+
         [HttpPut]
         [Route("{id}/demote")]
         public async Task<IActionResult> DemoteUser(long id)
         {
-            var demotedUser = await _userService.DemoteUser(new DemoteUserCommand{Id = id});
+            var demotedUser = await _userService.DemoteUser(new DemoteUserCommand { Id = id });
             return NoContent();
         }
-        
+
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> RemoveUser(long id)
