@@ -8,7 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="9.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
         <PackageReference Include="Moq" Version="4.13.1" />
@@ -23,8 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\KitchenRP.Domain\KitchenRP.Domain.csproj" />
-        <ProjectReference Include="..\KitchenRP.DataAccess\KitchenRP.DataAccess.csproj" />
         <ProjectReference Include="..\KitchenRP.Web\KitchenRP.Web.csproj" />
     </ItemGroup>
 
