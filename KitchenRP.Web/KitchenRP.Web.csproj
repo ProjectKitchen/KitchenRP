@@ -9,12 +9,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\KitchenRP.DataAccess\KitchenRP.DataAccess.csproj" />
         <ProjectReference Include="..\KitchenRP.Domain\KitchenRP.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="9.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
         <PackageReference Include="NodaTime.Serialization.SystemTextJson" Version="1.0.0-beta01" />
